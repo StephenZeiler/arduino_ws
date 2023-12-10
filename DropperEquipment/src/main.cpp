@@ -1,40 +1,73 @@
 #include <Arduino.h>
 #include <Stepper.h>
 
-// put function declarations here:
-int myFunction(int, int);
-long motorSpeed = 10;
-Stepper myStepper(2048, 9, 11, 10, 12); //RPM,IN1,IN3,IN2,IN4
-const int buttonPin = 2;  // the number of the pushbutton pin
+const int stepPinM1 = 11; //11 is pin location 
+const int dirPinM1 = 10;
+const int enPinM1 = 8;
+const int stepPinM2 = 5; //5 is pin location 
+const int dirPinM2 = 6;
+const int enPinM2 = 9;
+const int s1Pin = 0;
+const int s2Pin = 1;
+boolean s1 = false;
+boolean s2 = false;
+int val = 0;
+void setBool(){
+  s1=true;
+}
+void setBool2(){
+  s2 = true;
+}
+void runMotorM1() {
+digitalWrite(dirPinM2,HIGH);
+    for(int x=0; x<1; x++){
 
-int buttonState = 0;  // variable for reading the pushbutton status
+    digitalWrite(stepPinM1,HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPinM1,LOW);
+    delayMicroseconds(500);
+    }
+}
+void runMotorM2() {
+digitalWrite(dirPinM2,HIGH);
+    for(int x=0; x<1; x++){
+
+    digitalWrite(stepPinM2,HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPinM2,LOW);
+    delayMicroseconds(500);
+    }
+}
 
 void setup() {
-  pinMode(buttonPin, INPUT);
-myStepper.setSpeed(motorSpeed);
-//myStepper.step(2048); 1024 rotates the stepper to 180 degrees, 2048 is a full circle. A neg number will rotate opposite.
+  pinMode(stepPinM1, OUTPUT);
+  pinMode(dirPinM1, OUTPUT);
+  pinMode(enPinM1, OUTPUT);
+  pinMode(stepPinM2, OUTPUT);
+  pinMode(dirPinM2, OUTPUT);
+  pinMode(enPinM2, OUTPUT);
+  pinMode(s1Pin, INPUT);
+  pinMode(s2Pin, INPUT);
+    digitalWrite(enPinM1, LOW);
+  digitalWrite(enPinM2, LOW);
 
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
 }
+
 
 void loop() {
-  buttonState = digitalRead(buttonPin); //button pin
-  if (buttonState == HIGH) {
-  myStepper.step(1024);
-  delay(500);
-  myStepper.step(-1024);
-  delay(500);
-    // turn motor on:
-    
-  } 
-  else{
-    
+ // attachInterrupt(digitalPinToInterrupt(s1Pin), setBool, FALLING);
+if(analogRead(s1Pin)==LOW){
+  s1 = false;
+ while(s1 == false){
+  runMotorM1();
+  runMotorM2();
+  if(analogRead(s2Pin) == LOW){
+
+  s1 = true;
   }
-
+  
 }
+  
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  }
 }
