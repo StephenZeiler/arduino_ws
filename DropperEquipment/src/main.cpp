@@ -266,6 +266,8 @@ void setup()
 
 void loop()
 {
+  runMotorM2();
+  runMotorM3();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -292,6 +294,8 @@ void loop()
     readyToStart = false;
   }
   if(productionRun){
+    runMotorM2();
+  runMotorM3();
     runMotorM1();
 
   }
