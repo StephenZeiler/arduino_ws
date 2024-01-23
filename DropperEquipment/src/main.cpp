@@ -1,67 +1,88 @@
 #include <Arduino.h>
 #include <Stepper.h>
 
-int b1State = 0; //Pre-check button 
-int b2State = 0; //production button
-int b3State = 0; // Stop button
+//Ram
+//const int ramPin = ?;
+
+//Air Release
+//const int airReleasePin = ?;
+
+//Encoder
+
+//LEDs
+//const int ledS2a = ? ; // digital
+//const int ledS3a = ? ; // digital
+
+//Motors
+const int stepPinM1 = 11; // 11 is pin location
+const int dirPinM1 = 10;
+const int enPinM1 = 9;
+const int stepPinM2 = 6; // 5 is pin location
+const int dirPinM2 = 5;
+const int enPinM2 = 8;
+const int stepPinM3 = 3;//was 4
+const int dirPinM3 = 7; //was 3
+const int enPinM3 = 2;
+
+//Sensors
+const int s0CLKPin = 12;
+const int s0DTPin = 13;
+const int s1Pin = 0;
+const int s2aPin = 8;
+const int s2bPin = 1;
+const int s3aPin = 12;
+const int s3bPin = 5;
+const int s4Pin =  9;
+const int s5Pin =  13;
+const int s6Pin =  2;
+const int s7Pin =  6;
+
+//Buttons
+const int homeButtonPin = A14;
+const int startButtonPin = A11;
+const int stopButtonPin = A10;
+
+
 bool readyToStart = false;
 bool productionRun = false;
 volatile boolean turnDetected;
 int rotaryPosition;
 int previousPosition;
 int stepsToTake;
-
-const int decoderCLK = 3;
-const int decoderDT = 2;
-
-const int ledS2a = ? ; // digital
-const int ledS3a = ? ; // digital
-
-const int stepPinM1 = 11; // 11 is pin location
-const int dirPinM1 = 10;
-const int enPinM1 = 8;
-const int stepPinM2 = 5; // 5 is pin location
-const int dirPinM2 = 6;
-const int enPinM2 = 8;
-const int s0Pin = 2;
-const int s1Pin = 0;
-const int s2aPin = 1;
-
-const int s3aPin = ? ;
-const int s4Pin =  ? ;
-const int s5Pin =  ? ;
-
-const int b1Pin = ?;
-const int b2Pin = ?;
-const int b3Pin = ?;
-
-boolean s1 = false;
-boolean s2 = false;
-boolean atHome = false;
+bool s1 = false;
+bool s2 = false;
+bool preCheckPass = false;
 int val = 0;
+ int m1Step = 1;
+ int m2Step = 1;
+ int m3Step = 1;
+ long previousM1Micros = 0;  
+ long previousM2Micros = 0;  
+long previousM3Micros = 0;  
+long m1Speed = 75; 
+long m2Speed = 100; 
+long m3Speed = 150; 
 
 int calculateSteps(int degrees, int driverPulsePerRev)
 {
-  int result = (degrees * (360 / driverPulsePerRev)); // main motor driverPulsePerRev should be se at 800
+  int result = (degrees * (360 / driverPulsePerRev)); // main motor driverPulsePerRev should be se at 6400
   return result;
 }
 void initializeM1ToHomePos()
 {
-  int stepsToHome = 0;
-  int remainingStepsToHome = 0;
-  digitalWrite(dirPinM1, LOW);
+  bool atHome = false;
   while (atHome == false)
   {
-    if (analogRead(s0Pin) == LOW)
+    if (analogRead(s1Pin) == LOW)
     {
       atHome = true;
     }
     else
     {
       digitalWrite(stepPinM1, HIGH);
-      delayMicroseconds(5000);
+      delayMicroseconds(1000);
       digitalWrite(stepPinM1, LOW);
-      delayMicroseconds(5000);
+      delayMicroseconds(1000);
       previousPosition = rotaryPosition;
       rotaryPosition = rotaryPosition + 1;
     }
@@ -76,20 +97,20 @@ bool preCheckCond()
   bool s3aReady = false;
   bool s4Ready = false;
   bool s5Ready = false;
+  while(!preCheckReady){
+
   if (analogRead(s2aPin) == HIGH)
   {
-    digitalWrite(ledS2a, HIGH);
     s2aReady = true;
   }
-  if (analogRead(s3aPin) == HIGH)
-  {
-    digitalWrite(ledS3a, HIGH);
-    s3aReady = true;
-  }
-  if (analogRead(s4Pin) == HIGH)
-  {
-    s4Ready = true;
-  }
+    if (analogRead(s3aPin) == HIGH)
+    {
+      s3aReady = true;
+    }
+    if (analogRead(s4Pin) == HIGH)
+    {
+      s4Ready = true;
+    }
   if (analogRead(s5Pin) == HIGH)
   {
     s5Ready = true;
@@ -98,33 +119,96 @@ bool preCheckCond()
   {
     preCheckReady = true;
   }
+  }
   return preCheckReady;
 }
-
+void actuateAirRelease()
+{
+  for (int x = 0; x < 1; x++)
+  {
+    //digitalWrite(airReleasePin, HIGH);
+    delayMicroseconds(500);
+    //digitalWrite(airReleasePin, LOW);
+    delayMicroseconds(500);
+  }
+}
+void actuateAirRam()
+{
+  for (int x = 0; x < 1; x++)
+  {
+   // digitalWrite(ramPin, HIGH);
+    delayMicroseconds(500);
+   // digitalWrite(ramPin, LOW);
+    delayMicroseconds(500);
+  }
+}
+void runMotorM3()
+{
+    unsigned long currentMicros = micros();
+  digitalWrite(dirPinM3, LOW);
+  for (int x = 0; x < 1; x++)
+  {
+    if((currentMicros - previousM3Micros)> m3Speed)
+    {
+      if (m3Step == 1)
+      {
+        digitalWrite(stepPinM3, HIGH);
+        ++m3Step;
+      }
+      else if (m3Step == 2)
+      {
+        digitalWrite(stepPinM3, LOW);
+        m3Step = 1;
+      }
+      previousM3Micros = currentMicros;
+    }
+  }
+}
 void runMotorM2()
 {
+    unsigned long currentMicros = micros();
   digitalWrite(dirPinM2, HIGH);
   for (int x = 0; x < 1; x++)
   {
-
+if((currentMicros - previousM2Micros)> m2Speed)
+  { // Moved down here where it belongs: Got ya.
+    if(m2Step ==1){
     digitalWrite(stepPinM2, HIGH);
-    delayMicroseconds(500);
-    digitalWrite(stepPinM2, LOW);
-    delayMicroseconds(500);
+      ++m2Step;
+    }
+    else if(m2Step ==2){
+      digitalWrite(stepPinM2, LOW);
+      m2Step = 1;
+    }
+  previousM2Micros = currentMicros; 
+
+  
+  }
   }
 }
 void runMotorM1()
 {
-  digitalWrite(dirPinM1, LOW);
+    unsigned long currentMicros = micros();
+  //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
     turnDetected = true;
+        if((currentMicros - previousM1Micros)> m1Speed)
+    { // Moved down here where it belongs: Got ya.
+
+    if(m1Step ==1){
+    digitalWrite(stepPinM1, HIGH);
+      ++m1Step;
     previousPosition = rotaryPosition;
     rotaryPosition = rotaryPosition + 1;
-    digitalWrite(stepPinM1, HIGH);
-    delayMicroseconds(500);
-    digitalWrite(stepPinM1, LOW);
-    delayMicroseconds(500);
+    }
+    else if(m1Step ==2){
+      digitalWrite(stepPinM1, LOW);
+      m1Step = 1;
+    }
+      previousM1Micros = currentMicros; 
+    }
+  
     if (rotaryPosition == 360)
     {
       rotaryPosition = 0; // made full circle reset position
@@ -137,21 +221,31 @@ void runMotorM1()
 void setup()
 {
   //Decoder
-  pinMode(decoderCLK, OUTPUT);
-  pinMode(decoderDT, OUTPUT);
+  pinMode(s0CLKPin, OUTPUT);
+  pinMode(s0DTPin, OUTPUT);
+
+  //Air release
+  //pinMode(airReleasePin, OUTPUT);
+
+  //Ram
+  //pinMode(ramPin, OUTPUT);
 
   //Motors
+  
   pinMode(stepPinM1, OUTPUT);
   pinMode(dirPinM1, OUTPUT);
   pinMode(enPinM1, OUTPUT);
   pinMode(stepPinM2, OUTPUT);
   pinMode(dirPinM2, OUTPUT);
   pinMode(enPinM2, OUTPUT);
+  pinMode(stepPinM3, OUTPUT);
+  pinMode(dirPinM3, OUTPUT);
+  pinMode(enPinM3, OUTPUT);
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
 
   //Sensors
-  pinMode(s0Pin, INPUT);
+  pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
   pinMode(s3aPin, INPUT);
@@ -159,77 +253,128 @@ void setup()
   pinMode(s5Pin, INPUT);
 
   //LEDs
-  pinMode(ledS2a, OUTPUT);
-  pinMode(ledS3a, OUTPUT);
+  //pinMode(ledS2a, OUTPUT);
+  //pinMode(ledS3a, OUTPUT);
   
   //Buttons
-  pinMode(b1Pin, OUTPUT);
-  pinMode(b2Pin, OUTPUT);
-  pinMode(b3Pin, OUTPUT);
-
+  pinMode(homeButtonPin, OUTPUT);
+  pinMode(startButtonPin, OUTPUT);
+  pinMode(stopButtonPin, OUTPUT);
+  // pinMode(b2Pin, OUTPUT);
+  // pinMode(b3Pin, OUTPUT);
 }
 
 void loop()
 {
-  if(b3State == HIGH){
+  int homeButtonState = digitalRead(homeButtonPin);
+  int startButtonState = digitalRead(startButtonPin);
+  int stopButtonState = digitalRead(stopButtonPin);
+ // bool preStartReady = ;
+  unsigned long currentMicros = micros();
+  if(homeButtonState==HIGH && !readyToStart){
+   // if(preCheckCond()){
+
+      readyToStart = true;
+      initializeM1ToHomePos();
+    //}
+   
+
+  }
+  if(startButtonState == HIGH && readyToStart){
+    productionRun = true;
+  }
+  if(startButtonState == HIGH){
+    productionRun = true;
+    
+  }
+  if(stopButtonState==HIGH){
     productionRun = false;
+    readyToStart = false;
   }
-  b1State = digitalRead(b1Pin);
-  b2State = digitalRead(b2Pin);
-  b3State = digitalRead(b3Pin);
-  if (!productionRun)
-  {
-
-    if (b1State == HIGH)
-    {
-      readyToStart = preCheckCond();
-      while (!readyToStart)
-      {
-        readyToStart = preCheckCond();
-        if (readyToStart)
-        {
-          break;
-        }
-      }
-      if (readyToStart)
-      {
-        initializeM1ToHomePos();
-        // disable b1
-        // enable b2
-      }
-      if(b2State == HIGH){
-        //disable b2
-        productionRun = true;
-      }
-    }
-    initializeM1ToHomePos();
-  }
-
-  if (productionRun)
-  {
+  if(productionRun){
     runMotorM1();
-    if(rotaryPosition == 5){
-      
-    }
-    if(rotaryPosition == 6){
 
-    }
-    if(rotaryPosition == 160){
+  }
 
-    }
-    if(rotaryPosition == 165){
-      
-    }
-    if(rotaryPosition == 280){
-      
-    }
-    if(rotaryPosition == 300){
-      
-    }
-    if(rotaryPosition == 356){
-      
-    }
+  // if((currentMicros - previousM1Micros)> m1Speed)
+  // { // Moved down here where it belongs: Got ya.
+  // runMotorM1();
+  // previousM1Micros = currentMicros; 
+  // }
+   
+  //  if((currentMicros - previousM3Micros)> m3Speed)
+  // { // Moved down here where it belongs: Got ya.
+  // previousM3Micros = currentMicros; 
+  // runMotorM3();
+  
+    
+  //}
+  
+  //runMotorM2();
+  //runMotorM3();
+  // if(b3State == HIGH){
+  //   productionRun = false;
+  // }
+  // b1State = digitalRead(b1Pin);
+  // b2State = digitalRead(b2Pin);
+  // b3State = digitalRead(b3Pin);
+  // if (!productionRun)
+  // {
 
+  //   if (b1State == HIGH)
+  //   {
+  //     readyToStart = preCheckCond();
+  //     while (!readyToStart)
+  //     {
+  //       readyToStart = preCheckCond();
+  //       if (readyToStart)
+  //       {
+  //         break;
+  //       }
+  //     }
+  //     if (readyToStart)
+  //     {
+  //       initializeM1ToHomePos();
+  //       // disable b1
+  //       // enable b2
+  //     }
+  //     if(b2State == HIGH && readyToStart){
+  //       //disable b2
+  //       productionRun = true;
+  //     }
+  //   }
+  //   initializeM1ToHomePos();
+  // }
+
+  // if (productionRun)
+  // {
+  //   runMotorM1();
+  //   if(rotaryPosition == 5){
+  //      runMotorM2();
+  //   }
+  //   if(rotaryPosition == 6){
+  //     runMotorM3();
+  //   }
+  //   if(rotaryPosition == 160){
+
+  //   }
+  //   if(rotaryPosition == 165){
+  //     actuateAirRam();
+  //   }
+  //   if(rotaryPosition == 280){
+      
+  //   }
+  //   if(rotaryPosition == 300){
+      
+  //   }
+  //   if(rotaryPosition == 356){
+      
+  //   }
+
+
+
+
+///////////////////////////
     // if (analogRead(s1Pin) == LOW)
     // {
     //   s1 = false;
@@ -243,5 +388,5 @@ void loop()
     //     }
     //   }
     // }
-  }
+ // }
 }
