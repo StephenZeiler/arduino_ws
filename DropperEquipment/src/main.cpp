@@ -97,7 +97,7 @@ bool preCheckCond()
   bool s3aReady = false;
   bool s4Ready = false;
   bool s5Ready = false;
-  while(!preCheckReady){
+ // while(!preCheckReady){ // remove loop and just return whether it is ready or not....
 
   if (analogRead(s2aPin) == HIGH)
   {
@@ -119,7 +119,7 @@ bool preCheckCond()
   {
     preCheckReady = true;
   }
-  }
+  //}
   return preCheckReady;
 }
 void actuateAirRelease()
@@ -188,7 +188,7 @@ if((currentMicros - previousM2Micros)> m2Speed)
 }
 void runMotorM1()
 {
-    unsigned long currentMicros = micros();
+  unsigned long currentMicros = micros();
   //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
@@ -214,7 +214,6 @@ void runMotorM1()
       rotaryPosition = 0; // made full circle reset position
     }
   }
-
   turnDetected = false;
 }
 
