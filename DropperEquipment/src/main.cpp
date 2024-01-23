@@ -276,8 +276,6 @@ void loop()
       readyToStart = true;
       initializeM1ToHomePos();
     //}
-   
-
   }
   if(startButtonState == HIGH && readyToStart){
     productionRun = true;
@@ -291,6 +289,8 @@ void loop()
     readyToStart = false;
   }
   if(productionRun){
+    runMotorM3();
+    runMotorM2();
     runMotorM1();
 
   }
