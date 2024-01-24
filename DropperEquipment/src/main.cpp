@@ -55,7 +55,7 @@ int val = 0;
  long previousM1Micros = 0;  
  long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 33; //was 75
+long m1Speed = 15; //was 75
 long m2Speed = 100; 
 long m3Speed = 150; 
 
