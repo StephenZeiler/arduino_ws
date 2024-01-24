@@ -55,7 +55,7 @@ int val = 0;
  long previousM1Micros = 0;  
  long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 400; //was 75
+long m1Speed = 1000; //was 75
 long m2Speed = 100; 
 long m3Speed = 150; 
 
@@ -292,7 +292,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && (rotaryPosition <3200)){
+  if(productionRun && (rotaryPosition <200)){
     runMotorM1();
   }
 
