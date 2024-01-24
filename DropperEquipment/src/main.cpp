@@ -199,6 +199,7 @@ void runMotorM1()
     if((currentMicros - previousM1Micros)> m1Speed)
      { // Moved down here where it belongs: Got ya.
     if(m1Step ==1){
+    encoderCheck();
     digitalWrite(stepPinM1, HIGH);
       ++m1Step;
     previousPosition = rotaryPosition;
@@ -297,9 +298,7 @@ void loop()
     readyToStart = false;
   }
   if(productionRun && encoderCount <180){
-    encoderCheck();
     runMotorM1();
-
   }
 
   // if((currentMicros - previousM1Micros)> m1Speed)
