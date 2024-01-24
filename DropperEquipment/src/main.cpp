@@ -185,6 +185,7 @@ if((currentMicros - previousM2Micros)> m2Speed)
   }
 }
 void encoderCheck(){
+  delay(4);
   encoderCurrentState = digitalRead(s0CLKPin);
   if(encoderCurrentState != encoderPreviousState){
     encoderCount++;
@@ -291,7 +292,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && ((encoderCount*20) <180)){
+  if(productionRun && (rotaryPosition <3200)){
     runMotorM1();
   }
 
