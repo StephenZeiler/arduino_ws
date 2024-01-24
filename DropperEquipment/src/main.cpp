@@ -185,7 +185,6 @@ if((currentMicros - previousM2Micros)> m2Speed)
   }
 }
 void encoderCheck(){
-  delay(4);
   encoderCurrentState = digitalRead(s0CLKPin);
   if(encoderCurrentState != encoderPreviousState){
     encoderCount++;
