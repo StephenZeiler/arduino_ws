@@ -63,12 +63,6 @@ int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
 
-void isr(){
-  delay(4);
-  if(digitalRead(s0CLKPin)){
-    
-  }
-}
 int calculateSteps(int degrees, int driverPulsePerRev)
 {
   int result = (degrees * (360 / driverPulsePerRev)); // main motor driverPulsePerRev should be se at 6400
@@ -227,8 +221,8 @@ void runMotorM1()
 void setup()
 {
   //Decoder
-  pinMode(s0CLKPin, INPUT);
-  pinMode(s0DTPin, INPUT);
+  pinMode(s0CLKPin, OUTPUT);
+  pinMode(s0DTPin, OUTPUT);
   encoderPreviousState = digitalRead(s0CLKPin);
 
   //Air release
