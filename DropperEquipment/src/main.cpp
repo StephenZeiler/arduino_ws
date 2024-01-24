@@ -292,7 +292,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && (rotaryPosition * .9 < 180)){
+  if(productionRun && (rotaryPosition * .9 < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step.
     runMotorM1();
   }
 
