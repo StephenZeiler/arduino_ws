@@ -221,8 +221,8 @@ void runMotorM1()
 void setup()
 {
   //Decoder
-  pinMode(s0CLKPin, OUTPUT);
-  pinMode(s0DTPin, OUTPUT);
+  pinMode(s0CLKPin, INPUT);
+  pinMode(s0DTPin, INPUT);
   encoderPreviousState = digitalRead(s0CLKPin);
 
   //Air release
@@ -291,7 +291,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && encoderCount <180){
+  if(productionRun && ((encoderCount/20) <180)){
     runMotorM1();
   }
 
