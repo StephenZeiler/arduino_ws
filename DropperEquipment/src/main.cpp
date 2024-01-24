@@ -55,7 +55,7 @@ int val = 0;
  long previousM1Micros = 0;  
  long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 1000; //was 75
+long m1Speed = 500; //was 75
 long m2Speed = 100; 
 long m3Speed = 150; 
 
@@ -213,7 +213,7 @@ void runMotorM1()
     }
       previousM1Micros = currentMicros; 
     }
-    if (rotaryPosition == 360)
+    if (rotaryPosition == 360 * 6400)
     {
       rotaryPosition = 0; // made full circle reset position
     }
