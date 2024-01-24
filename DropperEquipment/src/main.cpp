@@ -80,7 +80,7 @@ void initializeM1ToHomePos()
     else
     {
       digitalWrite(stepPinM1, HIGH);
-      delayMicroseconds(1000);
+      delayMicroseconds(5000);
       digitalWrite(stepPinM1, LOW); 
       previousPosition = rotaryPosition;
       rotaryPosition = rotaryPosition + 1;
