@@ -272,7 +272,7 @@ void setup()
 
 void loop()
 {
-  encoderCheck();
+  
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -296,7 +296,8 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && encoderCount <1){
+  if(productionRun && encoderCount <10){
+    encoderCheck();
     runMotorM1();
 
   }
