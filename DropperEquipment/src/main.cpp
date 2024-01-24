@@ -291,7 +291,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && ((encoderCount/20) <180)){
+  if(productionRun && ((encoderCount*20) <180)){
     runMotorM1();
   }
 
