@@ -190,6 +190,13 @@ if((currentMicros - previousM2Micros)> m2Speed)
   }
   }
 }
+void encoderCheck(){
+  encoderCurrentState = digitalRead(s0CLKPin);
+  if(encoderCurrentState != encoderPreviousState){
+    encoderCount++;
+  }
+  encoderPreviousState = encoderCurrentState;
+}
 void runMotorM1()
 {
   unsigned long currentMicros = micros();
@@ -216,13 +223,6 @@ void runMotorM1()
       rotaryPosition = 0; // made full circle reset position
     }
   }
-}
-void encoderCheck(){
-  encoderCurrentState = digitalRead(s0CLKPin);
-  if(encoderCurrentState != encoderPreviousState){
-    encoderCount++;
-  }
-  encoderPreviousState = encoderCurrentState;
 }
 void setup()
 {
