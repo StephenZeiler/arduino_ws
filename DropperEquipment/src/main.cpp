@@ -8,10 +8,8 @@
 //const int airReleasePin = ?;
 
 //Encoder
-
-//LEDs
-//const int ledS2a = ? ; // digital
-//const int ledS3a = ? ; // digital
+const int s0CLKPin = 12;
+const int s0DTPin = 13;
 
 //Motors
 const int stepPinM1 = 11; // 11 is pin location
@@ -25,8 +23,7 @@ const int dirPinM3 = 7; //was 3
 const int enPinM3 = 2;
 
 //Sensors
-const int s0CLKPin = 12;
-const int s0DTPin = 13;
+
 const int s1Pin = 0;
 const int s2aPin = 8;
 const int s2bPin = 1;
@@ -41,7 +38,6 @@ const int s7Pin =  6;
 const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
-
 
 bool readyToStart = false;
 bool productionRun = false;
@@ -63,6 +59,16 @@ long m1Speed = 75;
 long m2Speed = 100; 
 long m3Speed = 150; 
 
+int encoderCurrentState;
+int encoderPreviousState;
+int encoderCount = 0;
+
+void isr(){
+  delay(4);
+  if(digitalRead(s0CLKPin)){
+    
+  }
+}
 int calculateSteps(int degrees, int driverPulsePerRev)
 {
   int result = (degrees * (360 / driverPulsePerRev)); // main motor driverPulsePerRev should be se at 6400
@@ -81,8 +87,7 @@ void initializeM1ToHomePos()
     {
       digitalWrite(stepPinM1, HIGH);
       delayMicroseconds(1000);
-      digitalWrite(stepPinM1, LOW);
-      delayMicroseconds(1000);
+      digitalWrite(stepPinM1, LOW); 
       previousPosition = rotaryPosition;
       rotaryPosition = rotaryPosition + 1;
     }
@@ -98,7 +103,6 @@ bool preCheckCond()
   bool s4Ready = false;
   bool s5Ready = false;
  // while(!preCheckReady){ // remove loop and just return whether it is ready or not....
-
   if (analogRead(s2aPin) == HIGH)
   {
     s2aReady = true;
@@ -108,7 +112,7 @@ bool preCheckCond()
       s3aReady = true;
     }
     if (analogRead(s4Pin) == HIGH)
-    {
+    { 
       s4Ready = true;
     }
   if (analogRead(s5Pin) == HIGH)
@@ -192,10 +196,8 @@ void runMotorM1()
   //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
-    turnDetected = true;
-        if((currentMicros - previousM1Micros)> m1Speed)
-    { // Moved down here where it belongs: Got ya.
-
+    if((currentMicros - previousM1Micros)> m1Speed)
+     { // Moved down here where it belongs: Got ya.
     if(m1Step ==1){
     digitalWrite(stepPinM1, HIGH);
       ++m1Step;
@@ -208,20 +210,24 @@ void runMotorM1()
     }
       previousM1Micros = currentMicros; 
     }
-  
     if (rotaryPosition == 360)
     {
       rotaryPosition = 0; // made full circle reset position
     }
   }
-  turnDetected = false;
 }
-
+void encoderCheck(){
+  if(encoderCurrentState != encoderPreviousState){
+    encoderCount++;
+  }
+  encoderPreviousState = encoderCurrentState;
+}
 void setup()
 {
   //Decoder
-  pinMode(s0CLKPin, OUTPUT);
-  pinMode(s0DTPin, OUTPUT);
+  pinMode(s0CLKPin, INPUT);
+  pinMode(s0DTPin, INPUT);
+  encoderPreviousState = digitalRead(s0CLKPin);
 
   //Air release
   //pinMode(airReleasePin, OUTPUT);
@@ -265,6 +271,7 @@ void setup()
 
 void loop()
 {
+encoderCheck();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -288,9 +295,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun){
-    runMotorM3();
-    runMotorM2();
+  if(productionRun && encoderCount <180){
     runMotorM1();
 
   }
