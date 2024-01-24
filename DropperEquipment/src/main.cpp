@@ -292,7 +292,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && (rotaryPosition <200)){
+  if(productionRun && (rotaryPosition <calculateSteps(180,6400))){
     runMotorM1();
   }
 
