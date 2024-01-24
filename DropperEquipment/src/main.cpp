@@ -271,7 +271,7 @@ void setup()
 
 void loop()
 {
-  currentStateCLK = digitalRead(s0CLKPin);
+  encoderCurrentState = digitalRead(s0CLKPin);
 encoderCheck();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
