@@ -217,6 +217,7 @@ void runMotorM1()
   }
 }
 void encoderCheck(){
+  encoderCurrentState = digitalRead(s0CLKPin);
   if(encoderCurrentState != encoderPreviousState){
     encoderCount++;
   }
@@ -271,8 +272,7 @@ void setup()
 
 void loop()
 {
-  encoderCurrentState = digitalRead(s0CLKPin);
-encoderCheck();
+  encoderCheck();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -296,7 +296,7 @@ encoderCheck();
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && encoderCount <180){
+  if(productionRun && encoderCount <1){
     runMotorM1();
 
   }
