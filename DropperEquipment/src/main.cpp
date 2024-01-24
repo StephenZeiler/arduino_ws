@@ -296,7 +296,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  if(productionRun && encoderCount <10){
+  if(productionRun && encoderCount <180){
     encoderCheck();
     runMotorM1();
 
