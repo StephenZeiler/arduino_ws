@@ -277,7 +277,9 @@ void setup()
 
 void loop()
 {
-  
+    if(analogRead(s2bPin)==LOW){
+      productionRunM2 = false;
+    }
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
