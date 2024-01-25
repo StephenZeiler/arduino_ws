@@ -45,8 +45,8 @@ bool slowStart = true;
 bool readyToStart = false;
 bool productionRun = false;
 volatile boolean turnDetected;
-long rotaryPosition;
-long previousPosition;
+int rotaryPosition;
+int previousPosition;
 int stepsToTake;
 bool s1 = false;
 bool s2 = false;
@@ -66,9 +66,9 @@ int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
 
-double calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
+int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
-  double result = rotaryPosition * .45; 
+  int result = rotaryPosition * .45; 
   return result;
 }
 void initializeM1ToHomePos()
