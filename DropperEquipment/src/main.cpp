@@ -190,7 +190,6 @@ if((currentMicros - previousM2Micros)> m2Speed)
 void runMotorM1()
 {
   unsigned long currentMicros = micros();
-  //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
     if (rotaryPosition * .45 == 360)
