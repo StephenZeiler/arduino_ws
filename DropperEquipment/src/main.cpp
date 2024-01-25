@@ -315,7 +315,7 @@ void loop()
 
     }
     if(calculateDegrees(rotaryPosition)<165){
-      actuateAirRam();
+      //actuateAirRam();
     }
     if(calculateDegrees(rotaryPosition)<280){
       
