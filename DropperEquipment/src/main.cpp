@@ -46,7 +46,7 @@ bool readyToStart = false;
 bool productionRun = false;
 volatile boolean turnDetected;
 long rotaryPosition;
-int previousPosition;
+long previousPosition;
 int stepsToTake;
 bool s1 = false;
 bool s2 = false;
