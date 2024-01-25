@@ -199,7 +199,6 @@ void runMotorM1()
       slowStart = false;
     }
 
-
     if((currentMicros - previousM1Micros)> m1Speed){
       if(m1Step ==1){
         digitalWrite(stepPinM1, HIGH);
@@ -211,6 +210,11 @@ void runMotorM1()
           digitalWrite(stepPinM1, LOW);
           m1Step = 1;
       }
+    if (rotaryPosition == 360)
+    {
+      rotaryPosition = 0; // made full circle reset position
+      slowStart = false;
+    }
       previousM1Micros = currentMicros; 
     }
   }
