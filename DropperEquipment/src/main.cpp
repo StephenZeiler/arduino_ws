@@ -299,7 +299,7 @@ void loop()
     
   }
   if(stopButtonState==HIGH){
-    //slowStart = true;
+    slowStart = true;
     productionRun = false;
     readyToStart = false;
   }
@@ -316,7 +316,7 @@ void loop()
       productionRunM2 = true;
     }
     if(productionRunM2){
-      runMotorM2();
+      //runMotorM2();
     }
     if(calculateDegrees(rotaryPosition)<6){
       
