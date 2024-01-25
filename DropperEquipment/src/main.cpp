@@ -214,7 +214,6 @@ void runMotorM1()
 
     if((currentMicros - previousM1Micros)> m1Speed){
       if(m1Step ==1){
-        encoderCheck();
         digitalWrite(stepPinM1, HIGH);
         ++m1Step;
         previousPosition = rotaryPosition;
