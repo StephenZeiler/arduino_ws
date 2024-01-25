@@ -193,7 +193,7 @@ void runMotorM1()
   //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
-    if (rotaryPosition == 360)
+    if (rotaryPosition > 359)
     {
       rotaryPosition = 0; // made full circle reset position
       slowStart = false;
@@ -208,7 +208,7 @@ void runMotorM1()
       m1Speed = 1000;
     }
     else if(slowStart && rotaryPosition * .45 < 20){
-      m1Speed = 550;
+      m1Speed = 700;
     }
     else if(!slowStart){
       m1Speed = 550;  //full speed
