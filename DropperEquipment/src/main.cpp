@@ -59,8 +59,8 @@ int val = 0;
  long previousM2Micros = 0;  
 long previousM3Micros = 0;  
 long m1Speed = 550; 
-long m2Speed = 5; 
-long m3Speed = 5; 
+long m2Speed = 1; 
+long m3Speed = 1; 
 
 int encoderCurrentState;
 int encoderPreviousState;
