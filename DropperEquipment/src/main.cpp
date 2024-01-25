@@ -64,9 +64,9 @@ int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
 
-int calculateSteps(int degrees, int driverPulsePerRev)
+int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees
 {
-  int result = (degrees * (360 / driverPulsePerRev)); 
+  int result = rotaryPosition * .45; 
   return result;
 }
 void initializeM1ToHomePos()
@@ -310,30 +310,32 @@ void loop()
    if(productionRun){
     runMotorM1();
   }
+
   // if (productionRun)
   // {
   //   runMotorM1();
-  //   if(rotaryPosition == 5){
+  //   if(calculateDegrees(rotaryPosition)<5){
   //      runMotorM2();
   //   }
-  //   if(rotaryPosition == 6){
+  //   if(calculateDegrees(rotaryPosition)<6){
   //     runMotorM3();
   //   }
-  //   if(rotaryPosition == 160){
+  //   if(calculateDegrees(rotaryPosition)<160){
 
   //   }
-  //   if(rotaryPosition == 165){
+  //   if(calculateDegrees(rotaryPosition)<165){
   //     actuateAirRam();
   //   }
-  //   if(rotaryPosition == 280){
+  //   if(calculateDegrees(rotaryPosition)<280){
       
   //   }
-  //   if(rotaryPosition == 300){
+  //   if(calculateDegrees(rotaryPosition)<300){
       
   //   }
-  //   if(rotaryPosition == 356){
+  //   if(calculateDegrees(rotaryPosition)<356){
       
   //   }
+  // }
 
 
 
