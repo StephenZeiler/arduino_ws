@@ -59,13 +59,12 @@ int val = 0;
  long previousM2Micros = 0;  
 long previousM3Micros = 0;  
 long m1Speed = 550; 
-long m2Speed = 25; 
-long m3Speed = 1; 
+long m2Speed = 55; 
+long m3Speed = 55; 
 
 int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
-unsigned long currentMicros = micros();
 
 int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
@@ -146,7 +145,7 @@ void actuateAirRam()
 }
 void runMotorM3()
 {
-   // unsigned long currentMicros = micros();
+    unsigned long currentMicros = micros();
   digitalWrite(dirPinM3, LOW);
   for (int x = 0; x < 1; x++)
   {
@@ -168,7 +167,7 @@ void runMotorM3()
 }
 void runMotorM2()
 {
-   // unsigned long currentMicros = micros();
+    unsigned long currentMicros = micros();
   digitalWrite(dirPinM2, HIGH);
   for (int x = 0; x < 1; x++)
   {
@@ -190,7 +189,7 @@ if((currentMicros - previousM2Micros)> m2Speed)
 }
 void runMotorM1()
 {
-  //unsigned long currentMicros = micros();
+  unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
     if (rotaryPosition * .45 == 360)
@@ -278,12 +277,12 @@ void setup()
 
 void loop()
 {
-  currentMicros = micros();
 
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
  // bool preStartReady = ;
+  unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
    // if(preCheckCond()){
 
