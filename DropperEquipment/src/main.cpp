@@ -128,9 +128,9 @@ void actuateAirRelease()
   for (int x = 0; x < 1; x++)
   {
     //digitalWrite(airReleasePin, HIGH);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
     //digitalWrite(airReleasePin, LOW);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
   }
 }
 void actuateAirRam()
@@ -138,9 +138,9 @@ void actuateAirRam()
   for (int x = 0; x < 1; x++)
   {
    // digitalWrite(ramPin, HIGH);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
    // digitalWrite(ramPin, LOW);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
   }
 }
 void runMotorM3()
@@ -198,6 +198,21 @@ void runMotorM1()
       rotaryPosition = 0; // made full circle reset position
       slowStart = false;
     }
+    if(slowStart && rotaryPosition * .45 < 5){
+      m1Speed = 550;
+    }
+    else if(slowStart && rotaryPosition * .45 < 10){
+      m1Speed = 1500;
+    }
+     else if(slowStart && rotaryPosition * .45 < 15){
+      m1Speed = 1000;
+    }
+    else if(slowStart && rotaryPosition * .45 < 20){
+      m1Speed = 700;
+    }
+    else{
+      m1Speed = 550;  //full speed 550
+    }
 
     if((currentMicros - previousM1Micros)> m1Speed){
       if(m1Step ==1){
@@ -210,11 +225,6 @@ void runMotorM1()
           digitalWrite(stepPinM1, LOW);
           m1Step = 1;
       }
-    if (rotaryPosition == 360)
-    {
-      rotaryPosition = 0; // made full circle reset position
-      slowStart = false;
-    }
       previousM1Micros = currentMicros; 
     }
   }
