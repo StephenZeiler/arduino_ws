@@ -55,7 +55,7 @@ int val = 0;
  long previousM1Micros = 0;  
  long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 33; //was 75
+long m1Speed = 550; //was 75
 long m2Speed = 100; 
 long m3Speed = 150; 
 
@@ -80,7 +80,7 @@ void initializeM1ToHomePos()
     else
     {
       digitalWrite(stepPinM1, HIGH);
-      delayMicroseconds(5000);
+      delayMicroseconds(9000);
       digitalWrite(stepPinM1, LOW); 
       previousPosition = rotaryPosition;
       rotaryPosition = rotaryPosition + 1;
@@ -291,7 +291,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
- //if(productionRun && (rotaryPosition * .9 < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 400!
+ //if(productionRun && (rotaryPosition * .45 < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
    if(productionRun){
     runMotorM1();
   }
