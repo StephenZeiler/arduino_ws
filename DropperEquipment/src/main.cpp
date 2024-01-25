@@ -198,18 +198,25 @@ void runMotorM1()
   //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
-    if(slowStart && rotaryPosition * .45 < 10){
+    if (rotaryPosition == 360)
+    {
+      rotaryPosition = 0; // made full circle reset position
+      slowStart = false;
+    }
+    if(slowStart && rotaryPosition * .45 < 5){
       m1Speed = 2000;
     }
-    else if(slowStart && rotaryPosition * .45 < 20){
-      m1Speed = 1400;
+    else if(slowStart && rotaryPosition * .45 < 10){
+      m1Speed = 1500;
     }
-     else if(slowStart && rotaryPosition * .45 < 30){
+     else if(slowStart && rotaryPosition * .45 < 15){
       m1Speed = 1000;
-        = false;
+    }
+         else if(slowStart && rotaryPosition * .45 < 20){
+      m1Speed = 700;
     }
     else (!slowStart){
-      m1Speed = 550;
+      m1Speed = 550;  //full speed
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
@@ -225,10 +232,6 @@ void runMotorM1()
           m1Step = 1;
       }
       previousM1Micros = currentMicros; 
-    }
-    if (rotaryPosition == 360)
-    {
-      rotaryPosition = 0; // made full circle reset position
     }
   }
 }
@@ -314,6 +317,7 @@ void loop()
   // if (productionRun)
   // {
   //   runMotorM1();
+  //   if(!slowStart){
   //   if(calculateDegrees(rotaryPosition)<5){
   //      runMotorM2();
   //   }
@@ -335,24 +339,6 @@ void loop()
   //   if(calculateDegrees(rotaryPosition)<356){
       
   //   }
+  //   }
   // }
-
-
-
-
-///////////////////////////
-    // if (analogRead(s1Pin) == LOW)
-    // {
-    //   s1 = false;
-    //   while (s1 == false)
-    //   {
-    //     runMotorM1();
-    //     runMotorM2();
-    //     if (analogRead(s2aPin) == LOW)
-    //     {
-    //       s1 = true;
-    //     }
-    //   }
-    // }
- // }
 }
