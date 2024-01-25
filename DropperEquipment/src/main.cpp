@@ -277,12 +277,7 @@ void setup()
 
 void loop()
 {
-  if(analogRead(s2bPin)==LOW){
-    productionRunM2 = false;
-  }
-  if(analogRead(s3bPin)==LOW){
-    productionRunM3 = false;
-  }
+
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -320,12 +315,18 @@ void loop()
       productionRunM2 = true;
     }
     if(productionRunM2){
+      if(analogRead(s2bPin)==LOW){
+        productionRunM2 = false;
+      } 
       runMotorM2();
     }
     if(calculateDegrees(rotaryPosition)==6){
       productionRunM3 = true;
     }
     if(productionRunM3){
+        if(analogRead(s3bPin)==LOW){
+          productionRunM3 = false;
+        }
       runMotorM3();
     }
     if(calculateDegrees(rotaryPosition)<160){
