@@ -310,8 +310,8 @@ void loop()
 
   if (productionRun)
   {
-    runMotorM1();
     if(!slowStart){
+    runMotorM1();
     if(calculateDegrees(rotaryPosition)==5){
       productionRunM2 = true;
     }
