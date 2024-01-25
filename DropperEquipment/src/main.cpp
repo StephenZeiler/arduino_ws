@@ -278,12 +278,12 @@ void setup()
 
 void loop()
 {
+  currentMicros = micros();
 
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
  // bool preStartReady = ;
-  unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
    // if(preCheckCond()){
 
