@@ -211,7 +211,7 @@ void runMotorM1()
       m1Speed = 700;
     }
     else{
-      m1Speed = 2000;  //full speed 550
+      m1Speed = 550;  //full speed 550
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
