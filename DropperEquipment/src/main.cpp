@@ -39,7 +39,7 @@ const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
 
-bool slowStartM1 = true;
+bool slowStart = true;
 bool readyToStart = false;
 bool productionRun = false;
 volatile boolean turnDetected;
@@ -185,13 +185,6 @@ if((currentMicros - previousM2Micros)> m2Speed)
   }
   }
 }
-void encoderCheck(){
-  encoderCurrentState = digitalRead(s0CLKPin);
-  if(encoderCurrentState != encoderPreviousState){
-    encoderCount++;
-  }
-  encoderPreviousState = encoderCurrentState;
-}
 void runMotorM1()
 {
   unsigned long currentMicros = micros();
@@ -215,7 +208,7 @@ void runMotorM1()
          else if(slowStart && rotaryPosition * .45 < 20){
       m1Speed = 700;
     }
-    else (!slowStart){
+    else if(!slowStart){
       m1Speed = 550;  //full speed
     }
 
@@ -310,35 +303,35 @@ void loop()
     readyToStart = false;
   }
  //if(productionRun && (rotaryPosition * .45 < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
-   if(productionRun){
-    runMotorM1();
-  }
-
-  // if (productionRun)
-  // {
+  //  if(productionRun){
   //   runMotorM1();
-  //   if(!slowStart){
-  //   if(calculateDegrees(rotaryPosition)<5){
-  //      runMotorM2();
-  //   }
-  //   if(calculateDegrees(rotaryPosition)<6){
-  //     runMotorM3();
-  //   }
-  //   if(calculateDegrees(rotaryPosition)<160){
-
-  //   }
-  //   if(calculateDegrees(rotaryPosition)<165){
-  //     actuateAirRam();
-  //   }
-  //   if(calculateDegrees(rotaryPosition)<280){
-      
-  //   }
-  //   if(calculateDegrees(rotaryPosition)<300){
-      
-  //   }
-  //   if(calculateDegrees(rotaryPosition)<356){
-      
-  //   }
-  //   }
   // }
+
+  if (productionRun)
+  {
+    runMotorM1();
+    if(!slowStart){
+    if(calculateDegrees(rotaryPosition)<5){
+       runMotorM2();
+    }
+    if(calculateDegrees(rotaryPosition)<6){
+      runMotorM3();
+    }
+    if(calculateDegrees(rotaryPosition)<160){
+
+    }
+    if(calculateDegrees(rotaryPosition)<165){
+      actuateAirRam();
+    }
+    if(calculateDegrees(rotaryPosition)<280){
+      
+    }
+    if(calculateDegrees(rotaryPosition)<300){
+      
+    }
+    if(calculateDegrees(rotaryPosition)<356){
+      
+    }
+    }
+  }
 }
