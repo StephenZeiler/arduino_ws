@@ -64,7 +64,7 @@ int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
 
-int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees
+int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
   int result = rotaryPosition * .45; 
   return result;
