@@ -66,11 +66,7 @@ int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
 
-<<<<<<< HEAD
 int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
-=======
-double calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
->>>>>>> 81b861b266b4c4af0bad175c860e029610f33b4d
 {
   double result = rotaryPosition * .45; 
   return result;
@@ -215,11 +211,7 @@ void runMotorM1()
       m1Speed = 700;
     }
     else if(!slowStart){
-<<<<<<< HEAD
       m1Speed = 550;  //full speed
-=======
-      m1Speed = 300;  //full speed
->>>>>>> 81b861b266b4c4af0bad175c860e029610f33b4d
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
