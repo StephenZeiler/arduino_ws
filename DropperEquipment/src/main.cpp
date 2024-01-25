@@ -39,6 +39,7 @@ const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
 
+bool slowStartM1 = true;
 bool readyToStart = false;
 bool productionRun = false;
 volatile boolean turnDetected;
@@ -55,7 +56,7 @@ int val = 0;
  long previousM1Micros = 0;  
  long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 550; //was 75
+long m1Speed = 550; 
 long m2Speed = 100; 
 long m3Speed = 150; 
 
@@ -65,7 +66,7 @@ int encoderCount = 0;
 
 int calculateSteps(int degrees, int driverPulsePerRev)
 {
-  int result = (degrees * (360 / driverPulsePerRev)); // main motor driverPulsePerRev should be se at 6400
+  int result = (degrees * (360 / driverPulsePerRev)); 
   return result;
 }
 void initializeM1ToHomePos()
@@ -197,19 +198,35 @@ void runMotorM1()
   //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
-    if((currentMicros - previousM1Micros)> m1Speed)
-     { // Moved down here where it belongs: Got ya.
-    if(m1Step ==1){
-    encoderCheck();
-    digitalWrite(stepPinM1, HIGH);
-      ++m1Step;
-    previousPosition = rotaryPosition;
-    rotaryPosition = rotaryPosition + 1;
+    if(slowStart && rotaryPosition * .45 < 15){
+      m1Speed = 2000;
     }
-    else if(m1Step ==2){
-      digitalWrite(stepPinM1, LOW);
-      m1Step = 1;
+    else if(slowStart && rotaryPosition * .45 < 30){
+      m1Speed = 1400;
     }
+     else if(slowStart && rotaryPosition * .45 < 60){
+      m1Speed = 1000;
+    }
+     else if(slowStart && rotaryPosition * .45 < 120){
+      m1Speed = 800;
+      slowStart = false;
+    }
+    else (!slowStart){
+      m1Speed = 550;
+    }
+
+    if((currentMicros - previousM1Micros)> m1Speed){
+      if(m1Step ==1){
+        encoderCheck();
+        digitalWrite(stepPinM1, HIGH);
+        ++m1Step;
+        previousPosition = rotaryPosition;
+        rotaryPosition = rotaryPosition + 1;
+      }
+      else if(m1Step ==2){
+          digitalWrite(stepPinM1, LOW);
+          m1Step = 1;
+      }
       previousM1Micros = currentMicros; 
     }
     if (rotaryPosition == 360)
