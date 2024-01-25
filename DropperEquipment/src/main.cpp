@@ -199,7 +199,7 @@ void runMotorM1()
       slowStart = false;
     }
     if(slowStart && rotaryPosition * .45 < 5){
-      m1Speed = 550;
+      m1Speed = 2000;
     }
     else if(slowStart && rotaryPosition * .45 < 10){
       m1Speed = 1500;
