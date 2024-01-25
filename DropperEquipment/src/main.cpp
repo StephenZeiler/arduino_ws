@@ -198,18 +198,15 @@ void runMotorM1()
   //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
-    if(slowStart && rotaryPosition * .45 < 15){
+    if(slowStart && rotaryPosition * .45 < 10){
       m1Speed = 2000;
     }
-    else if(slowStart && rotaryPosition * .45 < 30){
+    else if(slowStart && rotaryPosition * .45 < 20){
       m1Speed = 1400;
     }
-     else if(slowStart && rotaryPosition * .45 < 60){
+     else if(slowStart && rotaryPosition * .45 < 30){
       m1Speed = 1000;
-    }
-     else if(slowStart && rotaryPosition * .45 < 120){
-      m1Speed = 800;
-      slowStart = false;
+        = false;
     }
     else (!slowStart){
       m1Speed = 550;
@@ -305,6 +302,7 @@ void loop()
     
   }
   if(stopButtonState==HIGH){
+    slowStart = true;
     productionRun = false;
     readyToStart = false;
   }
@@ -312,57 +310,6 @@ void loop()
    if(productionRun){
     runMotorM1();
   }
-
-  // if((currentMicros - previousM1Micros)> m1Speed)
-  // { // Moved down here where it belongs: Got ya.
-  // runMotorM1();
-  // previousM1Micros = currentMicros; 
-  // }
-   
-  //  if((currentMicros - previousM3Micros)> m3Speed)
-  // { // Moved down here where it belongs: Got ya.
-  // previousM3Micros = currentMicros; 
-  // runMotorM3();
-  
-    
-  //}
-  
-  //runMotorM2();
-  //runMotorM3();
-  // if(b3State == HIGH){
-  //   productionRun = false;
-  // }
-  // b1State = digitalRead(b1Pin);
-  // b2State = digitalRead(b2Pin);
-  // b3State = digitalRead(b3Pin);
-  // if (!productionRun)
-  // {
-
-  //   if (b1State == HIGH)
-  //   {
-  //     readyToStart = preCheckCond();
-  //     while (!readyToStart)
-  //     {
-  //       readyToStart = preCheckCond();
-  //       if (readyToStart)
-  //       {
-  //         break;
-  //       }
-  //     }
-  //     if (readyToStart)
-  //     {
-  //       initializeM1ToHomePos();
-  //       // disable b1
-  //       // enable b2
-  //     }
-  //     if(b2State == HIGH && readyToStart){
-  //       //disable b2
-  //       productionRun = true;
-  //     }
-  //   }
-  //   initializeM1ToHomePos();
-  // }
-
   // if (productionRun)
   // {
   //   runMotorM1();
