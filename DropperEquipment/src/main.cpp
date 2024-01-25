@@ -39,11 +39,13 @@ const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
 
+bool productionRunM2 = false;
+bool productionRunM3 = false;
 bool slowStart = true;
 bool readyToStart = false;
 bool productionRun = false;
 volatile boolean turnDetected;
-int rotaryPosition;
+double rotaryPosition;
 int previousPosition;
 int stepsToTake;
 bool s1 = false;
@@ -64,9 +66,9 @@ int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
 
-int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
+double calculateDegrees(double rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
-  int result = rotaryPosition * .45; 
+  double result = rotaryPosition * .45; 
   return result;
 }
 void initializeM1ToHomePos()
@@ -310,11 +312,14 @@ void loop()
   {
     runMotorM1();
     if(!slowStart){
-    if(calculateDegrees(rotaryPosition)<5){
-       runMotorM2();
+    if(calculateDegrees(rotaryPosition)==5){
+      productionRunM2 = true;
+    }
+    if(productionRunM2){
+      runMotorM2();
     }
     if(calculateDegrees(rotaryPosition)<6){
-      runMotorM3();
+      
     }
     if(calculateDegrees(rotaryPosition)<160){
 
