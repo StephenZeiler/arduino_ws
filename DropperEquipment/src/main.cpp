@@ -324,7 +324,7 @@ void loop()
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
         runMotorM2();
       }
-      else if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
         runMotorM2();
       }
       if(calculateDegrees(rotaryPosition)==6){
