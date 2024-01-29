@@ -317,10 +317,10 @@ void loop()
       if(analogRead(s2bPin)==LOW){
         m2IsHome == false;
       }
-      if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
+      if(rotaryPosition < 205 && m2IsHome==true){
         runMotorM2();
       }
-      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+      if(rotaryPosition > 205 && m2IsHome==false){
         runMotorM2();
       }
     }
