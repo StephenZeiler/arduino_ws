@@ -310,6 +310,7 @@ void loop()
 
   if (productionRun)
   {
+    runMotorM1();
     runMotorM2();
     runMotorM3();
     // runMotorM1();
