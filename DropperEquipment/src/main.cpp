@@ -335,7 +335,7 @@ void loop()
       if(calculateDegrees(rotaryPosition)<165){
        //actuateAirRam();
       }
-      if(calculateDegrees(rotaryPosition)==185){
+      if(calculateDegrees(rotaryPosition)>185){
         if(analogRead(s2aPin)==LOW){
           productionRunM2 = true;
         } 
