@@ -60,7 +60,7 @@ unsigned long previousM2Micros = 0;
 long previousM3Micros = 0;  
 long m1Speed = 550; 
 long m2Speed = 250;
-long m3Speed = 55; 
+long m3Speed = 250; 
 
 int encoderCurrentState;
 int encoderPreviousState;
@@ -311,6 +311,7 @@ void loop()
   if (productionRun)
   {
     runMotorM2();
+    runMotorM3();
     // runMotorM1();
     // if(!slowStart){
     // if(calculateDegrees(rotaryPosition)==5){
