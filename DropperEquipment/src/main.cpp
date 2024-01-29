@@ -59,8 +59,8 @@ int m3Step = 1;
 unsigned long previousM1Micros = 0;  
 unsigned long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 1100; // was 550
-long m2Speed = 250;
+long m1Speed = 1100; // 1100
+long m2Speed = 500; //250
 long m3Speed = 300;
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 
@@ -194,7 +194,7 @@ void runMotorM1()
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if (rotaryPosition  == 400)
+    if (rotaryPosition * m1PulsePerRevMultiplier == 360)
     {
       rotaryPosition = 0; // made full circle reset position
       slowStart = false;
@@ -317,10 +317,10 @@ void loop()
       if(analogRead(s2bPin)==LOW){
         m2IsHome == false;
       }
-      if(rotaryPosition < 205 && m2IsHome==true){
+      if(rotaryPosition < 185 && m2IsHome==true){
         runMotorM2();
       }
-      if(rotaryPosition > 205 && m2IsHome==false){
+      if(rotaryPosition > 185 && m2IsHome==false){
         runMotorM2();
       }
     }
