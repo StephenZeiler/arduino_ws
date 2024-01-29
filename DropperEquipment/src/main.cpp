@@ -311,7 +311,7 @@ void loop()
   {
     runMotorM1();
     if(!slowStart){
-      if(analogRead(s2aPin)==LOW){ //185 correlates to degree to leave s2b, if changed must change both
+      if(analogRead(s2aPin)==LOW){
         m2IsHome = true;
       }
       if(analogRead(s2bPin)==LOW){
