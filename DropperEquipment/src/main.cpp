@@ -308,9 +308,6 @@ void loop()
 
   if (productionRun)
   {
-   if(analogRead(s1Pin)==LOW){
-      rotaryPosition = 0;
-   }
     runMotorM1();
     if(!slowStart){
       if(calculateDegrees(rotaryPosition)==5){
