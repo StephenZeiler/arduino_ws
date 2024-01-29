@@ -193,12 +193,9 @@ void runMotorM1()
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if (analogRead(s1Pin)==LOW)
-    {
-      rotaryPosition = 0; // made full circle reset position
-    }
     if (rotaryPosition * m1PulsePerRevMultiplier == 360)
     {
+      rotaryPosition = 0; // made full circle reset position
       slowStart = false;
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
@@ -311,6 +308,7 @@ void loop()
 
   if (productionRun)
   {
+
     runMotorM1();
     if(!slowStart){
       if(calculateDegrees(rotaryPosition)==5){
