@@ -314,7 +314,7 @@ void loop()
       if(calculateDegrees(rotaryPosition)==5){
         productionRunM2 = true; 
       }
-      if(analogRead(s2bPin)==LOW && rotaryPosition > 185){ //185 correlates to degree to leave s2b, if changed must change both
+      if(analogRead(s2bPin)==LOW && rotaryPosition < 185){ //185 correlates to degree to leave s2b, if changed must change both
          productionRunM2 = false;
       }
       if(productionRunM2){
