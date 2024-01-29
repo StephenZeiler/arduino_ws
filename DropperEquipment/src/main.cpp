@@ -309,12 +309,8 @@ void loop()
 
   if (productionRun)
   {
-
     runMotorM1();
     if(!slowStart){
-      if(calculateDegrees(rotaryPosition)==5){
-        productionRunM2 = true; 
-      }
       if(analogRead(s2aPin)==LOW){ //185 correlates to degree to leave s2b, if changed must change both
         m2IsHome = true;
       }
@@ -327,32 +323,7 @@ void loop()
       if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
         runMotorM2();
       }
-      if(calculateDegrees(rotaryPosition)==6){
-        productionRunM3 = true;
-      }
-      if(productionRunM3){
-         if(analogRead(s3bPin)==LOW){
-            productionRunM3 = false;
-          }
-        runMotorM3();
-      }
-      if(calculateDegrees(rotaryPosition)<160){
-
-      }
-      if(calculateDegrees(rotaryPosition)<165){
-       //actuateAirRam();
-      }
-      // if(calculateDegrees(rotaryPosition)>185){
-      //   if(analogRead(s2aPin)==LOW){
-      //     productionRunM2 = true;
-      //   }
-      // }
-      if(calculateDegrees(rotaryPosition)<300){
-      
-      }
-      if(calculateDegrees(rotaryPosition)<356){
-      
-      }
+  
     }
   }
 }
