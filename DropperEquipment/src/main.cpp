@@ -61,7 +61,7 @@ long previousM3Micros = 0;
 long m1Speed = 1100; // was 550
 long m2Speed = 250;
 long m3Speed = 300;
-long m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
+double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 
 int encoderCurrentState;
 int encoderPreviousState;
