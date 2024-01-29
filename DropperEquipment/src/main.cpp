@@ -314,11 +314,11 @@ void loop()
       if(calculateDegrees(rotaryPosition)==5){
         productionRunM2 = true; 
       }
-      if(productionRunM2){
-        runMotorM2();
-      }
       if(analogRead(s2bPin)==LOW){
          productionRunM2 = false;
+      }
+      if(productionRunM2){
+        runMotorM2();
       }
       if(calculateDegrees(rotaryPosition)==6){
         productionRunM3 = true;
