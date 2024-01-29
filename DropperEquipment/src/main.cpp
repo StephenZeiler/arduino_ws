@@ -314,7 +314,7 @@ void loop()
       if(analogRead(s2aPin)==LOW){ //185 correlates to degree to leave s2b, if changed must change both
         m2IsHome = true;
       }
-      else if(analogRead(s2bPin)==LOW){
+      if(analogRead(s2bPin)==LOW){
         m2IsHome == false;
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
