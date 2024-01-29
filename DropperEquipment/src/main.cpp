@@ -323,7 +323,6 @@ void loop()
       if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
         runMotorM2();
       }
-  
     }
   }
 }
