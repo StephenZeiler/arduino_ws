@@ -192,26 +192,26 @@ void runMotorM1()
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if (rotaryPosition * .45 == 360)
-    {
-      rotaryPosition = 0; // made full circle reset position
-      slowStart = false;
-    }
-    if(slowStart && rotaryPosition * .45 < 5){
-      m1Speed = 4000;
-    }
-    else if(slowStart && rotaryPosition * .45 < 10){
-      m1Speed = 3000;
-    }
-     else if(slowStart && rotaryPosition * .45 < 15){
-      m1Speed = 2000;
-    }
-    else if(slowStart && rotaryPosition * .45 < 20){
-      m1Speed = 1400;
-    }
-    else{
-      m1Speed = 1100;  //full speed 550
-    }
+    // if (rotaryPosition * .45 == 360)
+    // {
+    //   rotaryPosition = 0; // made full circle reset position
+    //   slowStart = false;
+    // }
+    // if(slowStart && rotaryPosition * .45 < 5){
+    //   m1Speed = 4000;
+    // }
+    // else if(slowStart && rotaryPosition * .45 < 10){
+    //   m1Speed = 3000;
+    // }
+    //  else if(slowStart && rotaryPosition * .45 < 15){
+    //   m1Speed = 2000;
+    // }
+    // else if(slowStart && rotaryPosition * .45 < 20){
+    //   m1Speed = 1400;
+    // }
+    // else{
+    //   m1Speed = 1100;  //full speed 550
+    // }
 
     if((currentMicros - previousM1Micros)> m1Speed){
       if(m1Step ==1){
