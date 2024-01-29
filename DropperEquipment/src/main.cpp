@@ -337,7 +337,7 @@ void loop()
       }
       if(calculateDegrees(rotaryPosition)==185){
         if(analogRead(s2aPin)==LOW){
-          productionRunM2 = false;
+          productionRunM2 = true;
         } 
       }
       if(calculateDegrees(rotaryPosition)<300){
