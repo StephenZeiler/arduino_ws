@@ -310,47 +310,45 @@ void loop()
 
   if (productionRun)
   {
+   
     runMotorM1();
-    runMotorM2();
-    runMotorM3();
-    // runMotorM1();
-    // if(!slowStart){
-    // if(calculateDegrees(rotaryPosition)==5){
-    //   productionRunM2 = true;
-    // }
-    // if(productionRunM2){
-    //   if(analogRead(s2bPin)==LOW){
-    //     productionRunM2 = false;
-    //   } 
-    //   runMotorM2();
-    // }
-    // if(calculateDegrees(rotaryPosition)==6){
-    //   productionRunM3 = true;
-    // }
-    // if(productionRunM3){
-    //     if(analogRead(s3bPin)==LOW){
-    //       productionRunM3 = false;
-    //     }
-    //   runMotorM3();
-    // }
-    // if(calculateDegrees(rotaryPosition)<160){
+    if(!slowStart){
+    if(calculateDegrees(rotaryPosition)==5){
+      productionRunM2 = true;
+    }
+    if(productionRunM2){
+      if(analogRead(s2bPin)==LOW){
+        productionRunM2 = false;
+      } 
+      runMotorM2();
+    }
+    if(calculateDegrees(rotaryPosition)==6){
+      productionRunM3 = true;
+    }
+    if(productionRunM3){
+        if(analogRead(s3bPin)==LOW){
+          productionRunM3 = false;
+        }
+      runMotorM3();
+    }
+    if(calculateDegrees(rotaryPosition)<160){
 
-    // }
-    // if(calculateDegrees(rotaryPosition)<165){
-    //   //actuateAirRam();
-    // }
-    // if(calculateDegrees(rotaryPosition)<185){
-    //   runMotorM2();
-    //   if(analogRead(s2bPin)==LOW){
-    //     productionRunM2 = false;
-    //   }
-    // }
-    // if(calculateDegrees(rotaryPosition)<300){
+    }
+    if(calculateDegrees(rotaryPosition)<165){
+      //actuateAirRam();
+    }
+    if(calculateDegrees(rotaryPosition)<185){
+      runMotorM2();
+      if(analogRead(s2bPin)==LOW){
+        productionRunM2 = false;
+      }
+    }
+    if(calculateDegrees(rotaryPosition)<300){
       
-    // }
-    // if(calculateDegrees(rotaryPosition)<356){
+    }
+    if(calculateDegrees(rotaryPosition)<356){
       
-    // }
-    // }
+    }
+    }
   }
 }
