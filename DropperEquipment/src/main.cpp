@@ -61,6 +61,7 @@ long previousM3Micros = 0;
 long m1Speed = 1100; // was 550
 long m2Speed = 250;
 long m3Speed = 300;
+double m1PulsePerRevMultiplier = .9; //.9 for 400, .45 for 800 on driver
 
 int encoderCurrentState;
 int encoderPreviousState;
@@ -68,7 +69,7 @@ int encoderCount = 0;
 
 int calculateDegrees(int rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
-  double result = rotaryPosition * .45; 
+  double result = rotaryPosition * m1PulsePerRevMultiplier; 
   return result;
 }
 void initializeM1ToHomePos()
@@ -192,18 +193,18 @@ void runMotorM1()
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if (rotaryPosition * .45 == 360)
+    if (rotaryPosition * m1PulsePerRevMultiplier == 360)
     {
       rotaryPosition = 0; // made full circle reset position
       slowStart = false;
     }
-    if(slowStart && rotaryPosition * .45 < 10){
+    if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
       m1Speed = 3000;
     }
-     else if(slowStart && rotaryPosition * .45 < 15){
+     else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 15){
       m1Speed = 2000;
     }
-    else if(slowStart && rotaryPosition * .45 < 20){
+    else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 20){
       m1Speed = 1400;
     }
     else{
@@ -300,7 +301,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
- //if(productionRun && (rotaryPosition * .45 < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
+ //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
   //  if(productionRun){
   //   runMotorM1();
   // }
