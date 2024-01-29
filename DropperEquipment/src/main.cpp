@@ -254,6 +254,7 @@ void setup()
   pinMode(enPinM3, OUTPUT);
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
+  digitalWrite(enPinM3, LOW);
 
   //Sensors
   pinMode(s0DTPin, INPUT);
