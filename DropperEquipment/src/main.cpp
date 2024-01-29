@@ -68,9 +68,9 @@ int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
 
-int calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
+long calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
-  double result = rotaryPosition * m1PulsePerRevMultiplier; 
+  long result = rotaryPosition * m1PulsePerRevMultiplier; 
   return result;
 }
 void initializeM1ToHomePos()
