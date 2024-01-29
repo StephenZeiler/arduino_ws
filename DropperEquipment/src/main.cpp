@@ -58,7 +58,7 @@ int m3Step = 1;
 unsigned long previousM1Micros = 0;  
 unsigned long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 550;
+long m1Speed = 500;
 long m2Speed = 250;
 long m3Speed = 300;
 
