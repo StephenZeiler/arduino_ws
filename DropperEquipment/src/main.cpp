@@ -336,7 +336,7 @@ void loop()
        //actuateAirRam();
       }
       if(calculateDegrees(rotaryPosition)<185){
-        runMotorM2();
+       // runMotorM2();
         if(analogRead(s2bPin)==LOW){
           productionRunM2 = false;
         } 
