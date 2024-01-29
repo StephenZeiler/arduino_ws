@@ -308,7 +308,9 @@ void loop()
 
   if (productionRun)
   {
-   
+   if(analogRead(s1Pin)==LOW){
+      rotaryPosition = 0;
+   }
     runMotorM1();
     if(!slowStart){
       if(calculateDegrees(rotaryPosition)==5){
@@ -338,7 +340,7 @@ void loop()
       if(calculateDegrees(rotaryPosition)>185){
         if(analogRead(s2aPin)==LOW){
           productionRunM2 = true;
-        } 
+        }
       }
       if(calculateDegrees(rotaryPosition)<300){
       
