@@ -25,7 +25,7 @@ const int enPinM3 = 2;
 //Sensors
 
 const int s1Pin = 0;
-const int s2aPin = 8;
+const int s2aPin = A8;
 const int s2bPin = 1;
 const int s3aPin = 12;
 const int s3bPin = 5;
@@ -258,7 +258,7 @@ void setup()
   //Sensors
   pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
-  pinMode(s2aPin, INPUT);
+  pinMode(s2aPin, OUTPUT);
   pinMode(s3aPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
