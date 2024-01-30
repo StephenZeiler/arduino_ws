@@ -312,17 +312,20 @@ void loop()
     runMotorM1();
     if(!slowStart){
       if(analogRead(s2aPin)==HIGH){
-        m2IsHome = true;
-      }
-      if(analogRead(s2bPin)==LOW){
-        m2IsHome = false;
-      }
-      if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
         runMotorM2();
       }
-      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
-        runMotorM2();
-      }
+      // if(analogRead(s2aPin)==HIGH){
+      //   m2IsHome = true;
+      // }
+      // if(analogRead(s2bPin)==LOW){
+      //   m2IsHome = false;
+      // }
+      // if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
+      //   runMotorM2();
+      // }
+      // if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+      //   runMotorM2();
+      // }
     }
   }
 }
