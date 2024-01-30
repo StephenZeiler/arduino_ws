@@ -311,7 +311,7 @@ void loop()
   {
     runMotorM1();
     if(!slowStart){
-      if(analogRead(s2aPin)==LOW){
+      if(analogRead(s2aPin)==HIGH){
         m2IsHome = true;
       }
       if(analogRead(s2bPin)==LOW){
