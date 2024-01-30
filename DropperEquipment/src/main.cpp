@@ -258,7 +258,7 @@ void setup()
   //Sensors
   pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
-  pinMode(s2aPin, INPUT);
+  pinMode(s2aPin, OUTPUT);
   pinMode(s3aPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
@@ -311,7 +311,7 @@ void loop()
   {
     runMotorM1();
     if(!slowStart){
-      if(analogRead(s2aPin)==LOW){
+      if(analogRead(s2aPin)!=HIGH){
         runMotorM2();
       }
       // if(analogRead(s2aPin)==HIGH){
