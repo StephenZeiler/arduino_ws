@@ -259,8 +259,8 @@ void setup()
   //pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, OUTPUT);
   pinMode(s2aPin, OUTPUT);
-  pinMode(s3aPin, OUTPUT);
-  pinMode(s3bPin, OUTPUT);
+  pinMode(s3aPin, INPUT);
+  pinMode(s3bPin, INPUT);
   pinMode(s4Pin, OUTPUT);
   pinMode(s5Pin, OUTPUT);
 
@@ -277,7 +277,7 @@ void setup()
 
 void loop()
 {
-  int s3bState = analogRead(s3bPin);
+  int s3bState = digitalRead(s3bPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
