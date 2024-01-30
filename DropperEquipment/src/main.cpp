@@ -258,7 +258,7 @@ void setup()
   //Sensors
   pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
-  pinMode(s2aPin, OUTPUT);
+  pinMode(s2aPin, INPUT);
   pinMode(s3aPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
