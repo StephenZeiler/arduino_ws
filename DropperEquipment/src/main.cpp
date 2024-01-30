@@ -199,17 +199,20 @@ void runMotorM1()
       rotaryPosition = 0; // made full circle reset position
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
-      m1Speed = 3000;
+      m1Speed = 3500;
     }
      else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 15){
-      m1Speed = 2000;
+      m1Speed = 3000;
     }
     else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 20){
-      m1Speed = 1400;
+      m1Speed = 2500;
+    }
+     else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 25){
+      m1Speed = 2000;
     }
     else{
       slowStart = false;
-      m1Speed = 1100;  //full speed 550
+      m1Speed = 1100; 
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
