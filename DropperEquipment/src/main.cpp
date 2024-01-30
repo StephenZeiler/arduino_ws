@@ -277,7 +277,7 @@ void setup()
 
 void loop()
 {
-  int s3aState = digitalRead(s3aPin);
+  int s3aState = AnalogRead(s3aPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
