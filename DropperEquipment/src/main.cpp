@@ -315,7 +315,7 @@ void loop()
         m2IsHome = true;
       }
       if(analogRead(s2bPin)==LOW){
-        m2IsHome == false;
+        m2IsHome = false;
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
         runMotorM2();
