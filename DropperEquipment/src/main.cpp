@@ -307,7 +307,7 @@ void loop()
   //   runMotorM1();
   // }
 
-      if(s2aState==LOW){
+      if(s2aState==HIGH){
         
       }
       else{
