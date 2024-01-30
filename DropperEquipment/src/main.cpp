@@ -257,12 +257,12 @@ void setup()
 
   //Sensors
   //pinMode(s0DTPin, INPUT);
-  pinMode(s1Pin, OUTPUT);
-  pinMode(s2aPin, OUTPUT);
+  pinMode(s1Pin, INPUT);
+  pinMode(s2aPin, INPUT);
   pinMode(s3aPin, INPUT);
   pinMode(s3bPin, INPUT);
-  pinMode(s4Pin, OUTPUT);
-  pinMode(s5Pin, OUTPUT);
+  pinMode(s4Pin, INPUT);
+  pinMode(s5Pin, INPUT);
 
   //LEDs
   //pinMode(ledS2a, OUTPUT);
@@ -277,7 +277,7 @@ void setup()
 
 void loop()
 {
-  int s3bState = digitalRead(s3bPin);
+  int s3aState = digitalRead(s3aPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -307,7 +307,7 @@ void loop()
   //   runMotorM1();
   // }
 
-      if(s3bState==LOW){
+      if(s3aState==HIGH){
         
       }
       else{
