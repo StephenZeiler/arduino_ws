@@ -259,7 +259,7 @@ void setup()
   //pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
-  pinMode(s3aPin, INPUT);
+  pinMode(s3aPin, OUTPUT);
   pinMode(s3bPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
@@ -307,7 +307,7 @@ void loop()
   //   runMotorM1();
   // }
 
-      if(s3aState==LOW){
+      if(s3aState==HIGH){
         
       }
       else{
