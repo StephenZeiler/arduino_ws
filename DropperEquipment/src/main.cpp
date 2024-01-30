@@ -27,8 +27,8 @@ const int enPinM3 = 2;
 const int s1Pin = 0;
 const int s2aPin = A8;
 const int s2bPin = 1;
-const int s3aPin = 12;
-const int s3bPin = 5;
+const int s3aPin = A12;
+const int s3bPin = A5;
 const int s4Pin =  9;
 const int s5Pin =  13;
 const int s6Pin =  2;
@@ -259,7 +259,8 @@ void setup()
   pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, OUTPUT);
-  pinMode(s3aPin, INPUT);
+  pinMode(s3aPin, OUTPUT);
+  pinMode(s3bPin, OUTPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
 
@@ -271,8 +272,7 @@ void setup()
   pinMode(homeButtonPin, OUTPUT);
   pinMode(startButtonPin, OUTPUT);
   pinMode(stopButtonPin, OUTPUT);
-  // pinMode(b2Pin, OUTPUT);
-  // pinMode(b3Pin, OUTPUT);
+
 }
 
 void loop()
