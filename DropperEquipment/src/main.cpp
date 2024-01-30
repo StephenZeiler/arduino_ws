@@ -277,7 +277,7 @@ void setup()
 
 void loop()
 {
-  int s2bState = digitalRead(s2bPin);
+  int s2aState = digitalRead(s2aPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -307,7 +307,7 @@ void loop()
   //   runMotorM1();
   // }
 
-      if(s2bState==LOW){
+      if(s2aState==LOW){
         
       }
       else{
