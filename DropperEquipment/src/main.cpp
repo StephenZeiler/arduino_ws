@@ -307,15 +307,15 @@ void loop()
   //   runMotorM1();
   // }
 
-  if (productionRun)
-  {
-   // runMotorM1();
       if(s3bState==LOW){
         
       }
       else{
         runMotorM3();
       }
+  if (productionRun)
+  {
+   // runMotorM1();
     if(!slowStart){
       // if(analogRead(s2aPin)==HIGH){
       //   m2IsHome = true;
