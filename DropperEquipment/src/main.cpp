@@ -24,15 +24,15 @@ const int enPinM3 = 2;
 
 //Sensors
 
-const int s1Pin = 0;
+const int s1Pin = A0;
 const int s2aPin = A8;
-const int s2bPin = 1;
+const int s2bPin = A1;
 const int s3aPin = A12;
 const int s3bPin = A5;
-const int s4Pin =  9;
-const int s5Pin =  13;
-const int s6Pin =  2;
-const int s7Pin =  6;
+const int s4Pin =  A9;
+const int s5Pin =  A13;
+const int s6Pin =  A2;
+const int s7Pin =  A6;
 
 //Buttons
 const int homeButtonPin = A14;
@@ -230,9 +230,9 @@ void runMotorM1()
 void setup()
 {
   //Decoder
-  pinMode(s0CLKPin, INPUT);
-  pinMode(s0DTPin, INPUT);
-  encoderPreviousState = digitalRead(s0CLKPin);
+  // pinMode(s0CLKPin, INPUT);
+  // pinMode(s0DTPin, INPUT);
+  // encoderPreviousState = digitalRead(s0CLKPin);
 
   //Air release
   //pinMode(airReleasePin, OUTPUT);
@@ -256,13 +256,13 @@ void setup()
   digitalWrite(enPinM3, LOW);
 
   //Sensors
-  pinMode(s0DTPin, INPUT);
-  pinMode(s1Pin, INPUT);
+  //pinMode(s0DTPin, INPUT);
+  pinMode(s1Pin, OUTPUT);
   pinMode(s2aPin, OUTPUT);
   pinMode(s3aPin, OUTPUT);
   pinMode(s3bPin, OUTPUT);
-  pinMode(s4Pin, INPUT);
-  pinMode(s5Pin, INPUT);
+  pinMode(s4Pin, OUTPUT);
+  pinMode(s5Pin, OUTPUT);
 
   //LEDs
   //pinMode(ledS2a, OUTPUT);
