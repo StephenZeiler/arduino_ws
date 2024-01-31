@@ -41,6 +41,7 @@ const int stopButtonPin = A10;
 
 bool productionRunM2 = false;
 bool m2IsHome = true;
+bool m3IsHome = true;
 bool productionRunM3 = false;
 bool slowStart = true;
 bool readyToStart = false;
@@ -307,28 +308,28 @@ void loop()
   //   runMotorM1();
   // }
 
-      if(digitalRead(s3aPin) == HIGH){
+      // if(digitalRead(s3aPin) == HIGH){
         
-      }
-      else{
-        runMotorM3();
-      }
+      // }
+      // else{
+      //   runMotorM3();
+      // }
   if (productionRun)
   {
     runMotorM1();
     if(!slowStart){
-      // if(analogRead(s2aPin)==HIGH){
-      //   m2IsHome = true;
-      // }
-      // if(analogRead(s2bPin)==LOW){
-      //   m2IsHome = false;
-      // }
-      // if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
-      //   runMotorM2();
-      // }
-      // if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
-      //   runMotorM2();
-      // }
+      if(digitalRead(s3aPin)==HIGH){
+        m3IsHome = true;
+      }
+      if(digitalRead(s3aPin)==LOW){
+        m3IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+        runMotorM3();
+      }
+      if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
+        runMotorM3();
+      }
     }
   }
 }
