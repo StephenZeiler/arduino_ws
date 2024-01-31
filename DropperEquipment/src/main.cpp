@@ -309,8 +309,9 @@ void loop()
 
   if (productionRun)
   {
-   // runMotorM1();
-      if(digitalRead(s3aPin) == LOW){
+    runMotorM1();
+    runMotorM3();
+      if(digitalRead(s3aPin) == HIGH){
         
       }
       else{
