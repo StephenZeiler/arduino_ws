@@ -140,10 +140,10 @@ void actuateAirRam()
 {
   for (int x = 0; x < 1; x++)
   {
-   digitalWrite(ramPin, HIGH);
-   delay(1000);
-   digitalWrite(ramPin, LOW);
-   delay(1000);
+  //  digitalWrite(ramPin, HIGH);
+  //  delay(1000);
+  //  digitalWrite(ramPin, LOW);
+  //  delay(1000);
   }
 }
 void runMotorM3()
@@ -314,6 +314,12 @@ void loop()
       }
       if(digitalRead(s2bPin)==LOW){
         m2IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition)  == 165){
+        digitalWrite(ramPin, HIGH);
+      }
+      if(calculateDegrees(rotaryPosition)  == 280){
+        digitalWrite(ramPin, LOW);
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
         runMotorM2();
