@@ -260,6 +260,7 @@ void setup()
   //pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
+  pinMode(s2bPin, INPUT);
   pinMode(s3aPin, INPUT);
   pinMode(s3bPin, INPUT);
   pinMode(s4Pin, INPUT);
