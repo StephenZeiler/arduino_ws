@@ -307,7 +307,7 @@ void loop()
   //   runMotorM1();
   // }
 
-      if(analogRead(s3aPin) == HIGH){
+      if(analogRead(s3aPin) == LOW){
         
       }
       else{
