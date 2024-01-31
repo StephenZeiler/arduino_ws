@@ -141,9 +141,9 @@ void actuateAirRam()
   for (int x = 0; x < 1; x++)
   {
    digitalWrite(ramPin, HIGH);
-   delayMicroseconds(2000000);
+   delay(1000);
    digitalWrite(ramPin, LOW);
-   delayMicroseconds(2000000);
+   delay(1000);
   }
 }
 void runMotorM3()
