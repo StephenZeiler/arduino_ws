@@ -311,7 +311,7 @@ void loop()
         
       }
       else{
-        runMotorM2();
+        runMotorM3();
       }
   if (productionRun)
   {
