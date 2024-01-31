@@ -310,7 +310,7 @@ void loop()
   if (productionRun)
   {
    // runMotorM1();
-      if(analogRead(s3aPin) == LOW){
+      if(digitalRead(s3aPin) == LOW){
         
       }
       else{
