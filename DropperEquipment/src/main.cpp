@@ -8,10 +8,8 @@
 //const int airReleasePin = ?;
 
 //Encoder
-
-//LEDs
-//const int ledS2a = ? ; // digital
-//const int ledS3a = ? ; // digital
+const int s0CLKPin = 12;
+const int s0DTPin = 13;
 
 //Motors
 const int stepPinM1 = 11; // 11 is pin location
@@ -25,47 +23,55 @@ const int dirPinM3 = 7; //was 3
 const int enPinM3 = 2;
 
 //Sensors
-const int s0CLKPin = 12;
-const int s0DTPin = 13;
-const int s1Pin = 0;
-const int s2aPin = 8;
-const int s2bPin = 1;
-const int s3aPin = 12;
-const int s3bPin = 5;
-const int s4Pin =  9;
-const int s5Pin =  13;
-const int s6Pin =  2;
-const int s7Pin =  6;
+
+const int s1Pin = A0;
+const int s2aPin = 17;
+const int s2bPin = A1;
+const int s3aPin = 1;
+const int s3bPin = A5;
+const int s4Pin =  A9;
+const int s5Pin =  A13;
+const int s6Pin =  A2;
+const int s7Pin =  A6;
 
 //Buttons
 const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
 
-
+bool productionRunM2 = false;
+bool m2IsHome = true;
+bool m3IsHome = true;
+bool productionRunM3 = false;
+bool slowStart = true;
 bool readyToStart = false;
 bool productionRun = false;
 volatile boolean turnDetected;
-int rotaryPosition;
-int previousPosition;
+long rotaryPosition;
+long previousPosition;
 int stepsToTake;
 bool s1 = false;
 bool s2 = false;
 bool preCheckPass = false;
 int val = 0;
- int m1Step = 1;
- int m2Step = 1;
- int m3Step = 1;
- long previousM1Micros = 0;  
- long previousM2Micros = 0;  
+int m1Step = 1;
+int m2Step = 1;
+int m3Step = 1;
+unsigned long previousM1Micros = 0;  
+unsigned long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 75; 
-long m2Speed = 100; 
-long m3Speed = 150; 
+long m1Speed = 1000; // 1000 If change, must change slow start speed as well...
+long m2Speed = 200; //250
+long m3Speed = 250; //300
+double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 
-int calculateSteps(int degrees, int driverPulsePerRev)
+int encoderCurrentState;
+int encoderPreviousState;
+int encoderCount = 0;
+
+long calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
-  int result = (degrees * (360 / driverPulsePerRev)); // main motor driverPulsePerRev should be se at 6400
+  long result = rotaryPosition * m1PulsePerRevMultiplier; 
   return result;
 }
 void initializeM1ToHomePos()
@@ -80,9 +86,8 @@ void initializeM1ToHomePos()
     else
     {
       digitalWrite(stepPinM1, HIGH);
-      delayMicroseconds(1000);
-      digitalWrite(stepPinM1, LOW);
-      delayMicroseconds(1000);
+      delayMicroseconds(9000);
+      digitalWrite(stepPinM1, LOW); 
       previousPosition = rotaryPosition;
       rotaryPosition = rotaryPosition + 1;
     }
@@ -98,7 +103,6 @@ bool preCheckCond()
   bool s4Ready = false;
   bool s5Ready = false;
  // while(!preCheckReady){ // remove loop and just return whether it is ready or not....
-
   if (analogRead(s2aPin) == HIGH)
   {
     s2aReady = true;
@@ -108,7 +112,7 @@ bool preCheckCond()
       s3aReady = true;
     }
     if (analogRead(s4Pin) == HIGH)
-    {
+    { 
       s4Ready = true;
     }
   if (analogRead(s5Pin) == HIGH)
@@ -127,9 +131,9 @@ void actuateAirRelease()
   for (int x = 0; x < 1; x++)
   {
     //digitalWrite(airReleasePin, HIGH);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
     //digitalWrite(airReleasePin, LOW);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
   }
 }
 void actuateAirRam()
@@ -137,9 +141,9 @@ void actuateAirRam()
   for (int x = 0; x < 1; x++)
   {
    // digitalWrite(ramPin, HIGH);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
    // digitalWrite(ramPin, LOW);
-    delayMicroseconds(500);
+    //delayMicroseconds(500);
   }
 }
 void runMotorM3()
@@ -189,39 +193,47 @@ if((currentMicros - previousM2Micros)> m2Speed)
 void runMotorM1()
 {
   unsigned long currentMicros = micros();
-  //digitalWrite(dirPinM1, LOW);
   for (int x = 0; x < 1; x++)
   {
-    turnDetected = true;
-        if((currentMicros - previousM1Micros)> m1Speed)
-    { // Moved down here where it belongs: Got ya.
-
-    if(m1Step ==1){
-    digitalWrite(stepPinM1, HIGH);
-      ++m1Step;
-    previousPosition = rotaryPosition;
-    rotaryPosition = rotaryPosition + 1;
-    }
-    else if(m1Step ==2){
-      digitalWrite(stepPinM1, LOW);
-      m1Step = 1;
-    }
-      previousM1Micros = currentMicros; 
-    }
-  
-    if (rotaryPosition == 360)
+    if (analogRead(s1Pin) == LOW && slowStart == false)
     {
       rotaryPosition = 0; // made full circle reset position
     }
-  }
-  turnDetected = false;
-}
+    if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
+      m1Speed = 3000;
+    }
+     else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 15){
+      m1Speed = 2000;
+    }
+    else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 20){
+      m1Speed = 1400;
+    }
+    else{
+      slowStart = false;
+      m1Speed = 1000; 
+    }
 
+    if((currentMicros - previousM1Micros)> m1Speed){
+      if(m1Step ==1){
+        digitalWrite(stepPinM1, HIGH);
+        ++m1Step;
+        previousPosition = rotaryPosition;
+        rotaryPosition = rotaryPosition + 1;
+      }
+      else if(m1Step ==2){
+          digitalWrite(stepPinM1, LOW);
+          m1Step = 1;
+      }
+      previousM1Micros = currentMicros; 
+    }
+  }
+}
 void setup()
 {
   //Decoder
-  pinMode(s0CLKPin, OUTPUT);
-  pinMode(s0DTPin, OUTPUT);
+  // pinMode(s0CLKPin, INPUT);
+  // pinMode(s0DTPin, INPUT);
+  // encoderPreviousState = digitalRead(s0CLKPin);
 
   //Air release
   //pinMode(airReleasePin, OUTPUT);
@@ -242,12 +254,15 @@ void setup()
   pinMode(enPinM3, OUTPUT);
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
+  digitalWrite(enPinM3, LOW);
 
   //Sensors
-  pinMode(s0DTPin, INPUT);
+  //pinMode(s0DTPin, INPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
+  pinMode(s2bPin, INPUT);
   pinMode(s3aPin, INPUT);
+  pinMode(s3bPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
 
@@ -259,14 +274,17 @@ void setup()
   pinMode(homeButtonPin, OUTPUT);
   pinMode(startButtonPin, OUTPUT);
   pinMode(stopButtonPin, OUTPUT);
-  // pinMode(b2Pin, OUTPUT);
-  // pinMode(b3Pin, OUTPUT);
+
 }
 
 void loop()
 {
+<<<<<<< HEAD
   runMotorM2();
   runMotorM3();
+=======
+  int s2aState = digitalRead(s2aPin);
+>>>>>>> d4cea020e70c559e44c67af97d73d8d2671ee397
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -278,8 +296,6 @@ void loop()
       readyToStart = true;
       initializeM1ToHomePos();
     //}
-   
-
   }
   if(startButtonState == HIGH && readyToStart){
     productionRun = true;
@@ -289,9 +305,11 @@ void loop()
     
   }
   if(stopButtonState==HIGH){
+    slowStart = true;
     productionRun = false;
     readyToStart = false;
   }
+<<<<<<< HEAD
   if(productionRun){
     runMotorM2();
   runMotorM3();
@@ -351,45 +369,47 @@ void loop()
 
   // if (productionRun)
   // {
+=======
+ //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
+  //  if(productionRun){
+>>>>>>> d4cea020e70c559e44c67af97d73d8d2671ee397
   //   runMotorM1();
-  //   if(rotaryPosition == 5){
-  //      runMotorM2();
-  //   }
-  //   if(rotaryPosition == 6){
-  //     runMotorM3();
-  //   }
-  //   if(rotaryPosition == 160){
+  // }
 
-  //   }
-  //   if(rotaryPosition == 165){
-  //     actuateAirRam();
-  //   }
-  //   if(rotaryPosition == 280){
-      
-  //   }
-  //   if(rotaryPosition == 300){
-      
-  //   }
-  //   if(rotaryPosition == 356){
-      
-  //   }
-
-
-
-
-///////////////////////////
-    // if (analogRead(s1Pin) == LOW)
-    // {
-    //   s1 = false;
-    //   while (s1 == false)
-    //   {
-    //     runMotorM1();
-    //     runMotorM2();
-    //     if (analogRead(s2aPin) == LOW)
-    //     {
-    //       s1 = true;
-    //     }
-    //   }
-    // }
- // }
+      // if(digitalRead(s3bPin) == LOW){
+        
+      // }
+      // else{
+      //   runMotorM3();
+      // }
+  if (productionRun)
+  {
+    runMotorM1();
+    if(!slowStart){
+      if(digitalRead(s2aPin)==HIGH){
+        m2IsHome = true;
+      }
+      if(digitalRead(s2bPin)==LOW){
+        m2IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
+        runMotorM2();
+      }
+      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+        runMotorM2();
+      }
+      if(digitalRead(s3aPin)==HIGH){
+        m3IsHome = true;
+      }
+      if(digitalRead(s3bPin)==LOW){
+        m3IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+        runMotorM3();
+      }
+      if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
+        runMotorM3();
+      }
+    }
+  }
 }
