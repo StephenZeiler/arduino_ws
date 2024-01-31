@@ -141,7 +141,7 @@ void actuateAirRam()
   for (int x = 0; x < 1; x++)
   {
    digitalWrite(ramPin, HIGH);
-   delayMicroseconds(1000);
+   //delayMicroseconds(1000);
    digitalWrite(ramPin, LOW);
   }
 }
@@ -274,7 +274,7 @@ void setup()
 
 void loop()
 {
-  actuateAirRam();
+  //actuateAirRam();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
