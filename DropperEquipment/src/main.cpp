@@ -25,7 +25,7 @@ const int enPinM3 = 2;
 //Sensors
 
 const int s1Pin = A0;
-const int s2aPin = A8;
+const int s2aPin = 17;
 const int s2bPin = A1;
 const int s3aPin = 1;
 const int s3bPin = A5;
@@ -318,6 +318,18 @@ void loop()
   {
     runMotorM1();
     if(!slowStart){
+      if(digitalRead(s2aPin)==HIGH){
+        m2IsHome = true;
+      }
+      if(digitalRead(s2bPin)==LOW){
+        m2IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
+        runMotorM2();
+      }
+      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+        runMotorM2();
+      }
       if(digitalRead(s3aPin)==HIGH){
         m3IsHome = true;
       }
