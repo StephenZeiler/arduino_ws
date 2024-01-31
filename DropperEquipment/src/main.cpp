@@ -27,7 +27,7 @@ const int enPinM3 = 2;
 const int s1Pin = A0;
 const int s2aPin = A8;
 const int s2bPin = A1;
-const int s3aPin = A12; //swapped to digital TX/RX
+const int s3aPin = A12;
 const int s3bPin = A5;
 const int s4Pin =  A9;
 const int s5Pin =  A13;
@@ -277,7 +277,7 @@ void setup()
 
 void loop()
 {
-  //int s3aState = digitalRead(s3aPin);
+  int s2aState = digitalRead(s2aPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -307,16 +307,15 @@ void loop()
   //   runMotorM1();
   // }
 
+      if(s2aState==HIGH){
+        
+      }
+      else{
+        runMotorM2();
+      }
   if (productionRun)
   {
-    runMotorM1();
-    runMotorM3();
-      // if(digitalRead(s3aPin) == HIGH){
-        
-      // }
-      // else{
-      //   runMotorM3();
-      // }
+   // runMotorM1();
     if(!slowStart){
       // if(analogRead(s2aPin)==HIGH){
       //   m2IsHome = true;
