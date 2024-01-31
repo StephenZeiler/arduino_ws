@@ -274,7 +274,7 @@ void setup()
 
 void loop()
 {
-  //actuateAirRam();
+  actuateAirRam();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
