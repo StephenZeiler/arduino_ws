@@ -315,7 +315,7 @@ void loop()
       }
   if (productionRun)
   {
-   // runMotorM1();
+    runMotorM1();
     if(!slowStart){
       // if(analogRead(s2aPin)==HIGH){
       //   m2IsHome = true;
