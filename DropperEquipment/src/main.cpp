@@ -315,6 +315,7 @@ void loop()
       }
   if (productionRun)
   {
+    runMotorM3();
     runMotorM1();
     if(!slowStart){
       // if(analogRead(s2aPin)==HIGH){
