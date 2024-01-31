@@ -141,7 +141,7 @@ void actuateAirRam()
   for (int x = 0; x < 1; x++)
   {
    digitalWrite(ramPin, HIGH);
-   //delayMicroseconds(1000);
+   delayMicroseconds(2000000);
    digitalWrite(ramPin, LOW);
   }
 }
