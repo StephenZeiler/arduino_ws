@@ -2,10 +2,10 @@
 #include <Stepper.h>
 
 //Ram
-//const int ramPin = ?;
+const int ramPin = 19;
 
 //Air Release
-//const int airReleasePin = ?;
+const int airBlastPin = 20;
 
 //Encoder
 const int s0CLKPin = 12;
@@ -18,22 +18,22 @@ const int enPinM1 = 9;
 const int stepPinM2 = 6; // 5 is pin location
 const int dirPinM2 = 5;
 const int enPinM2 = 8;
-const int stepPinM3 = 3;//was 4
+const int stepPinM3 = 3; //was 4
 const int dirPinM3 = 7; //was 3
 const int enPinM3 = 2;
 
 //Sensors
 
 const int s1Pin = A0;
-const int s2aPin = 17;
+const int s2aPin = 17; //change to digital "red ports"
 const int s2bPin = A1;
-const int s3aPin = 1;
-const int s3bPin = A5;
-const int s4Pin =  A9;
-const int s5Pin =  A13;
-const int s6Pin =  A2;
-const int s7Pin =  A6;
-
+const int s3aPin = 1; //change to digital "red ports"
+const int s3bPin = A5; 
+const int s4Pin =  14; //change to digital "red ports"
+const int s5Pin =  15; //change to digital "red ports"
+const int s6Pin =  16; //change to digital "red ports"
+const int s7Pin =  18; //change to digital "red ports"
+//0,14,15,16,18,19,20,21
 //Buttons
 const int homeButtonPin = A14;
 const int startButtonPin = A11;
@@ -140,10 +140,9 @@ void actuateAirRam()
 {
   for (int x = 0; x < 1; x++)
   {
-   // digitalWrite(ramPin, HIGH);
-    //delayMicroseconds(500);
-   // digitalWrite(ramPin, LOW);
-    //delayMicroseconds(500);
+   digitalWrite(ramPin, HIGH);
+   delayMicroseconds(1000);
+   digitalWrite(ramPin, LOW);
   }
 }
 void runMotorM3()
@@ -230,16 +229,12 @@ void runMotorM1()
 }
 void setup()
 {
-  //Decoder
-  // pinMode(s0CLKPin, INPUT);
-  // pinMode(s0DTPin, INPUT);
-  // encoderPreviousState = digitalRead(s0CLKPin);
-
+  
   //Air release
-  //pinMode(airReleasePin, OUTPUT);
+  pinMode(airBlastPin, OUTPUT);
 
   //Ram
-  //pinMode(ramPin, OUTPUT);
+  pinMode(ramPin, OUTPUT);
 
   //Motors
   
@@ -279,12 +274,7 @@ void setup()
 
 void loop()
 {
-<<<<<<< HEAD
-  runMotorM2();
-  runMotorM3();
-=======
-  int s2aState = digitalRead(s2aPin);
->>>>>>> d4cea020e70c559e44c67af97d73d8d2671ee397
+  actuateAirRam();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -309,79 +299,11 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-<<<<<<< HEAD
-  if(productionRun){
-    runMotorM2();
-  runMotorM3();
-    runMotorM1();
-
-  }
-
-  // if((currentMicros - previousM1Micros)> m1Speed)
-  // { // Moved down here where it belongs: Got ya.
-  // runMotorM1();
-  // previousM1Micros = currentMicros; 
-  // }
-   
-  //  if((currentMicros - previousM3Micros)> m3Speed)
-  // { // Moved down here where it belongs: Got ya.
-  // previousM3Micros = currentMicros; 
-  // runMotorM3();
-  
-    
-  //}
-  
-  //runMotorM2();
-  //runMotorM3();
-  // if(b3State == HIGH){
-  //   productionRun = false;
-  // }
-  // b1State = digitalRead(b1Pin);
-  // b2State = digitalRead(b2Pin);
-  // b3State = digitalRead(b3Pin);
-  // if (!productionRun)
-  // {
-
-  //   if (b1State == HIGH)
-  //   {
-  //     readyToStart = preCheckCond();
-  //     while (!readyToStart)
-  //     {
-  //       readyToStart = preCheckCond();
-  //       if (readyToStart)
-  //       {
-  //         break;
-  //       }
-  //     }
-  //     if (readyToStart)
-  //     {
-  //       initializeM1ToHomePos();
-  //       // disable b1
-  //       // enable b2
-  //     }
-  //     if(b2State == HIGH && readyToStart){
-  //       //disable b2
-  //       productionRun = true;
-  //     }
-  //   }
-  //   initializeM1ToHomePos();
-  // }
-
-  // if (productionRun)
-  // {
-=======
  //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
   //  if(productionRun){
->>>>>>> d4cea020e70c559e44c67af97d73d8d2671ee397
   //   runMotorM1();
   // }
 
-      // if(digitalRead(s3bPin) == LOW){
-        
-      // }
-      // else{
-      //   runMotorM3();
-      // }
   if (productionRun)
   {
     runMotorM1();
