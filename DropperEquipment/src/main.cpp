@@ -143,6 +143,7 @@ void actuateAirRam()
    digitalWrite(ramPin, HIGH);
    delayMicroseconds(2000000);
    digitalWrite(ramPin, LOW);
+   delayMicroseconds(2000000);
   }
 }
 void runMotorM3()
