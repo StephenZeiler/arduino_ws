@@ -60,9 +60,9 @@ int m3Step = 1;
 unsigned long previousM1Micros = 0;  
 unsigned long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 1100; // 1100
-long m2Speed = 250; //250
-long m3Speed = 300;
+long m1Speed = 1000; // 1100
+long m2Speed = 200; //250
+long m3Speed = 250; //300
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 
 int encoderCurrentState;
