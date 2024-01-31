@@ -308,28 +308,28 @@ void loop()
   //   runMotorM1();
   // }
 
-      // if(digitalRead(s3aPin) == HIGH){
+      if(digitalRead(s3bPin) == LOW){
         
-      // }
-      // else{
-      //   runMotorM3();
-      // }
+      }
+      else{
+        runMotorM3();
+      }
   if (productionRun)
   {
     runMotorM1();
     if(!slowStart){
-      if(digitalRead(s3aPin)==HIGH){
-        m3IsHome = true;
-      }
-      if(digitalRead(s3aPin)==LOW){
-        m3IsHome = false;
-      }
-      if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
-        runMotorM3();
-      }
-      if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
-        runMotorM3();
-      }
+      // if(digitalRead(s3aPin)==HIGH){
+      //   m3IsHome = true;
+      // }
+      // if(digitalRead(s3aPin)==LOW){
+      //   m3IsHome = false;
+      // }
+      // if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+      //   runMotorM3();
+      // }
+      // if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
+      //   runMotorM3();
+      // }
     }
   }
 }
