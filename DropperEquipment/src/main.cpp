@@ -311,12 +311,12 @@ void loop()
   {
     runMotorM1();
     runMotorM3();
-      if(digitalRead(s3aPin) == HIGH){
+      // if(digitalRead(s3aPin) == HIGH){
         
-      }
-      else{
-        runMotorM3();
-      }
+      // }
+      // else{
+      //   runMotorM3();
+      // }
     if(!slowStart){
       // if(analogRead(s2aPin)==HIGH){
       //   m2IsHome = true;
