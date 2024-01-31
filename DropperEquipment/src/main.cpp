@@ -310,7 +310,7 @@ void loop()
   if (productionRun)
   {
    // runMotorM1();
-      if(s3aState==LOW){
+      if(s3aState==HIGH){
         
       }
       else{
