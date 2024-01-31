@@ -193,7 +193,7 @@ if((currentMicros - previousM2Micros)> m2Speed)
 void runMotorM1()
 {
   unsigned long currentMicros = micros();
-  for (int x = 0; x < 1; x++)
+  for (int x = 0; x < 2; x++)
   {
     if (analogRead(s1Pin) == LOW && slowStart == false)
     {
