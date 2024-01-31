@@ -27,7 +27,7 @@ const int enPinM3 = 2;
 const int s1Pin = A0;
 const int s2aPin = A8;
 const int s2bPin = A1;
-const int s3aPin = A12;
+const int s3aPin = 1;
 const int s3bPin = A5;
 const int s4Pin =  A9;
 const int s5Pin =  A13;
@@ -307,7 +307,7 @@ void loop()
   //   runMotorM1();
   // }
 
-      if(analogRead(s3aPin) == LOW){
+      if(digitalRead(s3aPin) == HIGH){
         
       }
       else{
