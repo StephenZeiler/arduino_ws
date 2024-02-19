@@ -194,6 +194,7 @@ if((currentMicros - previousM2Micros)> m2Speed)
 }
 void runMotorM1()
 {
+    digitalWrite(dirPinM2, HIGH);
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
