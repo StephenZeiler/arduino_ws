@@ -279,70 +279,61 @@ void setup()
 
 void loop()
 {
-  int s2aState = digitalRead(s2aPin);
-  int homeButtonState = digitalRead(homeButtonPin);
-  int startButtonState = digitalRead(startButtonPin);
-  int stopButtonState = digitalRead(stopButtonPin);
- // bool preStartReady = ;
-  unsigned long currentMicros = micros();
-  if(homeButtonState==HIGH && !readyToStart){
-   // if(preCheckCond()){
+  runMotorM1();
+//   int s2aState = digitalRead(s2aPin);
+//   int homeButtonState = digitalRead(homeButtonPin);
+//   int startButtonState = digitalRead(startButtonPin);
+//   int stopButtonState = digitalRead(stopButtonPin);
+//  // bool preStartReady = ;
+//   unsigned long currentMicros = micros();
+//   if(homeButtonState==HIGH && !readyToStart){
+//    // if(preCheckCond()){
 
-      readyToStart = true;
-      initializeM1ToHomePos();
-    //}
-  }
-  if(startButtonState == HIGH && readyToStart){
-    productionRun = true;
-  }
-  if(startButtonState == HIGH){
-    productionRun = true;
+//       readyToStart = true;
+//       initializeM1ToHomePos();
+//     //}
+//   }
+//   if(startButtonState == HIGH && readyToStart){
+//     productionRun = true;
+//   }
+//   if(startButtonState == HIGH){
+//     productionRun = true;
     
-  }
-  if(stopButtonState==HIGH){
-    slowStart = true;
-    productionRun = false;
-    readyToStart = false;
-  }
- //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
-  //  if(productionRun){
-  //   runMotorM1();
-  // }
+//   }
+//   if(stopButtonState==HIGH){
+//     slowStart = true;
+//     productionRun = false;
+//     readyToStart = false;
+//   }
 
-      // if(digitalRead(s3bPin) == LOW){
-        
-      // }
-      // else{
-      //   runMotorM3();
-      // }
-  if (productionRun)
-  {
-    runMotorM1();
-    if(!slowStart){
-      if(digitalRead(s2aPin)==HIGH){
-        m2IsHome = true;
-      }
-      if(digitalRead(s2bPin)==LOW){
-        m2IsHome = false;
-      }
-      if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
-        runMotorM2();
-      }
-      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
-        runMotorM2();
-      }
-      if(digitalRead(s3aPin)==HIGH){
-        m3IsHome = true;
-      }
-      if(digitalRead(s3bPin)==LOW){
-        m3IsHome = false;
-      }
-      if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
-        runMotorM3();
-      }
-      if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
-        runMotorM3();
-      }
-    }
-  }
+//   if (productionRun)
+//   {
+//     runMotorM1();
+//     if(!slowStart){
+//       if(digitalRead(s2aPin)==HIGH){
+//         m2IsHome = true;
+//       }
+//       if(digitalRead(s2bPin)==LOW){
+//         m2IsHome = false;
+//       }
+//       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
+//         runMotorM2();
+//       }
+//       if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+//         runMotorM2();
+//       }
+//       if(digitalRead(s3aPin)==HIGH){
+//         m3IsHome = true;
+//       }
+//       if(digitalRead(s3bPin)==LOW){
+//         m3IsHome = false;
+//       }
+//       if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+//         runMotorM3();
+//       }
+//       if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
+//         runMotorM3();
+//       }
+//     }
+//   }
 }
