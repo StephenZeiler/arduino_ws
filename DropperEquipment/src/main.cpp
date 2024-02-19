@@ -63,8 +63,8 @@ unsigned long previousM1Micros = 0;
 unsigned long previousM2Micros = 0;  
 long previousM3Micros = 0;  
 long m1Speed = 1000; // 1000 If change, must change slow start speed as well...
-long m2Speed = 200; //250
-long m3Speed = 250; //300
+long m2Speed = 200; //200
+long m3Speed = 250; //250
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 
 int encoderCurrentState;
@@ -311,7 +311,11 @@ void loop()
 
   if (productionRun)
   {
-    runMotorM1();
+
+    if(calculateDegrees(rotaryPosition)  < 180){
+        runMotorM1();
+      }
+    
     if(!slowStart){
       if(digitalRead(s2aPin)==HIGH){
         m2IsHome = true;
