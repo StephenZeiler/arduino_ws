@@ -78,6 +78,7 @@ long calculateDegrees(long rotaryPosition) //converts the steps the stepper has 
 }
 void initializeM1ToHomePos()
 {
+  digitalWrite(dirPinM1, HIGH);
   bool atHome = false;
   while (atHome == false)
   {
