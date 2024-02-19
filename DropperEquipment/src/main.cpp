@@ -2,10 +2,10 @@
 #include <Stepper.h>
 
 //Ram
-//const int ramPin = ?;
+const int ramPin = 19;
 
 //Air Release
-//const int airReleasePin = ?;
+const int airBlastPin = 20;
 
 //Encoder
 const int s0CLKPin = 12;
@@ -18,22 +18,22 @@ const int enPinM1 = 9;
 const int stepPinM2 = 6; // 5 is pin location
 const int dirPinM2 = 5;
 const int enPinM2 = 8;
-const int stepPinM3 = 3;//was 4
+const int stepPinM3 = 3; //was 4
 const int dirPinM3 = 7; //was 3
 const int enPinM3 = 2;
 
 //Sensors
 
 const int s1Pin = A0;
-const int s2aPin = 17;
+const int s2aPin = 17; //change to digital "red ports"
 const int s2bPin = A1;
-const int s3aPin = 1;
-const int s3bPin = A5;
-const int s4Pin =  A9;
-const int s5Pin =  A13;
-const int s6Pin =  A2;
-const int s7Pin =  A6;
-
+const int s3aPin = 1; //change to digital "red ports"
+const int s3bPin = A5; 
+const int s4Pin =  14; //change to digital "red ports"
+const int s5Pin =  15; //change to digital "red ports"
+const int s6Pin =  16; //change to digital "red ports"
+const int s7Pin =  18; //change to digital "red ports"
+//0,14,15,16,18,19,20,21
 //Buttons
 const int homeButtonPin = A14;
 const int startButtonPin = A11;
@@ -140,10 +140,10 @@ void actuateAirRam()
 {
   for (int x = 0; x < 1; x++)
   {
-   // digitalWrite(ramPin, HIGH);
-    //delayMicroseconds(500);
-   // digitalWrite(ramPin, LOW);
-    //delayMicroseconds(500);
+  //  digitalWrite(ramPin, HIGH);
+  //  delay(1000);
+  //  digitalWrite(ramPin, LOW);
+  //  delay(1000);
   }
 }
 void runMotorM3()
@@ -230,16 +230,12 @@ void runMotorM1()
 }
 void setup()
 {
-  //Decoder
-  // pinMode(s0CLKPin, INPUT);
-  // pinMode(s0DTPin, INPUT);
-  // encoderPreviousState = digitalRead(s0CLKPin);
-
+  
   //Air release
-  //pinMode(airReleasePin, OUTPUT);
+  pinMode(airBlastPin, OUTPUT);
 
   //Ram
-  //pinMode(ramPin, OUTPUT);
+  pinMode(ramPin, OUTPUT);
 
   //Motors
   
@@ -279,61 +275,70 @@ void setup()
 
 void loop()
 {
-  runMotorM1();
-//   int s2aState = digitalRead(s2aPin);
-//   int homeButtonState = digitalRead(homeButtonPin);
-//   int startButtonState = digitalRead(startButtonPin);
-//   int stopButtonState = digitalRead(stopButtonPin);
-//  // bool preStartReady = ;
-//   unsigned long currentMicros = micros();
-//   if(homeButtonState==HIGH && !readyToStart){
-//    // if(preCheckCond()){
+  actuateAirRam();
+  int homeButtonState = digitalRead(homeButtonPin);
+  int startButtonState = digitalRead(startButtonPin);
+  int stopButtonState = digitalRead(stopButtonPin);
+ // bool preStartReady = ;
+  unsigned long currentMicros = micros();
+  if(homeButtonState==HIGH && !readyToStart){
+   // if(preCheckCond()){
 
-//       readyToStart = true;
-//       initializeM1ToHomePos();
-//     //}
-//   }
-//   if(startButtonState == HIGH && readyToStart){
-//     productionRun = true;
-//   }
-//   if(startButtonState == HIGH){
-//     productionRun = true;
+      readyToStart = true;
+      initializeM1ToHomePos();
+    //}
+  }
+  if(startButtonState == HIGH && readyToStart){
+    productionRun = true;
+  }
+  if(startButtonState == HIGH){
+    productionRun = true;
     
-//   }
-//   if(stopButtonState==HIGH){
-//     slowStart = true;
-//     productionRun = false;
-//     readyToStart = false;
-//   }
+  }
+  if(stopButtonState==HIGH){
+    slowStart = true;
+    productionRun = false;
+    readyToStart = false;
+  }
+ //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
+  //  if(productionRun){
+  //   runMotorM1();
+  // }
 
-//   if (productionRun)
-//   {
-//     runMotorM1();
-//     if(!slowStart){
-//       if(digitalRead(s2aPin)==HIGH){
-//         m2IsHome = true;
-//       }
-//       if(digitalRead(s2bPin)==LOW){
-//         m2IsHome = false;
-//       }
-//       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
-//         runMotorM2();
-//       }
-//       if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
-//         runMotorM2();
-//       }
-//       if(digitalRead(s3aPin)==HIGH){
-//         m3IsHome = true;
-//       }
-//       if(digitalRead(s3bPin)==LOW){
-//         m3IsHome = false;
-//       }
-//       if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
-//         runMotorM3();
-//       }
-//       if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
-//         runMotorM3();
-//       }
-//     }
-//   }
+  if (productionRun)
+  {
+    runMotorM1();
+    if(!slowStart){
+      if(digitalRead(s2aPin)==HIGH){
+        m2IsHome = true;
+      }
+      if(digitalRead(s2bPin)==LOW){
+        m2IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition)  == 165){
+        digitalWrite(ramPin, HIGH);
+      }
+      if(calculateDegrees(rotaryPosition)  == 280){
+        digitalWrite(ramPin, LOW);
+      }
+      if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
+        runMotorM2();
+      }
+      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+        runMotorM2();
+      }
+      if(digitalRead(s3aPin)==HIGH){
+        m3IsHome = true;
+      }
+      if(digitalRead(s3bPin)==LOW){
+        m3IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+        runMotorM3();
+      }
+      if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
+        runMotorM3();
+      }
+    }
+  }
 }
