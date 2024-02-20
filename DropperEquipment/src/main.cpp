@@ -62,7 +62,7 @@ int m3Step = 1;
 unsigned long previousM1Micros = 0;  
 unsigned long previousM2Micros = 0;  
 long previousM3Micros = 0;  
-long m1Speed = 2500; // 1000 If change, must change slow start speed as well...
+long m1Speed = 1000; // 1000 If change, must change slow start speed as well...
 long m2Speed = 200; //200
 long m3Speed = 250; //250
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
@@ -188,7 +188,7 @@ if((currentMicros - previousM2Micros)> m2Speed)
       m2Step = 1;
     }
   previousM2Micros = currentMicros; 
-
+ 
   
   }
   }
@@ -207,14 +207,14 @@ void runMotorM1()
       m1Speed = 3000;
     }
      else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 15){
-     // m1Speed = 2000;
+      m1Speed = 2000;
     }
     else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 20){
-     // m1Speed = 1400;
+      m1Speed = 1400;
     }
     else{
       slowStart = false;
-      //m1Speed = 1000; 
+      m1Speed = 1000; 
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
