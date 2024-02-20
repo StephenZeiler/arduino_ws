@@ -207,14 +207,14 @@ void runMotorM1()
       m1Speed = 3000;
     }
      else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 15){
-      m1Speed = 2000;
+     // m1Speed = 2000;
     }
     else if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 20){
-      m1Speed = 1400;
+     // m1Speed = 1400;
     }
     else{
       slowStart = false;
-      m1Speed = 1000; 
+      //m1Speed = 1000; 
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
