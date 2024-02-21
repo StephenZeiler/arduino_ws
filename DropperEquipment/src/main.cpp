@@ -122,7 +122,7 @@ while(!preCheckReady){ // remove loop and just return whether it is ready or not
   {
     s5Ready = true;
   }
-  if (s2aReady && s3aReady && s4Ready && s5Ready)
+  if (s2aReady && s3aReady && s4Ready)
   {
     preCheckReady = true;
   }
