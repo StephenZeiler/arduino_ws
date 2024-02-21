@@ -122,7 +122,7 @@ bool preCheckCond()
   {
     s5Ready = true;
   }
-  if (s2aReady && s3aReady && s4Ready)
+  if (s2aReady && s3aReady && s4Ready && s5Ready)
   {
     preCheckReady = true;
   }
