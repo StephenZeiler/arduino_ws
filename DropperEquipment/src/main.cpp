@@ -129,7 +129,7 @@ bool preCheckCond()
 }
 void ejctionTimeCheck()
 {       
-  if(digitalRead(s6Pin) == LOW){
+  if(digitalRead(s6Pin) == HIGH){
     ejectionFailed = false;
   }
   if(calculateDegrees(rotaryPosition)==359 && ejectionFailed){
