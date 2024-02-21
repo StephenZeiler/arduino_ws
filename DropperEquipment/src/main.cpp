@@ -35,7 +35,7 @@ const int s4Pin =  14; //change to digital "red ports"
 const int s5Pin =  15; //change to digital "red ports"
 const int s6Pin =  16; //change to digital "red ports"
 const int s7Pin =  18; //change to digital "red ports"
-//0,14,15,16,18,19,20,21
+
 //Buttons
 const int homeButtonPin = A14;
 const int startButtonPin = A11;
@@ -167,7 +167,6 @@ if((currentMicros - previousM2Micros)> m2Speed)
       m2Step = 1;
     }
   previousM2Micros = currentMicros; 
- 
   
   }
   }
@@ -254,11 +253,9 @@ void setup()
 
 void loop()
 {
-  actuateAirRam();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
- // bool preStartReady = ;
   unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
     if(preCheckCond()){
