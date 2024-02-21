@@ -105,7 +105,6 @@ bool preCheckCond()
   bool s3aReady = false;
   bool s4Ready = false;
   bool s5Ready = false;
-//while(!preCheckReady){ // remove loop and just return whether it is ready or not....
   if (digitalRead(s2aPin) == HIGH)
   {
     s2aReady = true;
@@ -126,29 +125,9 @@ bool preCheckCond()
   {
     preCheckReady = true;
   }
-  //}
   return preCheckReady;
 }
-void actuateAirRelease()
-{
-  for (int x = 0; x < 1; x++)
-  {
-    //digitalWrite(airReleasePin, HIGH);
-    //delayMicroseconds(500);
-    //digitalWrite(airReleasePin, LOW);
-    //delayMicroseconds(500);
-  }
-}
-void actuateAirRam()
-{
-  for (int x = 0; x < 1; x++)
-  {
-  //  digitalWrite(ramPin, HIGH);
-  //  delay(1000);
-  //  digitalWrite(ramPin, LOW);
-  //  delay(1000);
-  }
-}
+
 void runMotorM3()
 {
     unsigned long currentMicros = micros();
@@ -265,10 +244,6 @@ void setup()
   pinMode(s3bPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
-
-  //LEDs
-  //pinMode(ledS2a, OUTPUT);
-  //pinMode(ledS3a, OUTPUT);
   
   //Buttons
   pinMode(homeButtonPin, OUTPUT);
@@ -304,10 +279,6 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
-  //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
-  //  if(productionRun){
-  //   runMotorM1();
-  // }
 
   if (productionRun)
   {
