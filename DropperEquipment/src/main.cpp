@@ -106,19 +106,19 @@ bool preCheckCond()
   bool s4Ready = false;
   bool s5Ready = false;
 while(!preCheckReady){ // remove loop and just return whether it is ready or not....
-  if (analogRead(s2aPin) == HIGH)
+  if (digitalRead(s2aPin) == HIGH)
   {
     s2aReady = true;
   }
-    if (analogRead(s3aPin) == HIGH)
+    if (digitalRead(s3aPin) == HIGH)
     {
       s3aReady = true;
     }
-    if (analogRead(s4Pin) == HIGH)
+    if (digitalRead(s4Pin) == HIGH)
     { 
       s4Ready = true;
     }
-  if (analogRead(s5Pin) == HIGH)
+  if (digitalRead(s5Pin) == HIGH)
   {
     s5Ready = true;
   }
