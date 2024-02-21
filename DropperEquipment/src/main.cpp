@@ -105,7 +105,7 @@ bool preCheckCond()
   bool s3aReady = false;
   bool s4Ready = false;
   bool s5Ready = false;
- // while(!preCheckReady){ // remove loop and just return whether it is ready or not....
+while(!preCheckReady){ // remove loop and just return whether it is ready or not....
   if (analogRead(s2aPin) == HIGH)
   {
     s2aReady = true;
@@ -126,7 +126,7 @@ bool preCheckCond()
   {
     preCheckReady = true;
   }
-  //}
+  }
   return preCheckReady;
 }
 void actuateAirRelease()
@@ -286,11 +286,11 @@ void loop()
  // bool preStartReady = ;
   unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
-   // if(preCheckCond()){
+    if(preCheckCond()){
 
       readyToStart = true;
       initializeM1ToHomePos();
-    //}
+    }
   }
   if(startButtonState == HIGH && readyToStart){
     productionRun = true;
