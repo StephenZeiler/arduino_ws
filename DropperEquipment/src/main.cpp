@@ -105,7 +105,7 @@ bool preCheckCond()
   bool s3aReady = false;
   bool s4Ready = false;
   bool s5Ready = false;
-while(!preCheckReady){ // remove loop and just return whether it is ready or not....
+//while(!preCheckReady){ // remove loop and just return whether it is ready or not....
   if (digitalRead(s2aPin) == HIGH)
   {
     s2aReady = true;
@@ -126,7 +126,7 @@ while(!preCheckReady){ // remove loop and just return whether it is ready or not
   {
     preCheckReady = true;
   }
-  }
+  //}
   return preCheckReady;
 }
 void actuateAirRelease()
@@ -304,7 +304,7 @@ void loop()
     productionRun = false;
     readyToStart = false;
   }
- //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
+  //if(productionRun && (rotaryPosition * m1PulsePerRevMultiplier < 270)){ //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
   //  if(productionRun){
   //   runMotorM1();
   // }
