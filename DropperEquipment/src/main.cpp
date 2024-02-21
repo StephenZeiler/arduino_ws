@@ -66,7 +66,7 @@ long m1Speed = 1000; // 1000 If change, must change slow start speed as well...
 long m2Speed = 150; //200
 long m3Speed = 200; //250
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
-
+bool ejectionFailed = true;
 int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
@@ -127,6 +127,18 @@ bool preCheckCond()
   }
   return preCheckReady;
 }
+void ejctionTimeCheck()
+{       
+  if(digitalRead(s6Pin) == LOW){
+    ejectionFailed = false;
+  }
+  if(calculateDegrees(rotaryPosition)==359 && ejectionFailed){
+
+  }
+      if(digitalRead(s6Pin) == LOW){
+
+      }
+}
 
 void runMotorM3()
 {
@@ -179,6 +191,7 @@ void runMotorM1()
   {
     if (analogRead(s1Pin) == LOW && slowStart == false)
     {
+      ejectionFailed = true;
       rotaryPosition = 0; // made full circle reset position
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
