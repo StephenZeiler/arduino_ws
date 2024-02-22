@@ -268,6 +268,9 @@ void loop()
   if(temp == HIGH){
     ejectionDetected = true;
   }
+  else{
+    ejectionDetected = false;
+  }
 
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
