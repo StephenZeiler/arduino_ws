@@ -264,7 +264,7 @@ void setup()
 void loop()
 {
   int temp = digitalRead(s6Pin);
-  if(temp == LOW){
+  if(temp == HIGH){
     ejectionDetected = true;
   }
 
