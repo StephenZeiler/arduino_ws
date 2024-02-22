@@ -131,7 +131,7 @@ bool preCheckCond()
 bool ejectionCheck()
 {       
   bool temp = false;
-  if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
+  if(calculateDegrees(rotaryPosition)>359 && ejectionDetected == false){
     temp = true;
   }
   return temp; // if temp is true then ejection failed. 
