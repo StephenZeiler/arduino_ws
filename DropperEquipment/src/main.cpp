@@ -131,7 +131,7 @@ bool preCheckCond()
 bool ejectionCheck()
 {       
   bool temp = false;
-  if(calculateDegrees(rotaryPosition)==359 && digitalRead(s6Pin) == HIGH){
+  if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
     temp = true;
   }
   return temp; // if temp is true then ejection failed. 
@@ -190,6 +190,7 @@ void runMotorM1()
     {
       ejectionFailed = true;
       rotaryPosition = 0; // made full circle reset position
+      ejectionDetected = false;
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
       m1Speed = 3000;
@@ -263,12 +264,9 @@ void setup()
 
 void loop()
 {
-  // if(digitalRead(s6Pin) == LOW){
-  //   ejectionDetected = true;
-  // }
-  // else{
-  //   ejectionDetected = false;
-  // }
+  if(digitalRead(s6Pin) == LOW){
+    ejectionDetected = true;
+  }
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -283,10 +281,7 @@ void loop()
   if(startButtonState == HIGH && readyToStart){
     productionRun = true;
   }
-  if(startButtonState == HIGH){
-    productionRun = true;
-    
-  }
+
   if(stopButtonState==HIGH || ejectionCheck()){
     slowStart = true;
     productionRun = false;
