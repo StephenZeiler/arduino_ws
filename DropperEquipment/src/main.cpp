@@ -109,14 +109,14 @@ bool preCheckCond()
   {
     s2aReady = true;
   }
-    if (digitalRead(s3aPin) == HIGH)
-    {
-      s3aReady = true;
-    }
-    if (digitalRead(s4Pin) == HIGH)
-    { 
-      s4Ready = true;
-    }
+  if (digitalRead(s3aPin) == HIGH)
+  {
+    s3aReady = true;
+  }
+  if (digitalRead(s4Pin) == HIGH)
+  { 
+    s4Ready = true;
+  }
   if (digitalRead(s5Pin) == HIGH)
   {
     s5Ready = true;
@@ -133,11 +133,8 @@ void ejctionTimeCheck()
     ejectionFailed = false;
   }
   if(calculateDegrees(rotaryPosition)==359 && ejectionFailed){
-
+    ejectionFailed = true;
   }
-      if(digitalRead(s6Pin) == LOW){
-
-      }
 }
 
 void runMotorM3()
@@ -266,6 +263,7 @@ void setup()
 
 void loop()
 {
+  ejctionTimeCheck();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -290,7 +288,7 @@ void loop()
     readyToStart = false;
   }
 
-  if (productionRun)
+  if (productionRun && ejectionFailed == false)
   {
     runMotorM1();
     if(!slowStart){
