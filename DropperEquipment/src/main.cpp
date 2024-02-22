@@ -293,7 +293,7 @@ void loop()
     readyToStart = false;
   }
 
-  if (productionRun && ejectionFailed == false)
+  if (productionRun)
   {
     runMotorM1();
     if(!slowStart){
