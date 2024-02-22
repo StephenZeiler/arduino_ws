@@ -265,7 +265,7 @@ void setup()
 void loop()
 {
   int temp = digitalRead(s6Pin);
-  if(temp == HIGH){
+  if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
     ejectionDetected = true;
   }
 
