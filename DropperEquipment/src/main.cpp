@@ -253,6 +253,7 @@ void setup()
   pinMode(s3bPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
+  pinMode(s6Pin, INPUT);
   
   //Buttons
   pinMode(homeButtonPin, OUTPUT);
