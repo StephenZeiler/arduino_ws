@@ -131,7 +131,7 @@ bool preCheckCond()
 bool ejectionCheck()
 {       
   bool temp = false;
-  if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
+  if(calculateDegrees(rotaryPosition)==359 && digitalRead(s6Pin) == HIGH){
     temp = true;
   }
   return temp; // if temp is true then ejection failed. 
@@ -263,12 +263,12 @@ void setup()
 
 void loop()
 {
-  if(digitalRead(s6Pin) == LOW){
-    ejectionDetected = true;
-  }
-  else{
-    ejectionDetected = false;
-  }
+  // if(digitalRead(s6Pin) == LOW){
+  //   ejectionDetected = true;
+  // }
+  // else{
+  //   ejectionDetected = false;
+  // }
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
