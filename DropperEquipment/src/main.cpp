@@ -131,7 +131,7 @@ bool preCheckCond()
 bool ejectionCheck()
 {       
   bool temp = false;
-  if(calculateDegrees(rotaryPosition)>355 && ejectionDetected == false){
+  if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
     temp = true;
   }
   return temp; // if temp is true then ejection failed. 
@@ -268,9 +268,7 @@ void loop()
   if(temp == HIGH){
     ejectionDetected = true;
   }
-  else{
-    ejectionDetected = false;
-  }
+
 
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
