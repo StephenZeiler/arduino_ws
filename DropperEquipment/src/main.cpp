@@ -285,7 +285,7 @@ void loop()
     slowStart = true;
     productionRun = false;
     readyToStart = false;
-    rotaryPosition = 0;
+   // rotaryPosition = 0;
   }
 
   if (productionRun)
