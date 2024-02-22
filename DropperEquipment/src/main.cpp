@@ -128,15 +128,13 @@ bool preCheckCond()
   }
   return preCheckReady;
 }
-void ejctionTimeCheck()
+bool ejectionCheck()
 {       
-
+  bool temp = false;
   if(calculateDegrees(rotaryPosition)>=359 && ejectionDetected == false){
-    ejectionFailed = true;
+    temp = true;
   }
-  else{
-    ejectionFailed = false;
-  }
+  return temp; // if temp is true then ejection failed. 
 }
 
 void runMotorM3()
@@ -271,7 +269,6 @@ void loop()
   else{
     ejectionDetected = false;
   }
-  ejctionTimeCheck();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -290,7 +287,7 @@ void loop()
     productionRun = true;
     
   }
-  if(stopButtonState==HIGH){
+  if(stopButtonState==HIGH || ejectionCheck()){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
