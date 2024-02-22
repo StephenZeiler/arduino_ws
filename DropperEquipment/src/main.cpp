@@ -263,8 +263,9 @@ void setup()
 
 void loop()
 {
-  if(digitalRead(s6Pin) == LOW){
-   // ejectionDetected = true;
+  int temp = digitalRead(s6Pin);
+  if(temp == LOW){
+    ejectionDetected = true;
   }
 
   int homeButtonState = digitalRead(homeButtonPin);
