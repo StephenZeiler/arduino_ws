@@ -132,7 +132,7 @@ void ejctionTimeCheck()
   if(digitalRead(s6Pin) == LOW){
     ejectionFailed = false;
   }
-  if(calculateDegrees(rotaryPosition)==359 && ejectionFailed){
+  if(calculateDegrees(rotaryPosition)>=359 && ejectionFailed){
     ejectionFailed = true;
   }
 }
