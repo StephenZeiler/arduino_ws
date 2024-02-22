@@ -66,7 +66,8 @@ long m1Speed = 1000; // 1000 If change, must change slow start speed as well...
 long m2Speed = 150; //200
 long m3Speed = 200; //250
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
-bool ejectionFailed = true;
+bool ejectionFailed = false;
+bool ejectionDetected = false;
 int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
@@ -129,11 +130,12 @@ bool preCheckCond()
 }
 void ejctionTimeCheck()
 {       
-  if(digitalRead(s6Pin) == HIGH){
-    ejectionFailed = false;
-  }
-  if(calculateDegrees(rotaryPosition)>=359 && ejectionFailed){
+
+  if(calculateDegrees(rotaryPosition)>=359 && ejectionDetected == false){
     ejectionFailed = true;
+  }
+  else{
+    ejectionFailed = false;
   }
 }
 
@@ -263,6 +265,12 @@ void setup()
 
 void loop()
 {
+  if(digitalRead(s6Pin) == LOW){
+    ejectionDetected = true;
+  }
+  else{
+    ejectionDetected = false;
+  }
   ejctionTimeCheck();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
