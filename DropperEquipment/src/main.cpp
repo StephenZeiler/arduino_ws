@@ -265,7 +265,7 @@ void initializeM2ToHomePos()
   bool atHome = false;
   while (atHome == false)
   {
-    if (analogRead(s2aPin) == HIGH)
+    if (digitalRead(s2aPin) == HIGH)
     {
       atHome = true;
     }
@@ -280,7 +280,7 @@ void initializeM3ToHomePos()
   bool atHome = false;
   while (atHome == false)
   {
-    if (analogRead(s3aPin) == HIGH)
+    if (digitalRead(s3aPin) == HIGH)
     {
       atHome = true;
     }
