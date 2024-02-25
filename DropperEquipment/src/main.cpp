@@ -186,7 +186,7 @@ void runMotorM1()
   if(digitalRead(s6Pin) == HIGH){
     ejectionDetected = true;
   }
-  if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
+  if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
     ejectionFailed = true;
   }
     digitalWrite(dirPinM1, HIGH);
