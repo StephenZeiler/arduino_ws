@@ -302,10 +302,6 @@ void setup()
 void loop()
 {
   checkOverunCaps();
-  // int temp = digitalRead(s6Pin);
-  // if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
-  //   ejectionDetected = true;
-  // }
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -321,15 +317,11 @@ void loop()
   if(startButtonState == HIGH && readyToStart){
     productionRun = true;
   }
-
- // if(stopButtonState==HIGH || ejectionCheck()){
   if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
     digitalWrite(ramPin, LOW);
-    //ejectionDetected = false;
-   // rotaryPosition = 0;
   }
 
   if (productionRun)
@@ -347,6 +339,10 @@ void loop()
       }
       if(calculateDegrees(rotaryPosition)  == 280){
         digitalWrite(ramPin, LOW);
+        digitalWrite(airBlastPin, LOW);
+      }
+      if(calculateDegrees(rotaryPosition)  == 355){
+        digitalWrite(airBlastPin, LOW);
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
         runMotorM2();
