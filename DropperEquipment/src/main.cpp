@@ -322,6 +322,7 @@ void loop()
       }
     }
   }
+  ejectionDetected = false;
   int temp = digitalRead(s6Pin);
   if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
     ejectionDetected = true;
