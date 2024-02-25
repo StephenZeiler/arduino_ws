@@ -264,6 +264,11 @@ void setup()
 
 void loop()
 {
+    ejectionDetected = false;
+  int temp = digitalRead(s6Pin);
+  if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
+    ejectionDetected = true;
+  }
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
@@ -322,9 +327,5 @@ void loop()
       }
     }
   }
-  ejectionDetected = false;
-  int temp = digitalRead(s6Pin);
-  if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
-    ejectionDetected = true;
-  }
+
 }
