@@ -144,10 +144,12 @@ bool preCheckCond()
   if (digitalRead(s4Pin) == HIGH)
   { 
     s4Ready = true;
+    emptyPipets = false;
   }
   if (digitalRead(s5Pin) == HIGH)
   {
     s5Ready = true;
+    emptyCaps = false;
   }
   if (s2aReady && s3aReady && s4Ready && s5Ready)
   {
