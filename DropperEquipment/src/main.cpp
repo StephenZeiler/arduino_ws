@@ -339,7 +339,7 @@ void loop()
       }
       if(calculateDegrees(rotaryPosition)  == 280){
         digitalWrite(ramPin, LOW);
-        digitalWrite(airBlastPin, LOW);
+        digitalWrite(airBlastPin, HIGH);
       }
       if(calculateDegrees(rotaryPosition)  == 355){
         digitalWrite(airBlastPin, LOW);
