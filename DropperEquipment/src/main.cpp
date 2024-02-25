@@ -283,20 +283,17 @@ void loop()
     productionRun = true;
   }
 
- // if(stopButtonState==HIGH || ejectionCheck()){
-  if(stopButtonState==HIGH){
+  if(stopButtonState==HIGH || ejectionCheck()){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
+    ejectionDetected = false;
    // rotaryPosition = 0;
   }
 
   if (productionRun)
   {
-    if(digitalRead(s6Pin) == HIGH){
-
     runMotorM1();
-    }
     if(!slowStart){
       if(digitalRead(s2aPin)==HIGH){
         m2IsHome = true;
