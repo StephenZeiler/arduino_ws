@@ -72,6 +72,7 @@ bool ejectionDetected = false;
 int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
+bool empytCaps = false;
 
 long calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
@@ -99,7 +100,14 @@ void initializeM1ToHomePos()
   }
   rotaryPosition = 0; // set position to 0.
 }
-
+bool checkCaps(){
+  if(digitalRead(s7Pin) == LOW){
+    empytCaps = true;
+  }
+  else{
+    empytCaps = false;
+  }
+}
 bool preCheckCond()
 {
   bool preCheckReady = false;
@@ -271,6 +279,7 @@ void setup()
 
 void loop()
 {
+  checkCaps();
   // int temp = digitalRead(s6Pin);
   // if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
   //   ejectionDetected = true;
@@ -291,7 +300,7 @@ void loop()
   }
 
  // if(stopButtonState==HIGH || ejectionCheck()){
-  if(stopButtonState==HIGH || ejectionFailed){
+  if(stopButtonState==HIGH || ejectionFailed || empytCaps){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
