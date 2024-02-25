@@ -264,7 +264,6 @@ void setup()
 
 void loop()
 {
-    ejectionDetected = false;
   int temp = digitalRead(s6Pin);
   if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
     ejectionDetected = true;
@@ -284,7 +283,8 @@ void loop()
     productionRun = true;
   }
 
-  if(stopButtonState==HIGH || ejectionCheck()){
+ // if(stopButtonState==HIGH || ejectionCheck()){
+  if(stopButtonState==HIGH){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
@@ -293,7 +293,10 @@ void loop()
 
   if (productionRun)
   {
+    if(digitalRead(s6Pin) == HIGH){
+
     runMotorM1();
+    }
     if(!slowStart){
       if(digitalRead(s2aPin)==HIGH){
         m2IsHome = true;
