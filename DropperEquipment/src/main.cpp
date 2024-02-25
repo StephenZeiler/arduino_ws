@@ -131,7 +131,8 @@ bool preCheckCond()
     s5Ready = true;
     emptyCaps = false;
   }
-  if (s2aReady && s3aReady && s4Ready && s5Ready)
+  //if (s2aReady && s3aReady && s4Ready && s5Ready)
+  if (s4Ready && s5Ready)
   {
     preCheckReady = true;
   }
@@ -260,6 +261,7 @@ void initializeM1ToHomePos()
 }
 void initializeM2ToHomePos()
 {
+  digitalWrite(dirPinM2, HIGH);
   bool atHome = false;
   while (atHome == false)
   {
