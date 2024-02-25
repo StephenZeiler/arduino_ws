@@ -219,8 +219,10 @@ void runMotorM1()
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if (analogRead(s1Pin) == LOW && slowStart == false)
+    if (analogRead(s1Pin) == LOW && slowStart == false) //check when motor has made full revolution
     {
+      checkLoadedPipet();
+      checkLoadedCaps();
       rotaryPosition = 0; // made full circle reset position
       ejectionDetected = false;
     }
@@ -298,7 +300,6 @@ void setup()
 void loop()
 {
   checkOverunCaps();
-  checkLoadedPipet();
   // int temp = digitalRead(s6Pin);
   // if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
   //   ejectionDetected = true;
@@ -320,7 +321,7 @@ void loop()
   }
 
  // if(stopButtonState==HIGH || ejectionCheck()){
-  if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets){
+  if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
