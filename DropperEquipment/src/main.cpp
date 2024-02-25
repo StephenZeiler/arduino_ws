@@ -72,7 +72,9 @@ bool ejectionDetected = false;
 int encoderCurrentState;
 int encoderPreviousState;
 int encoderCount = 0;
-bool empytCaps = false;
+bool emptyCaps = false;
+bool empytOverunCaps = false;
+bool emptyPipets = false;
 
 long calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
@@ -100,12 +102,28 @@ void initializeM1ToHomePos()
   }
   rotaryPosition = 0; // set position to 0.
 }
-bool checkCaps(){
+bool checkOverunCaps(){
   if(digitalRead(s7Pin) == LOW){
-    empytCaps = true;
+    empytOverunCaps = true;
   }
   else{
-    empytCaps = false;
+    empytOverunCaps = false;
+  }
+}
+bool checkLoadedPipet(){
+  if(digitalRead(s4Pin) == LOW){
+    emptyPipets = true;
+  }
+  else{
+    emptyPipets = false;
+  }
+}
+bool checkLoadedCaps(){
+  if(digitalRead(s5Pin) == LOW){
+    emptyCaps = true;
+  }
+  else{
+    emptyCaps = false;
   }
 }
 bool preCheckCond()
@@ -138,7 +156,7 @@ bool preCheckCond()
   return preCheckReady;
 }
 bool ejectionCheck()
-{       
+{
   bool temp = false;
   if(calculateDegrees(rotaryPosition)>359 && ejectionDetected == false){
     temp = true;
@@ -279,7 +297,8 @@ void setup()
 
 void loop()
 {
-  checkCaps();
+  checkOverunCaps();
+  checkLoadedPipet();
   // int temp = digitalRead(s6Pin);
   // if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
   //   ejectionDetected = true;
@@ -293,6 +312,7 @@ void loop()
       ejectionFailed = false;
       readyToStart = true;
       initializeM1ToHomePos();
+      digitalWrite(ramPin, LOW);
     }
   }
   if(startButtonState == HIGH && readyToStart){
@@ -300,10 +320,11 @@ void loop()
   }
 
  // if(stopButtonState==HIGH || ejectionCheck()){
-  if(stopButtonState==HIGH || ejectionFailed || empytCaps){
+  if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
+    digitalWrite(ramPin, LOW);
     //ejectionDetected = false;
    // rotaryPosition = 0;
   }
