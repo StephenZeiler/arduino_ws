@@ -41,6 +41,7 @@ const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
 
+
 bool productionRunM2 = false;
 bool m2IsHome = true;
 bool m3IsHome = true;
@@ -182,6 +183,12 @@ if((currentMicros - previousM2Micros)> m2Speed)
 }
 void runMotorM1()
 {
+  if(digitalRead(s6Pin) == HIGH){
+    ejectionDetected = true;
+  }
+  if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
+    ejectionFailed = true;
+  }
     digitalWrite(dirPinM1, HIGH);
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
@@ -264,17 +271,17 @@ void setup()
 
 void loop()
 {
-  int temp = digitalRead(s6Pin);
-  if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
-    ejectionDetected = true;
-  }
+  // int temp = digitalRead(s6Pin);
+  // if(calculateDegrees(rotaryPosition)>10 && temp == HIGH){
+  //   ejectionDetected = true;
+  // }
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
     if(preCheckCond()){
-
+      ejectionFailed = false;
       readyToStart = true;
       initializeM1ToHomePos();
     }
@@ -283,11 +290,12 @@ void loop()
     productionRun = true;
   }
 
-  if(stopButtonState==HIGH || ejectionCheck()){
+ // if(stopButtonState==HIGH || ejectionCheck()){
+  if(stopButtonState==HIGH || ejectionFailed){
     slowStart = true;
     productionRun = false;
     readyToStart = false;
-    ejectionDetected = false;
+    //ejectionDetected = false;
    // rotaryPosition = 0;
   }
 
