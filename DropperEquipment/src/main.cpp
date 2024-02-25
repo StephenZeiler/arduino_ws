@@ -81,57 +81,6 @@ long calculateDegrees(long rotaryPosition) //converts the steps the stepper has 
   long result = rotaryPosition * m1PulsePerRevMultiplier; 
   return result;
 }
-void initializeM1ToHomePos()
-{
-  digitalWrite(dirPinM1, HIGH);
-  bool atHome = false;
-  while (atHome == false)
-  {
-    if (analogRead(s1Pin) == LOW)
-    {
-      atHome = true;
-    }
-    else
-    {
-      digitalWrite(stepPinM1, HIGH);
-      delayMicroseconds(9000);
-      digitalWrite(stepPinM1, LOW); 
-      previousPosition = rotaryPosition;
-      rotaryPosition = rotaryPosition + 1;
-    }
-  }
-  rotaryPosition = 0; // set position to 0.
-}
-void initializeM2ToHomePos()
-{
-  bool atHome = false;
-  while (atHome == false)
-  {
-    if (analogRead(s2aPin) == HIGH)
-    {
-      atHome = true;
-    }
-    else
-    {
-      runMotorM2();
-    }
-  }
-}
-void initializeM3ToHomePos()
-{
-  bool atHome = false;
-  while (atHome == false)
-  {
-    if (analogRead(s3aPin) == HIGH)
-    {
-      atHome = true;
-    }
-    else
-    {
-      runMotorM3();
-    }
-  }
-}
 
 bool checkOverunCaps(){
   if(digitalRead(s7Pin) == LOW){
@@ -288,6 +237,57 @@ void runMotorM1()
     }
   }
 }
+void initializeM1ToHomePos()
+{
+  digitalWrite(dirPinM1, HIGH);
+  bool atHome = false;
+  while (atHome == false)
+  {
+    if (analogRead(s1Pin) == LOW)
+    {
+      atHome = true;
+    }
+    else
+    {
+      digitalWrite(stepPinM1, HIGH);
+      delayMicroseconds(9000);
+      digitalWrite(stepPinM1, LOW); 
+      previousPosition = rotaryPosition;
+      rotaryPosition = rotaryPosition + 1;
+    }
+  }
+  rotaryPosition = 0; // set position to 0.
+}
+void initializeM2ToHomePos()
+{
+  bool atHome = false;
+  while (atHome == false)
+  {
+    if (analogRead(s2aPin) == HIGH)
+    {
+      atHome = true;
+    }
+    else
+    {
+      runMotorM2();
+    }
+  }
+}
+void initializeM3ToHomePos()
+{
+  bool atHome = false;
+  while (atHome == false)
+  {
+    if (analogRead(s3aPin) == HIGH)
+    {
+      atHome = true;
+    }
+    else
+    {
+      runMotorM3();
+    }
+  }
+}
 void setup()
 {
   
@@ -397,5 +397,4 @@ void loop()
       }
     }
   }
-
 }
