@@ -102,6 +102,37 @@ void initializeM1ToHomePos()
   }
   rotaryPosition = 0; // set position to 0.
 }
+void initializeM2ToHomePos()
+{
+  bool atHome = false;
+  while (atHome == false)
+  {
+    if (analogRead(s2aPin) == HIGH)
+    {
+      atHome = true;
+    }
+    else
+    {
+      runMotorM2();
+    }
+  }
+}
+void initializeM3ToHomePos()
+{
+  bool atHome = false;
+  while (atHome == false)
+  {
+    if (analogRead(s3aPin) == HIGH)
+    {
+      atHome = true;
+    }
+    else
+    {
+      runMotorM3();
+    }
+  }
+}
+
 bool checkOverunCaps(){
   if(digitalRead(s7Pin) == LOW){
     empytOverunCaps = true;
@@ -168,7 +199,7 @@ bool ejectionCheck()
 
 void runMotorM3()
 {
-    unsigned long currentMicros = micros();
+  unsigned long currentMicros = micros();
   digitalWrite(dirPinM3, LOW);
   for (int x = 0; x < 1; x++)
   {
@@ -311,6 +342,8 @@ void loop()
       ejectionFailed = false;
       readyToStart = true;
       initializeM1ToHomePos();
+      initializeM2ToHomePos();
+      initializeM3ToHomePos();
       digitalWrite(ramPin, LOW);
     }
   }
