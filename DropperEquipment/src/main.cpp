@@ -341,7 +341,7 @@ void loop()
         digitalWrite(ramPin, LOW);
         digitalWrite(airBlastPin, HIGH);
       }
-      if(calculateDegrees(rotaryPosition)  == 355){
+      if(calculateDegrees(rotaryPosition) == 330){
         digitalWrite(airBlastPin, LOW);
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
