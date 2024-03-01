@@ -335,72 +335,72 @@ void setup()
 
 void loop()
 {
-  if(digitalRead(s8Pin) == HIGH){
-    runMotorM1();
-  }
-  // checkOverunCaps();
-  // int homeButtonState = digitalRead(homeButtonPin);
-  // int startButtonState = digitalRead(startButtonPin);
-  // int stopButtonState = digitalRead(stopButtonPin);
-  // unsigned long currentMicros = micros();
-  // if(homeButtonState==HIGH && !readyToStart){
-  //   if(preCheckCond()){
-  //     ejectionFailed = false;
-  //     readyToStart = true;
-  //     initializeM1ToHomePos();
-  //     initializeM2ToHomePos();
-  //     initializeM3ToHomePos();
-  //     digitalWrite(ramPin, LOW);
-  //   }
-  // }
-  // if(startButtonState == HIGH && readyToStart){
-  //   productionRun = true;
-  // }
-  // if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
-  //   slowStart = true;
-  //   productionRun = false;
-  //   readyToStart = false;
-  //   digitalWrite(ramPin, LOW);
-  // }
-
-  // if (productionRun)
-  // {
+  // if(digitalRead(s8Pin) == HIGH){
   //   runMotorM1();
-  //   if(!slowStart){
-  //     if(digitalRead(s2aPin)==HIGH){
-  //       m2IsHome = true;
-  //     }
-  //     if(digitalRead(s2bPin)==LOW){
-  //       m2IsHome = false;
-  //     }
-  //     if(calculateDegrees(rotaryPosition)  == 165){
-  //       digitalWrite(ramPin, HIGH);
-  //     }
-  //     if(calculateDegrees(rotaryPosition)  == 280){
-  //       digitalWrite(ramPin, LOW);
-  //       digitalWrite(airBlastPin, HIGH);
-  //     }
-  //     if(calculateDegrees(rotaryPosition) == 330){
-  //       digitalWrite(airBlastPin, LOW);
-  //     }
-  //     if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
-  //       runMotorM2();
-  //     }
-  //     if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
-  //       runMotorM2();
-  //     }
-  //     if(digitalRead(s3aPin)==HIGH){
-  //       m3IsHome = true;
-  //     }
-  //     if(digitalRead(s3bPin)==LOW){
-  //       m3IsHome = false;
-  //     }
-  //     if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
-  //       runMotorM3();
-  //     }
-  //     if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
-  //       runMotorM3();
-  //     }
-  //   }
   // }
+  checkOverunCaps();
+  int homeButtonState = digitalRead(homeButtonPin);
+  int startButtonState = digitalRead(startButtonPin);
+  int stopButtonState = digitalRead(stopButtonPin);
+  unsigned long currentMicros = micros();
+  if(homeButtonState==HIGH && !readyToStart){
+    if(preCheckCond()){
+      ejectionFailed = false;
+      readyToStart = true;
+      initializeM1ToHomePos();
+      initializeM2ToHomePos();
+      initializeM3ToHomePos();
+      digitalWrite(ramPin, LOW);
+    }
+  }
+  if(startButtonState == HIGH && readyToStart){
+    productionRun = true;
+  }
+  if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
+    slowStart = true;
+    productionRun = false;
+    readyToStart = false;
+    digitalWrite(ramPin, LOW);
+  }
+
+  if (productionRun)
+  {
+    runMotorM1();
+    if(!slowStart){
+      if(digitalRead(s2aPin)==HIGH){
+        m2IsHome = true;
+      }
+      if(digitalRead(s2bPin)==LOW){
+        m2IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition)  == 165){
+        digitalWrite(ramPin, HIGH);
+      }
+      if(calculateDegrees(rotaryPosition)  == 280){
+        digitalWrite(ramPin, LOW);
+        digitalWrite(airBlastPin, HIGH);
+      }
+      if(calculateDegrees(rotaryPosition) == 330){
+        digitalWrite(airBlastPin, LOW);
+      }
+      if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
+        runMotorM2();
+      }
+      if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
+        runMotorM2();
+      }
+      if(digitalRead(s3aPin)==HIGH){
+        m3IsHome = true;
+      }
+      if(digitalRead(s3bPin)==LOW){
+        m3IsHome = false;
+      }
+      if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+        runMotorM3();
+      }
+      if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
+        runMotorM3();
+      }
+    }
+  }
 }
