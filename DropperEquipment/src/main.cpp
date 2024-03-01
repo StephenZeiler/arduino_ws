@@ -76,6 +76,8 @@ int encoderCount = 0;
 bool emptyCaps = false;
 bool empytOverunCaps = false;
 bool emptyPipets = false;
+bool stopPressed = false;
+bool resetPositions = false;
 
 long calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
@@ -198,6 +200,9 @@ if((currentMicros - previousM2Micros)> m2Speed)
 }
 void runMotorM1()
 {
+  if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
+    stopPressed = true;
+  }
   if(digitalRead(s6Pin) == HIGH){
     ejectionDetected = true;
   }
@@ -214,6 +219,12 @@ void runMotorM1()
       checkLoadedCaps();
       rotaryPosition = 0; // made full circle reset position
       ejectionDetected = false;
+      if(stopPressed){
+        slowStart = true;
+        readyToStart = false;
+        digitalWrite(ramPin, LOW);
+        productionRun = false;
+      }
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
       m1Speed = 3000;
@@ -346,7 +357,7 @@ void loop()
   checkOverunCaps();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
-  int stopButtonState = digitalRead(stopButtonPin);
+  //int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
     
@@ -363,12 +374,12 @@ void loop()
       productionRun = true;
     }
   }
-  if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
-    slowStart = true;
-    productionRun = false;
-    readyToStart = false;
-    digitalWrite(ramPin, LOW);
-  }
+  // if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
+  //   slowStart = true;
+  //   //productionRun = false;
+  //   readyToStart = false;
+  //   digitalWrite(ramPin, LOW);
+  // }
 
   if (productionRun)
   {
