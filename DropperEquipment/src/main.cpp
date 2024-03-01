@@ -332,7 +332,8 @@ void initializeM3ToHomePos()
 }
 void setup()
 {
-  
+  //LED
+  digitalWrite(homeButtonLED,LOW);
   //Air release
   pinMode(airBlastPin, OUTPUT);
 
