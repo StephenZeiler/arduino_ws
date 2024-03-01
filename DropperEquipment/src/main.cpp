@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Stepper.h>
-
+//LED 
+const int homeButtonLED = 4;
 //Ram
 const int ramPin = 19;
 
@@ -61,9 +62,11 @@ int val = 0;
 int m1Step = 1;
 int m2Step = 1;
 int m3Step = 1;
+int LEDSwitch = 1;
 unsigned long previousM1Micros = 0;  
 unsigned long previousM2Micros = 0;  
-long previousM3Micros = 0;  
+unsigned long previousM3Micros = 0; 
+long previousHomeLEDMicros = 0;  
 long m1Speed = 1000; // 1000 If change, must change slow start speed as well...
 long m2Speed = 150; //200
 long m3Speed = 200; //250
@@ -154,7 +157,27 @@ bool ejectionCheck()
   }
   return temp; // if temp is true then ejection failed. 
 }
-
+void blinkhomeButtonLED()
+{
+  unsigned long currentMicros = micros();
+  for (int x = 0; x < 1; x++)
+  {
+    if((currentMicros - previousHomeLEDMicros)> 1000000)
+    {
+      if (LEDSwitch == 1)
+      {
+        digitalWrite(homeButtonLED, HIGH);
+        ++LEDSwitch;
+      }
+      else if (LEDSwitch == 2)
+      {
+        digitalWrite(homeButtonLED, LOW);
+        LEDSwitch = 1;
+      }
+      previousHomeLEDMicros = currentMicros;
+    }
+  }
+}
 void runMotorM3()
 {
   unsigned long currentMicros = micros();
@@ -360,7 +383,7 @@ void loop()
   //int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
-    
+      digitalWrite(homeButtonLED,)
       ejectionFailed = false;
       readyToStart = true;
       initializeM1ToHomePos();
