@@ -114,6 +114,7 @@ bool preCheckCond()
   bool s3aReady = false;
   bool s4Ready = false;
   bool s5Ready = false;
+  bool s8Ready = false;
   if (digitalRead(s2aPin) == HIGH)
   {
     s2aReady = true;
@@ -132,8 +133,12 @@ bool preCheckCond()
     s5Ready = true;
     emptyCaps = false;
   }
-  //if (s2aReady && s3aReady && s4Ready && s5Ready)
-  if (s4Ready && s5Ready)
+  if (digitalRead(s8Pin) == LOW)
+  {
+    s8Ready = true;
+  }
+  if (s2aReady && s3aReady && s4Ready && s5Ready && s8Ready)
+  //if (s4Ready && s5Ready)
   {
     preCheckReady = true;
   }
@@ -344,17 +349,19 @@ void loop()
   int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
-    if(preCheckCond()){
+    
       ejectionFailed = false;
       readyToStart = true;
       initializeM1ToHomePos();
       initializeM2ToHomePos();
       initializeM3ToHomePos();
       digitalWrite(ramPin, LOW);
-    }
+    
   }
   if(startButtonState == HIGH && readyToStart){
-    productionRun = true;
+    if(preCheckCond()){
+      productionRun = true;
+    }
   }
   if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     slowStart = true;
