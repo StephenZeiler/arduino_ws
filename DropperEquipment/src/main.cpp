@@ -372,6 +372,7 @@ void loop()
   if(startButtonState == HIGH && readyToStart){
     if(preCheckCond()){
       productionRun = true;
+      stopPressed = false;
     }
   }
   // if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
