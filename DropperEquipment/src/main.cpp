@@ -162,7 +162,7 @@ void blinkhomeButtonLED()
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if((currentMicros - previousHomeLEDMicros)> 1000000)
+    if((currentMicros - previousHomeLEDMicros)> 1000000 && !readyToStart)
     {
       if (LEDSwitch == 1)
       {
@@ -175,6 +175,9 @@ void blinkhomeButtonLED()
         LEDSwitch = 1;
       }
       previousHomeLEDMicros = currentMicros;
+    }
+    else{
+        digitalWrite(homeButtonLED,HIGH);
     }
   }
 }
