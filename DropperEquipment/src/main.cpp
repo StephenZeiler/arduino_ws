@@ -383,7 +383,7 @@ void loop()
   //int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
   if(homeButtonState==HIGH && !readyToStart){
-      digitalWrite(homeButtonLED,)
+      blinkhomeButtonLED();
       ejectionFailed = false;
       readyToStart = true;
       initializeM1ToHomePos();
