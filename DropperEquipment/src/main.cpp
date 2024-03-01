@@ -414,7 +414,6 @@ void loop()
 
   if (productionRun)
   {
-    digitalWrite(homeButtonLED,LOW);
     runMotorM1();
     if(!slowStart){
       if(digitalRead(s2aPin)==HIGH){
