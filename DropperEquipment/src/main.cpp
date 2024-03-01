@@ -334,7 +334,7 @@ void initializeM3ToHomePos()
 void setup()
 {
   //LED
-  digitalWrite(homeButtonLED,HIGH);
+  //digitalWrite(homeButtonLED,HIGH);
   //Air release
   pinMode(airBlastPin, OUTPUT);
 
@@ -387,6 +387,9 @@ void loop()
   if(!readyToStart){
     blinkhomeButtonLED();
   }
+  else{
+    digitalWrite(homeButtonLED,LOW);
+  }
   if(homeButtonState==HIGH && !readyToStart){
       ejectionFailed = false;
       readyToStart = true;
@@ -411,7 +414,7 @@ void loop()
 
   if (productionRun)
   {
-    digitalWrite(homeButtonLED,HIGH);
+    digitalWrite(homeButtonLED,LOW);
     runMotorM1();
     if(!slowStart){
       if(digitalRead(s2aPin)==HIGH){
