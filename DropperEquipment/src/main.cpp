@@ -382,8 +382,10 @@ void loop()
   int startButtonState = digitalRead(startButtonPin);
   //int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
+  if(!readyToStart){
+    blinkhomeButtonLED();
+  }
   if(homeButtonState==HIGH && !readyToStart){
-      blinkhomeButtonLED();
       ejectionFailed = false;
       readyToStart = true;
       initializeM1ToHomePos();
