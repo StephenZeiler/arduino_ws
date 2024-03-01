@@ -162,7 +162,7 @@ void blinkhomeButtonLED()
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if((currentMicros - previousHomeLEDMicros)> 1000000 && !readyToStart)
+    if((currentMicros - previousHomeLEDMicros)> 1000000 )
     {
       if (LEDSwitch == 1)
       {
@@ -176,9 +176,7 @@ void blinkhomeButtonLED()
       }
       previousHomeLEDMicros = currentMicros;
     }
-    else{
-        digitalWrite(homeButtonLED,HIGH);
-    }
+
   }
 }
 void runMotorM3()
@@ -413,6 +411,7 @@ void loop()
 
   if (productionRun)
   {
+    digitalWrite(homeButtonLED,HIGH);
     runMotorM1();
     if(!slowStart){
       if(digitalRead(s2aPin)==HIGH){
