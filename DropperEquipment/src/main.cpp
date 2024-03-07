@@ -91,6 +91,10 @@ long calculateDegrees(long rotaryPosition) //converts the steps the stepper has 
 bool checkOverunCaps(){
   if(digitalRead(s7Pin) == LOW){
     empytOverunCaps = true;
+    slowStart = true;
+    readyToStart = false;
+    digitalWrite(ramPin, LOW);
+    productionRun = false;
   }
   else{
     empytOverunCaps = false;
@@ -225,7 +229,8 @@ if((currentMicros - previousM2Micros)> m2Speed)
 void runMotorM1()
 {
   //if(digitalRead(stopButtonPin)==HIGH){
-  if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
+  //if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
+  if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || emptyPipets || emptyCaps){
     stopPressed = true;
   }
   if(digitalRead(s6Pin) == HIGH){
