@@ -444,7 +444,7 @@ void loop()
       if(digitalRead(s3bPin)==LOW){
         m3IsHome = false;
       }
-      if(calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+      if(calculateDegrees(rotaryPosition) > 30 && calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
         runMotorM3();
       }
       if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
