@@ -67,9 +67,9 @@ unsigned long previousM1Micros = 0;
 unsigned long previousM2Micros = 0;  
 unsigned long previousM3Micros = 0; 
 long previousHomeLEDMicros = 0;  
-long m1Speed = 1000; // 1000 If change, must change slow start speed as well...
-long m2Speed = 120; //150
-long m3Speed = 160; //200
+long m1Speed = 1000; // 1000 is 70/min... If change, must change slow start speed as well...
+long m2Speed = 115; //150 is 70/min
+long m3Speed = 150; //200 is 70/min
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 bool ejectionFailed = false;
 bool ejectionDetected = false;
@@ -262,7 +262,7 @@ void runMotorM1()
     }
     else{
       slowStart = false;
-      m1Speed = 850; 
+      m1Speed = 820; 
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
