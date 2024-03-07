@@ -406,12 +406,6 @@ void loop()
       stopPressed = false;
     }
   }
-  // if(stopButtonState==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
-  //   slowStart = true;
-  //   //productionRun = false;
-  //   readyToStart = false;
-  //   digitalWrite(ramPin, LOW);
-  // }
 
   if (productionRun)
   {
