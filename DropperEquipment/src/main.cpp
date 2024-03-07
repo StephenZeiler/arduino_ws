@@ -224,8 +224,8 @@ if((currentMicros - previousM2Micros)> m2Speed)
 }
 void runMotorM1()
 {
- // if(digitalRead(stopButtonPin)==HIGH){
-  if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
+  if(digitalRead(stopButtonPin)==HIGH){
+  //if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     stopPressed = true;
   }
   if(digitalRead(s6Pin) == HIGH){
