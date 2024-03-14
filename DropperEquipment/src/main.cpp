@@ -225,7 +225,7 @@ if((currentMicros - previousM2Micros)> m2Speed)
 void runMotorM1()
 {
   //if(digitalRead(stopButtonPin)==HIGH){
-  if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || emptyPipets || emptyCaps){
+  if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     stopPressed = true;
   }
   if(digitalRead(s6Pin) == HIGH){
@@ -381,12 +381,6 @@ void loop()
   //   runMotorM1();
   // }
   checkOverunCaps();
-  if(empytOverunCaps){
-    slowStart = true;
-    readyToStart = false;
-    digitalWrite(ramPin, LOW);
-    productionRun = false;
-  }
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   //int stopButtonState = digitalRead(stopButtonPin);
@@ -423,7 +417,7 @@ void loop()
       if(digitalRead(s2bPin)==LOW){
         m2IsHome = false;
       }
-      if(calculateDegrees(rotaryPosition)  == 165){
+      if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps){
         digitalWrite(ramPin, HIGH);
       }
       if(calculateDegrees(rotaryPosition)  == 280){
