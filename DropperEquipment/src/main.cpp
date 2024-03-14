@@ -1,5 +1,9 @@
 #include <Arduino.h>
 #include <Stepper.h>
+
+// Counter
+const int counter = 13;
+
 //LED 
 const int homeButtonLED = 4;
 const int startButtonLED = 12;
@@ -354,9 +358,11 @@ void setup()
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
   digitalWrite(enPinM3, LOW);
+  digitalWrite(counter, LOW);
 
   //Sensors
   //pinMode(s0DTPin, INPUT);
+  pinMode(counter, OUTPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
   pinMode(s2bPin, INPUT);
@@ -375,6 +381,9 @@ void setup()
 
 void loop()
 {
+  if (analogRead(s1Pin) == LOW){
+    digitalWrite(counter, HIGH);
+  }
   // if(digitalRead(s8Pin) == HIGH){
   //   runMotorM1();
   // }
