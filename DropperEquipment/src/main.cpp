@@ -2,15 +2,12 @@
 #include <Stepper.h>
 //LED 
 const int homeButtonLED = 4;
+const int startButtonLED = 12;
 //Ram
 const int ramPin = 19;
 
 //Air Release
 const int airBlastPin = 20;
-
-//Encoder
-const int s0CLKPin = 12;
-const int s0DTPin = 13;
 
 //Motors
 const int stepPinM1 = 11; //PUL+ Green
@@ -157,7 +154,7 @@ bool ejectionCheck()
   }
   return temp; // if temp is true then ejection failed. 
 }
-void blinkhomeButtonLED()
+void blinkButtonLED(int pinLED)
 {
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
@@ -166,12 +163,12 @@ void blinkhomeButtonLED()
     {
       if (LEDSwitch == 1)
       {
-        digitalWrite(homeButtonLED, HIGH);
+        digitalWrite(pinLED, HIGH);
         ++LEDSwitch;
       }
       else if (LEDSwitch == 2)
       {
-        digitalWrite(homeButtonLED, LOW);
+        digitalWrite(pinLED, LOW);
         LEDSwitch = 1;
       }
       previousHomeLEDMicros = currentMicros;
@@ -179,6 +176,7 @@ void blinkhomeButtonLED()
 
   }
 }
+
 void runMotorM3()
 {
   unsigned long currentMicros = micros();
@@ -386,10 +384,16 @@ void loop()
   //int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
   if(!readyToStart){
-    blinkhomeButtonLED();
+    blinkButtonLED(homeButtonLED);
   }
   else{
     digitalWrite(homeButtonLED,LOW);
+  }
+  if(readyToStart){
+    blinkButtonLED(startButtonLED);
+  }
+  else if(productionRun){
+    digitalWrite(startButtonLED,LOW);
   }
   if(homeButtonState==HIGH && !readyToStart){
       ejectionFailed = false;
