@@ -384,6 +384,9 @@ void loop()
   if (analogRead(s6Pin) == HIGH){
     digitalWrite(counter, HIGH);
   }
+  else{
+    digitalWrite(counter, LOW);
+  }
   // if(digitalRead(s8Pin) == HIGH){
   //   runMotorM1();
   // }
