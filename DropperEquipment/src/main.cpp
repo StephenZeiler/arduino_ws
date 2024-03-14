@@ -159,7 +159,7 @@ void blinkButtonLED(int pinLED)
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
   {
-    if((currentMicros - previousHomeLEDMicros)> 1000000 )
+    if((currentMicros - previousHomeLEDMicros)> 200000 )
     {
       if (LEDSwitch == 1)
       {
