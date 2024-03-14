@@ -389,7 +389,7 @@ void loop()
   else{
     digitalWrite(homeButtonLED,LOW);
   }
-  if(readyToStart){
+  if(readyToStart && !productionRun){
     blinkButtonLED(startButtonLED);
   }
   else if(productionRun){
