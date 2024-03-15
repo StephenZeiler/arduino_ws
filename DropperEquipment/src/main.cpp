@@ -380,20 +380,10 @@ void setup()
   pinMode(homeButtonPin, OUTPUT);
   pinMode(startButtonPin, OUTPUT);
   pinMode(stopButtonPin, OUTPUT);
-
 }
 
 void loop()
 {
-  if (digitalRead(s6Pin) == HIGH){
-      digitalWrite(counter, HIGH);
-  }
-  else{
-    digitalWrite(counter, LOW);
-  }
-  // if(digitalRead(s8Pin) == HIGH){
-  //   runMotorM1();
-  // }
   checkOverunCaps();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
