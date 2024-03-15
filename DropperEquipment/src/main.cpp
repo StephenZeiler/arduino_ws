@@ -382,7 +382,7 @@ void setup()
 void loop()
 {
   if (analogRead(s6Pin) == HIGH){
-    //digitalWrite(counter, HIGH);
+      digitalWrite(counter, HIGH);
   }
   else{
     //digitalWrite(counter, LOW);
