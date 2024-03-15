@@ -407,7 +407,9 @@ void loop()
   int startButtonState = digitalRead(startButtonPin);
   unsigned long currentMicros = micros();
   if(digitalRead(homeButtonPin)==HIGH && !productionRun){
+    activateStartBuzzer();
     stepM1();
+    readyToStart = false;
   }
   if(!readyToStart){
     blinkButtonLED(homeButtonLED);
