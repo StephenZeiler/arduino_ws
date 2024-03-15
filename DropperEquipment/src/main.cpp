@@ -68,6 +68,7 @@ int m1Step = 1;
 int m2Step = 1;
 int m3Step = 1;
 int LEDSwitch = 1;
+unsigned long previousSlowStepM1 = 0;
 unsigned long previousM1Micros = 0;  
 unsigned long previousM2Micros = 0;  
 unsigned long previousM3Micros = 0; 
@@ -292,6 +293,13 @@ void runMotorM1()
     }
   }
 }
+void stepM1()
+{
+  digitalWrite(dirPinM1, HIGH);
+  digitalWrite(stepPinM1, HIGH);
+  delayMicroseconds(9000);
+  digitalWrite(stepPinM1, LOW); 
+}
 void initializeM1ToHomePos()
 {
   digitalWrite(dirPinM1, HIGH);
@@ -312,13 +320,6 @@ void initializeM1ToHomePos()
     }
   }
   rotaryPosition = 0; // set position to 0.
-}
-void stepM1()
-{
-  digitalWrite(dirPinM1, HIGH);
-  digitalWrite(stepPinM1, HIGH);
-  delayMicroseconds(9000);
-  digitalWrite(stepPinM1, LOW); 
 }
 void initializeM2ToHomePos()
 {
@@ -405,10 +406,12 @@ void loop()
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   unsigned long currentMicros = micros();
-  if(stepperButtonState ==HIGH && !productionRun){
-    activateStartBuzzer();
-    stepM1();
-    readyToStart = false;
+  if(stepperButtonState == HIGH && !productionRun){
+    activateStartBuzzer():
+    while(digitalRead(stepperButtonPin) == HIGH){
+      stepM1();
+      readyToStart = false;
+    }
   }
   if(!readyToStart){
     blinkButtonLED(homeButtonLED);
