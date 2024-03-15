@@ -43,6 +43,7 @@ const int s7Pin =  18; //change to digital "red ports"
 const int s8Pin = 21;
 
 //Buttons
+const int stepperButtonPin = A15;
 const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
@@ -312,6 +313,15 @@ void initializeM1ToHomePos()
   }
   rotaryPosition = 0; // set position to 0.
 }
+void stepM1()
+{
+  digitalWrite(dirPinM1, HIGH);
+  digitalWrite(stepPinM1, HIGH);
+  delayMicroseconds(9000);
+  digitalWrite(stepPinM1, LOW); 
+  previousPosition = rotaryPosition;
+  rotaryPosition = rotaryPosition + 1;
+}
 void initializeM2ToHomePos()
 {
   digitalWrite(dirPinM2, HIGH);
@@ -383,8 +393,8 @@ void setup()
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
   pinMode(s6Pin, INPUT);
-  
   //Buttons
+  pinMode(stepperButtonPin, OUTPUT);
   pinMode(homeButtonPin, OUTPUT);
   pinMode(startButtonPin, OUTPUT);
   pinMode(stopButtonPin, OUTPUT);
@@ -396,6 +406,9 @@ void loop()
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   unsigned long currentMicros = micros();
+  if(digitalRead(homeButtonPin)==HIGH && !productionRun){
+    stepM1();
+  }
   if(!readyToStart){
     blinkButtonLED(homeButtonLED);
   }
