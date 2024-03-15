@@ -319,8 +319,6 @@ void stepM1()
   digitalWrite(stepPinM1, HIGH);
   delayMicroseconds(9000);
   digitalWrite(stepPinM1, LOW); 
-  previousPosition = rotaryPosition;
-  rotaryPosition = rotaryPosition + 1;
 }
 void initializeM2ToHomePos()
 {
