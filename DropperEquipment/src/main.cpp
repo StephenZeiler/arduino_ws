@@ -401,10 +401,11 @@ void setup()
 void loop()
 {
   checkOverunCaps();
+  int stepperButtonState = digitalRead(stepperButtonPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   unsigned long currentMicros = micros();
-  if(digitalRead(stepperButtonPin)==HIGH && !productionRun){
+  if(stepperButtonState ==HIGH && !productionRun){
     activateStartBuzzer();
     stepM1();
     readyToStart = false;
