@@ -231,7 +231,11 @@ void runMotorM1()
     stopPressed = true;
   }
   if(digitalRead(s6Pin) == HIGH){
+    digitalWrite(counter, HIGH);
     ejectionDetected = true;
+  }
+  else{
+    digitalWrite(counter, LOW);
   }
   if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
     ejectionFailed = true;
@@ -385,7 +389,7 @@ void loop()
       digitalWrite(counter, HIGH);
   }
   else{
-    //digitalWrite(counter, LOW);
+    digitalWrite(counter, LOW);
   }
   // if(digitalRead(s8Pin) == HIGH){
   //   runMotorM1();
