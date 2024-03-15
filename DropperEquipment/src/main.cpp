@@ -93,7 +93,7 @@ long calculateDegrees(long rotaryPosition) //converts the steps the stepper has 
 }
 void activateStartBuzzer(){
       digitalWrite(startBuzzer, HIGH);
-    delay(1000);
+    delay(2000);
     digitalWrite(startBuzzer, LOW);
 }
 bool checkOverunCaps(){
