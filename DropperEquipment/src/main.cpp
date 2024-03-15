@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <Stepper.h>
+//Speaker
+const int startBuzzer = 0;
 
 // Counter
 const int counter = 13;
@@ -7,6 +9,7 @@ const int counter = 13;
 //LED 
 const int homeButtonLED = 4;
 const int startButtonLED = 12;
+
 //Ram
 const int ramPin = 19;
 
@@ -338,6 +341,13 @@ void initializeM3ToHomePos()
 }
 void setup()
 {
+  //Speaker
+  digitalWrite(startBuzzer, LOW);
+  pinMode(startBuzzer, OUTPUT);
+
+  //Counter
+  digitalWrite(counter, LOW);
+
   //Air release
   pinMode(airBlastPin, OUTPUT);
 
@@ -358,7 +368,7 @@ void setup()
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
   digitalWrite(enPinM3, LOW);
-  digitalWrite(counter, LOW);
+
 
   //Sensors
   pinMode(counter, OUTPUT);
