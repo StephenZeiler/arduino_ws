@@ -43,7 +43,7 @@ const int s7Pin =  18; //change to digital "red ports"
 const int s8Pin = 21;
 
 //Buttons
-const int stepperButtonPin = A15;
+const int stepperButtonPin = A7;
 const int homeButtonPin = A14;
 const int startButtonPin = A11;
 const int stopButtonPin = A10;
