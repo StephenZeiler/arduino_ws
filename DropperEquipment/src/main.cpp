@@ -407,7 +407,7 @@ void loop()
   int startButtonState = digitalRead(startButtonPin);
   unsigned long currentMicros = micros();
   if(stepperButtonState == HIGH && !productionRun){
-    activateStartBuzzer():
+    activateStartBuzzer();
     while(digitalRead(stepperButtonPin) == HIGH){
       stepM1();
       readyToStart = false;
