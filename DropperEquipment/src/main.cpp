@@ -406,7 +406,7 @@ void loop()
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
   unsigned long currentMicros = micros();
-  if(digitalRead(homeButtonPin)==HIGH && !productionRun){
+  if(digitalRead(stepperButtonPin)==HIGH && !productionRun){
     activateStartBuzzer();
     stepM1();
     readyToStart = false;
