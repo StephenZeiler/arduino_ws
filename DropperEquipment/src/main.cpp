@@ -68,9 +68,9 @@ unsigned long previousM1Micros = 0;
 unsigned long previousM2Micros = 0;  
 unsigned long previousM3Micros = 0; 
 long previousHomeLEDMicros = 0;  
-long m1Speed = 1000; // 1000 is 70/min... If change, must change slow start speed as well...
-long m2Speed = 95; //150 is 70/min
-long m3Speed = 130; //200 is 70/min
+//long m1Speed = 1000; // 1000 is 70/min.... 750 = 90/min... If change, to change speed change the m1 speed in else of runMotorM1()...
+long m2Speed = 95; //150 is 70/min.... 95 = 90/min
+long m3Speed = 130; //200 is 70/min.... 130 = 90/min
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 bool ejectionFailed = false;
 bool ejectionDetected = false;
@@ -144,7 +144,6 @@ bool preCheckCond()
     s8Ready = true;
   }
   if (s2aReady && s3aReady && s4Ready && s5Ready && s8Ready)
-  //if (s4Ready && s5Ready)
   {
     preCheckReady = true;
   }
@@ -210,7 +209,7 @@ void runMotorM2()
   for (int x = 0; x < 1; x++)
   {
 if((currentMicros - previousM2Micros)> m2Speed)
-  { // Moved down here where it belongs: Got ya.
+  {
     if(m2Step ==1){
     digitalWrite(stepPinM2, HIGH);
       ++m2Step;
@@ -226,7 +225,6 @@ if((currentMicros - previousM2Micros)> m2Speed)
 }
 void runMotorM1()
 {
-  //if(digitalRead(stopButtonPin)==HIGH){
   if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     stopPressed = true;
   }
@@ -340,8 +338,6 @@ void initializeM3ToHomePos()
 }
 void setup()
 {
-  //LED
-  //digitalWrite(homeButtonLED,HIGH);
   //Air release
   pinMode(airBlastPin, OUTPUT);
 
@@ -365,7 +361,6 @@ void setup()
   digitalWrite(counter, LOW);
 
   //Sensors
-  //pinMode(s0DTPin, INPUT);
   pinMode(counter, OUTPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
@@ -387,7 +382,6 @@ void loop()
   checkOverunCaps();
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
-  //int stopButtonState = digitalRead(stopButtonPin);
   unsigned long currentMicros = micros();
   if(!readyToStart){
     blinkButtonLED(homeButtonLED);
