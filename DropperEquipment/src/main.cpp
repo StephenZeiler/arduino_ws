@@ -381,7 +381,7 @@ void setup()
 
 void loop()
 {
-  if (analogRead(s6Pin) == HIGH){
+  if (digitalRead(s6Pin) == HIGH){
       digitalWrite(counter, HIGH);
   }
   else{
