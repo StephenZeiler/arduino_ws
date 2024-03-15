@@ -91,7 +91,11 @@ long calculateDegrees(long rotaryPosition) //converts the steps the stepper has 
   long result = rotaryPosition * m1PulsePerRevMultiplier; 
   return result;
 }
-
+void activateStartBuzzer(){
+      digitalWrite(startBuzzer, HIGH);
+    delay(1000);
+    digitalWrite(startBuzzer, LOW);
+}
 bool checkOverunCaps(){
   if(digitalRead(s7Pin) == LOW){
     empytOverunCaps = true;
@@ -369,7 +373,6 @@ void setup()
   digitalWrite(enPinM2, LOW);
   digitalWrite(enPinM3, LOW);
 
-
   //Sensors
   pinMode(counter, OUTPUT);
   pinMode(s1Pin, INPUT);
@@ -406,18 +409,19 @@ void loop()
     digitalWrite(startButtonLED,LOW);
   }
   if(homeButtonState==HIGH && !readyToStart){
-      ejectionFailed = false;
-      readyToStart = true;
-      initializeM1ToHomePos();
-      initializeM2ToHomePos();
-      initializeM3ToHomePos();
-      digitalWrite(ramPin, LOW);
-    
+    ejectionFailed = false;
+    readyToStart = true;
+    initializeM1ToHomePos();
+    initializeM2ToHomePos();
+    initializeM3ToHomePos();
+    digitalWrite(ramPin, LOW);
+    activateStartBuzzer();
   }
   if(startButtonState == HIGH && readyToStart){
     if(preCheckCond()){
       productionRun = true;
       stopPressed = false;
+      activateStartBuzzer();
     }
   }
 
