@@ -411,11 +411,11 @@ void loop()
   if(homeButtonState==HIGH && !readyToStart){
     ejectionFailed = false;
     readyToStart = true;
+    activateStartBuzzer();
     initializeM1ToHomePos();
     initializeM2ToHomePos();
     initializeM3ToHomePos();
     digitalWrite(ramPin, LOW);
-    activateStartBuzzer();
   }
   if(startButtonState == HIGH && readyToStart){
     if(preCheckCond()){
