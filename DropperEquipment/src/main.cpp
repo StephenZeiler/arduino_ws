@@ -359,7 +359,7 @@ void setup()
   //Speaker
   pinMode(startBuzzer, OUTPUT);
   //digitalWrite(startBuzzer, LOW);
-  noTone(startBuzzer);
+ // noTone(startBuzzer);
 
   //Counter
   digitalWrite(counter, LOW);
