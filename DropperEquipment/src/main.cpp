@@ -94,9 +94,11 @@ long calculateDegrees(long rotaryPosition) //converts the steps the stepper has 
   return result;
 }
 void activateStartBuzzer(){
-      digitalWrite(startBuzzer, HIGH);
-    delay(2000);
-    digitalWrite(startBuzzer, LOW);
+  tone(startBuzzer, 1000);
+   // digitalWrite(startBuzzer, HIGH);
+  delay(2000);
+  noTone(startBuzzer);
+  //digitalWrite(startBuzzer, LOW);
 }
 bool checkOverunCaps(){
   if(digitalRead(s7Pin) == LOW){
@@ -355,8 +357,9 @@ void initializeM3ToHomePos()
 void setup()
 {
   //Speaker
-  digitalWrite(startBuzzer, LOW);
   pinMode(startBuzzer, OUTPUT);
+  //digitalWrite(startBuzzer, LOW);
+  noTone(startBuzzer);
 
   //Counter
   digitalWrite(counter, LOW);
