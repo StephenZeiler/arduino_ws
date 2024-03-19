@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Stepper.h>
 //Speaker
-const int startBuzzer = A9;
+const int startBuzzer = 15;
 
 // Counter
 const int counter = 13;
@@ -37,7 +37,7 @@ const int s2bPin = A1;
 const int s3aPin = 1; //change to digital "red ports"
 const int s3bPin = A5; 
 const int s4Pin =  14; //change to digital "red ports"
-const int s5Pin =  15; //change to digital "red ports"
+const int s5Pin =  A9; //change to digital "red ports" 15
 const int s6Pin =  16; //change to digital "red ports"
 const int s7Pin =  18; //change to digital "red ports"
 const int s8Pin = 21;
