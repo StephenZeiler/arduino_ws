@@ -356,8 +356,8 @@ void initializeM3ToHomePos()
 void setup()
 {
   //Speaker
-  analogWrite(startBuzzer, LOW);
-  pinMode(startBuzzer, OUTPUT);
+  pinMode(A15, OUTPUT);
+  digitalWrite(A15, LOW);
 
   //Counter
   digitalWrite(counter, LOW);
