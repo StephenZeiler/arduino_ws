@@ -2,7 +2,7 @@
 #include <Stepper.h>
 //Speaker
 //const int startBuzzer = 0;
-const int startBuzzer = A15;
+const int startBuzzer = 36;
 
 // Counter
 const int counter = 13;
