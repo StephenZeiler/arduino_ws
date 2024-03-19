@@ -1,5 +1,11 @@
 #include <Arduino.h>
 #include <Stepper.h>
+//NOTES:
+//If room is needed for additional digital ports, move a INPUT to a analog port to free up space. 
+//Caution using digital port 0. It reads high automatically and can prevent the arduino from working. 
+//Sensors can be used on Analog and Digital ports..
+//Analog ports can only read INPUTS!
+
 //Speaker
 const int startBuzzer = 15;
 
@@ -30,17 +36,18 @@ const int dirPinM3 = 7; //DIR+ Blue
 const int enPinM3 = 2; //ENA+ Red
 
 //Sensors
-
-const int s1Pin = A0;
-const int s2aPin = 17; //change to digital "red ports"
-const int s2bPin = A1;
-const int s3aPin = 1; //change to digital "red ports"
-const int s3bPin = A5; 
-const int s4Pin =  14; //change to digital "red ports"
-const int s5Pin =  A9; //change to digital "red ports" 15
-const int s6Pin =  16; //change to digital "red ports"
-const int s7Pin =  18; //change to digital "red ports"
-const int s8Pin = 21;
+//Sensors can be used on Analog and Digital ports..
+//Analog ports can only read INPUTS!
+const int s1Pin = A0; //Home position sensor
+const int s2aPin = 17; //M2 Home position sensor
+const int s2bPin = A1; //M2 Away position sensor
+const int s3aPin = 1; //M3 Home position sensor 
+const int s3bPin = A5; //M3 Away position sensor
+const int s4Pin =  14; //Pipet feed (full/empty)
+const int s5Pin =  A9; //Cap feed (full/empty)
+const int s6Pin =  16; //Exit sensor
+const int s7Pin =  18; //Overun sensor
+const int s8Pin = 21; //Pipet tube sensor
 
 //Buttons
 const int stepperButtonPin = A7;
