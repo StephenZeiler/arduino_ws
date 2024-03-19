@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Stepper.h>
 //Speaker
-const int startBuzzer = 0;
+const int startBuzzer = A9;
 
 // Counter
 const int counter = 13;
