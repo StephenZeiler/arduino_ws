@@ -81,8 +81,8 @@ unsigned long previousM2Micros = 0;
 unsigned long previousM3Micros = 0; 
 long previousHomeLEDMicros = 0;  
 long m1Speed = 1000; // 1000 is 70/min.... 750 = 90/min... If change, to change speed change the m1 speed in else of runMotorM1()...
-long m2Speed = 95; //150 is 70/min.... 95 = 90/min
-long m3Speed = 130; //200 is 70/min.... 130 = 90/min
+long m2Speed = 380; //150 is 70/min.... 95 = 90/min @800 steps/rev --- 380 is 90/min @200 steps/rev
+long m3Speed = 520; //200 is 70/min.... 130 = 90/min @800 steps/rev --- 520 is 90/min @200 steps/rev
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 bool ejectionFailed = false;
 bool ejectionDetected = false;
