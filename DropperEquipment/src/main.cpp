@@ -463,7 +463,7 @@ void loop()
       if(digitalRead(s2bPin)==LOW){
         m2IsHome = false;
       }
-      if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps){
+      if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps && digitalRead(s2bPin)==LOW){
         digitalWrite(ramPin, HIGH);
       }
       if(calculateDegrees(rotaryPosition)  == 280){
