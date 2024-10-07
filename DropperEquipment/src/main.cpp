@@ -506,10 +506,10 @@ void loop()
       //   runMotorM3();
       // }
       if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186){
-        digitalWrite(airBlastPin, HIGH);
+        digitalWrite(capFeedCylinderPositive, HIGH);
       }
       if(calculateDegrees(rotaryPosition) > 186){
-        digitalWrite(airBlastPin, LOW);
+        digitalWrite(capFeedCylinderPositive, LOW);
       }
     }
   }
