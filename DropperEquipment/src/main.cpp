@@ -31,6 +31,8 @@ const int stepPinM2 = 6; //PUL+ Green
 const int dirPinM2 = 5; //DIR+ Blue
 const int enPinM2 = 8; //ENA+ Red
 
+const int capFeedCylinderPositive = 2;
+
 const int stepPinM3 = 3; //PUL+ Green
 const int dirPinM3 = 7; //DIR+ Blue
 const int enPinM3 = 2; //ENA+ Red
@@ -80,9 +82,9 @@ unsigned long previousM1Micros = 0;
 unsigned long previousM2Micros = 0;  
 unsigned long previousM3Micros = 0; 
 long previousHomeLEDMicros = 0;  
-long m1Speed = 1120; // 1000 is 70/min.... 750 = 90/min... If change, to change speed change the m1 speed in else of runMotorM1()...
+long m1Speed = 1000; // 1000 is 70/min.... 750 = 90/min... If change, to change speed change the m1 speed in else of runMotorM1()...
 long m2Speed = 910; //150 is 70/min.... 95 = 90/min @800 steps/rev --- 910 @200 steps/rev
-long m3Speed = 1400; //200 is 70/min.... 130 = 90/min @800 steps/rev --- 1250 @200 steps/rev
+long m3Speed = 1250; //200 is 70/min.... 130 = 90/min @800 steps/rev --- 1250 @200 steps/rev
 double m1PulsePerRevMultiplier = 0.9; //.9 for 400, .45 for 800 on driver
 bool ejectionFailed = false;
 bool ejectionDetected = false;
@@ -94,6 +96,7 @@ bool empytOverunCaps = false;
 bool emptyPipets = false;
 bool stopPressed = false;
 bool resetPositions = false;
+
 
 long calculateDegrees(long rotaryPosition) //converts the steps the stepper has stepped to degrees //a 400 step goes 0.9 degrees per step. 200 stepper motor is 1.8 degrees per step. Currently 800!
 {
@@ -135,7 +138,7 @@ bool preCheckCond()
 {
   bool preCheckReady = false;
   bool s2aReady = false;
-  bool s3aReady = false;
+  //bool s3aReady = false;
   bool s4Ready = false;
   bool s5Ready = false;
   bool s8Ready = false;
@@ -143,10 +146,10 @@ bool preCheckCond()
   {
     s2aReady = true;
   }
-  if (digitalRead(s3aPin) == HIGH)
-  {
-    s3aReady = true;
-  }
+  // if (digitalRead(s3aPin) == HIGH)
+  // {
+  //   s3aReady = true;
+  // }
   if (digitalRead(s4Pin) == HIGH)
   { 
     s4Ready = true;
@@ -161,7 +164,11 @@ bool preCheckCond()
   {
     s8Ready = true;
   }
-  if (s2aReady && s3aReady && s4Ready && s5Ready && s8Ready)
+  // if (s2aReady && s3aReady && s4Ready && s5Ready && s8Ready)
+  // {
+  //   preCheckReady = true;
+  // }
+  if (s2aReady && s4Ready && s5Ready && s8Ready)
   {
     preCheckReady = true;
   }
@@ -284,7 +291,7 @@ void runMotorM1()
     }
     else{
       slowStart = false;
-      m1Speed = 1120; 
+      m1Speed = 1000; 
     }
 
     if((currentMicros - previousM1Micros)> m1Speed){
@@ -385,12 +392,13 @@ void setup()
   pinMode(stepPinM2, OUTPUT);
   pinMode(dirPinM2, OUTPUT);
   pinMode(enPinM2, OUTPUT);
-  pinMode(stepPinM3, OUTPUT);
-  pinMode(dirPinM3, OUTPUT);
-  pinMode(enPinM3, OUTPUT);
+  pinMode(capFeedCylinderPositive, OUTPUT);
+  // pinMode(stepPinM3, OUTPUT);
+  // pinMode(dirPinM3, OUTPUT);
+  // pinMode(enPinM3, OUTPUT);
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
-  digitalWrite(enPinM3, LOW);
+  // digitalWrite(enPinM3, LOW);
 
   //Sensors
   pinMode(counter, OUTPUT);
@@ -412,6 +420,12 @@ void setup()
 
 void loop()
 {
+  bool test = true;
+  while(test){
+    digitalWrite(airBlastPin, HIGH);
+    delay(2000);
+    digitalWrite(airBlastPin, LOW);
+  }
   checkOverunCaps();
   int stepperButtonState = digitalRead(stepperButtonPin);
   int homeButtonState = digitalRead(homeButtonPin);
@@ -442,7 +456,7 @@ void loop()
     activateStartBuzzer();
     initializeM1ToHomePos();
     initializeM2ToHomePos();
-    initializeM3ToHomePos();
+    //initializeM3ToHomePos();
     digitalWrite(ramPin, LOW);
   }
   if(startButtonState == HIGH && readyToStart){
@@ -463,7 +477,7 @@ void loop()
       if(digitalRead(s2bPin)==LOW){
         m2IsHome = false;
       }
-      if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps && !m3IsHome){
+      if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps){
         digitalWrite(ramPin, HIGH);
       }
       if(calculateDegrees(rotaryPosition)  == 280){
@@ -479,17 +493,23 @@ void loop()
       if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
         runMotorM2();
       }
-      if(digitalRead(s3aPin)==HIGH){
-        m3IsHome = true;
+      // if(digitalRead(s3aPin)==HIGH){
+      //   m3IsHome = true;
+      // }
+      // if(digitalRead(s3bPin)==LOW){
+      //   m3IsHome = false;
+      // }
+      // if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
+      //   runMotorM3();
+      // }
+      // if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
+      //   runMotorM3();
+      // }
+      if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186){
+        digitalWrite(airBlastPin, HIGH);
       }
-      if(digitalRead(s3bPin)==LOW){
-        m3IsHome = false;
-      }
-      if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
-        runMotorM3();
-      }
-      if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
-        runMotorM3();
+      if(calculateDegrees(rotaryPosition) > 186){
+        digitalWrite(airBlastPin, LOW);
       }
     }
   }
