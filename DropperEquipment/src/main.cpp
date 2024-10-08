@@ -422,9 +422,9 @@ void loop()
 {
   bool test = true;
   while(test){
-    digitalWrite(airBlastPin, HIGH);
+    digitalWrite(capFeedCylinderPositive, HIGH);
     delay(2000);
-    digitalWrite(airBlastPin, LOW);
+    digitalWrite(capFeedCylinderPositive, LOW);
   }
   checkOverunCaps();
   int stepperButtonState = digitalRead(stepperButtonPin);
