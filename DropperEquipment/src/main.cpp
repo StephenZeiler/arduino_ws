@@ -31,7 +31,7 @@ const int stepPinM2 = 6; //PUL+ Green
 const int dirPinM2 = 5; //DIR+ Blue
 const int enPinM2 = 8; //ENA+ Red
 
-const int capFeedCylinderPositive = 2;
+const int capFeedCylinderPositive = 3;
 
 const int stepPinM3 = 3; //PUL+ Green
 const int dirPinM3 = 7; //DIR+ Blue
@@ -421,7 +421,7 @@ void setup()
 void loop()
 {
   bool test = true;
-  while(test){
+  while(test == true){
     digitalWrite(capFeedCylinderPositive, HIGH);
     delay(2000);
     digitalWrite(capFeedCylinderPositive, LOW);
