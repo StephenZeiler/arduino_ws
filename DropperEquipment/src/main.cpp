@@ -422,7 +422,7 @@ void setup()
 void loop()
 {
   int x = 0;
-  while(x<10){
+  while(x<100){
     digitalWrite(capFeedCylinderPositive, HIGH);
     delay(2000);
     digitalWrite(capFeedCylinderPositive, LOW);
