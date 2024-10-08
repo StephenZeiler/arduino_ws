@@ -421,8 +421,8 @@ void setup()
 
 void loop()
 {
-  int x = 0;
-  digitalWrite(capFeedCylinderPositive, LOW);
+  // int x = 0;
+  // digitalWrite(capFeedCylinderPositive, LOW);
   // while(x<100){
   //   digitalWrite(capFeedCylinderPositive, HIGH);
   //   delay(2000);
