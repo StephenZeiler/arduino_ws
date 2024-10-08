@@ -205,28 +205,6 @@ void blinkButtonLED(int pinLED)
   }
 }
 
-// void runMotorM3()
-// {
-//   unsigned long currentMicros = micros();
-//   digitalWrite(dirPinM3, LOW);
-//   for (int x = 0; x < 1; x++)
-//   {
-//     if((currentMicros - previousM3Micros)> m3Speed)
-//     {
-//       if (m3Step == 1)
-//       {
-//         digitalWrite(stepPinM3, HIGH);
-//         ++m3Step;
-//       }
-//       else if (m3Step == 2)
-//       {
-//         digitalWrite(stepPinM3, LOW);
-//         m3Step = 1;
-//       }
-//       previousM3Micros = currentMicros;
-//     }
-//   }
-// }
 void runMotorM2()
 {
     unsigned long currentMicros = micros();
@@ -353,27 +331,10 @@ void initializeM2ToHomePos()
     }
   }
 }
-// void initializeM3ToHomePos()
-// {
-//   bool atHome = false;
-//   while (atHome == false)
-//   {
-//     if (digitalRead(s3aPin) == HIGH)
-//     {
-//       atHome = true;
-//     }
-//     else
-//     {
-//       runMotorM3();
-//     }
-//   }
-// }
 void setup()
 {
   //Speaker
   pinMode(startBuzzer, OUTPUT);
-  //digitalWrite(startBuzzer, LOW);
- // noTone(startBuzzer);
 
   //Counter
   digitalWrite(counter, LOW);
@@ -393,21 +354,15 @@ void setup()
   pinMode(dirPinM2, OUTPUT);
   pinMode(enPinM2, OUTPUT);
   pinMode(capFeedCylinderPositive, OUTPUT);
-  // pinMode(stepPinM3, OUTPUT);
-  // pinMode(dirPinM3, OUTPUT);
-  // pinMode(enPinM3, OUTPUT);
   digitalWrite(capFeedCylinderPositive, LOW);
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
-  // digitalWrite(enPinM3, LOW);
 
   //Sensors
   pinMode(counter, OUTPUT);
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
   pinMode(s2bPin, INPUT);
-  // pinMode(s3aPin, INPUT);
-  // pinMode(s3bPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
   pinMode(s6Pin, INPUT);
@@ -421,14 +376,6 @@ void setup()
 
 void loop()
 {
-  // int x = 0;
-  // digitalWrite(capFeedCylinderPositive, LOW);
-  // while(x<100){
-  //   digitalWrite(capFeedCylinderPositive, HIGH);
-  //   delay(2000);
-  //   digitalWrite(capFeedCylinderPositive, LOW);
-  //   x++;
-  // }
   checkOverunCaps();
   int stepperButtonState = digitalRead(stepperButtonPin);
   int homeButtonState = digitalRead(homeButtonPin);
@@ -459,7 +406,6 @@ void loop()
     activateStartBuzzer();
     initializeM1ToHomePos();
     initializeM2ToHomePos();
-    //initializeM3ToHomePos();
     digitalWrite(ramPin, LOW);
   }
   if(startButtonState == HIGH && readyToStart){
@@ -496,18 +442,6 @@ void loop()
       if(calculateDegrees(rotaryPosition) > 185 && m2IsHome==false){
         runMotorM2();
       }
-      // if(digitalRead(s3aPin)==HIGH){
-      //   m3IsHome = true;
-      // }
-      // if(digitalRead(s3bPin)==LOW){
-      //   m3IsHome = false;
-      // }
-      // if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186 && m3IsHome==true){
-      //   runMotorM3();
-      // }
-      // if(calculateDegrees(rotaryPosition) > 186 && m3IsHome==false){
-      //   runMotorM3();
-      // }
       if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186){
         digitalWrite(capFeedCylinderPositive, HIGH);
       }
