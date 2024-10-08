@@ -33,9 +33,9 @@ const int enPinM2 = 8; //ENA+ Red
 
 const int capFeedCylinderPositive = 3;
 
-const int stepPinM3 = 3; //PUL+ Green
-const int dirPinM3 = 7; //DIR+ Blue
-const int enPinM3 = 2; //ENA+ Red
+// const int stepPinM3 = 3; //PUL+ Green
+// const int dirPinM3 = 7; //DIR+ Blue
+// const int enPinM3 = 2; //ENA+ Red
 
 //Sensors
 //Sensors can be used on Analog and Digital ports..
@@ -43,8 +43,8 @@ const int enPinM3 = 2; //ENA+ Red
 const int s1Pin = A0; //Home position sensor
 const int s2aPin = 17; //M2 Home position sensor
 const int s2bPin = A1; //M2 Away position sensor
-const int s3aPin = 1; //M3 Home position sensor 
-const int s3bPin = A5; //M3 Away position sensor
+// const int s3aPin = 1; //M3 Home position sensor 
+// const int s3bPin = A5; //M3 Away position sensor
 const int s4Pin =  14; //Pipet feed (full/empty)
 const int s5Pin =  A9; //Cap feed (full/empty)
 const int s6Pin =  16; //Exit sensor
@@ -205,28 +205,28 @@ void blinkButtonLED(int pinLED)
   }
 }
 
-void runMotorM3()
-{
-  unsigned long currentMicros = micros();
-  digitalWrite(dirPinM3, LOW);
-  for (int x = 0; x < 1; x++)
-  {
-    if((currentMicros - previousM3Micros)> m3Speed)
-    {
-      if (m3Step == 1)
-      {
-        digitalWrite(stepPinM3, HIGH);
-        ++m3Step;
-      }
-      else if (m3Step == 2)
-      {
-        digitalWrite(stepPinM3, LOW);
-        m3Step = 1;
-      }
-      previousM3Micros = currentMicros;
-    }
-  }
-}
+// void runMotorM3()
+// {
+//   unsigned long currentMicros = micros();
+//   digitalWrite(dirPinM3, LOW);
+//   for (int x = 0; x < 1; x++)
+//   {
+//     if((currentMicros - previousM3Micros)> m3Speed)
+//     {
+//       if (m3Step == 1)
+//       {
+//         digitalWrite(stepPinM3, HIGH);
+//         ++m3Step;
+//       }
+//       else if (m3Step == 2)
+//       {
+//         digitalWrite(stepPinM3, LOW);
+//         m3Step = 1;
+//       }
+//       previousM3Micros = currentMicros;
+//     }
+//   }
+// }
 void runMotorM2()
 {
     unsigned long currentMicros = micros();
@@ -353,21 +353,21 @@ void initializeM2ToHomePos()
     }
   }
 }
-void initializeM3ToHomePos()
-{
-  bool atHome = false;
-  while (atHome == false)
-  {
-    if (digitalRead(s3aPin) == HIGH)
-    {
-      atHome = true;
-    }
-    else
-    {
-      runMotorM3();
-    }
-  }
-}
+// void initializeM3ToHomePos()
+// {
+//   bool atHome = false;
+//   while (atHome == false)
+//   {
+//     if (digitalRead(s3aPin) == HIGH)
+//     {
+//       atHome = true;
+//     }
+//     else
+//     {
+//       runMotorM3();
+//     }
+//   }
+// }
 void setup()
 {
   //Speaker
@@ -396,6 +396,7 @@ void setup()
   // pinMode(stepPinM3, OUTPUT);
   // pinMode(dirPinM3, OUTPUT);
   // pinMode(enPinM3, OUTPUT);
+  digitalWrite(capFeedCylinderPositive, LOW);
   digitalWrite(enPinM1, LOW);
   digitalWrite(enPinM2, LOW);
   // digitalWrite(enPinM3, LOW);
@@ -405,8 +406,8 @@ void setup()
   pinMode(s1Pin, INPUT);
   pinMode(s2aPin, INPUT);
   pinMode(s2bPin, INPUT);
-  pinMode(s3aPin, INPUT);
-  pinMode(s3bPin, INPUT);
+  // pinMode(s3aPin, INPUT);
+  // pinMode(s3bPin, INPUT);
   pinMode(s4Pin, INPUT);
   pinMode(s5Pin, INPUT);
   pinMode(s6Pin, INPUT);
