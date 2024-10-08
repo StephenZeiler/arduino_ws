@@ -422,12 +422,13 @@ void setup()
 void loop()
 {
   int x = 0;
-  while(x<100){
-    digitalWrite(capFeedCylinderPositive, HIGH);
-    delay(2000);
-    digitalWrite(capFeedCylinderPositive, LOW);
-    x++;
-  }
+  digitalWrite(capFeedCylinderPositive, LOW);
+  // while(x<100){
+  //   digitalWrite(capFeedCylinderPositive, HIGH);
+  //   delay(2000);
+  //   digitalWrite(capFeedCylinderPositive, LOW);
+  //   x++;
+  // }
   checkOverunCaps();
   int stepperButtonState = digitalRead(stepperButtonPin);
   int homeButtonState = digitalRead(homeButtonPin);
