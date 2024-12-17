@@ -429,12 +429,12 @@ void loop()
       if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps){
         digitalWrite(ramPin, HIGH);
       }
-      if(calculateDegrees(rotaryPosition)  == 280){
+      if(calculateDegrees(rotaryPosition)  == 260){
         digitalWrite(ramPin, LOW);
         digitalWrite(airBlastPin, HIGH);
         digitalWrite(capFeedCylinderPositive, LOW);
       }
-      if(calculateDegrees(rotaryPosition) == 330){
+      if(calculateDegrees(rotaryPosition) == 360){
         digitalWrite(airBlastPin, LOW);
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
