@@ -255,6 +255,7 @@ void runMotorM1()
         slowStart = true;
         readyToStart = false;
         digitalWrite(ramPin, LOW);
+        digitalWrite(airBlastPin, LOW);
         productionRun = false;
       }
     }
