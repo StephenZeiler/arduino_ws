@@ -434,7 +434,7 @@ void loop()
         digitalWrite(airBlastPin, HIGH);
         digitalWrite(capFeedCylinderPositive, LOW);
       }
-      if(calculateDegrees(rotaryPosition) == 360){
+      if(calculateDegrees(rotaryPosition) == 355){
         digitalWrite(airBlastPin, LOW);
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
