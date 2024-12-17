@@ -432,7 +432,7 @@ void loop()
       if(calculateDegrees(rotaryPosition)  == 280){
         digitalWrite(ramPin, LOW);
         digitalWrite(airBlastPin, HIGH);
-        digitalWrite(capFeedCylinderPositive, LOW);
+        //digitalWrite(capFeedCylinderPositive, LOW);
       }
       if(calculateDegrees(rotaryPosition) == 330){
         digitalWrite(airBlastPin, LOW);
@@ -446,9 +446,9 @@ void loop()
       if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186){
         digitalWrite(capFeedCylinderPositive, HIGH);
       }
-      // if(calculateDegrees(rotaryPosition) > 186){
-      //   digitalWrite(capFeedCylinderPositive, LOW);
-      // }
+      if(calculateDegrees(rotaryPosition) > 186){
+        digitalWrite(capFeedCylinderPositive, LOW);
+      }
     }
   }
 }
