@@ -176,13 +176,20 @@ bool preCheckCond()
   }
   return preCheckReady;
 }
-bool ejectionCheck()
+void ejectionCheck()
 {
-  bool temp = false;
-  if(calculateDegrees(rotaryPosition)>359 && ejectionDetected == false){
-    temp = true;
+ if(digitalRead(s6Pin) == HIGH)
+  {
+    ejectionDetected = true;
   }
-  return temp; // if temp is true then ejection failed. 
+  if(calculateDegrees(rotaryPosition)> 20 && calculateDegrees(rotaryPosition)<100)
+  {
+    ejectionDetected = false;
+  }
+  if(calculateDegrees(rotaryPosition)>345 && ejectionDetected ==false)
+  {
+    stopPressed = true;
+  }
 }
 void blinkButtonLED(int pinLED)
 {
@@ -381,18 +388,7 @@ void setup()
 void loop()
 {
   checkOverunCaps();
-  if(digitalRead(s6Pin) == HIGH)
-  {
-    ejectionDetected = true;
-  }
-  if(calculateDegrees(rotaryPosition)> 20 && calculateDegrees(rotaryPosition)<100)
-  {
-    ejectionDetected = false;
-  }
-  if(calculateDegrees(rotaryPosition)>345 && ejectionDetected ==false)
-  {
-    stopPressed = true;
-  }
+  ejectionCheck();
   int stepperButtonState = digitalRead(stepperButtonPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
