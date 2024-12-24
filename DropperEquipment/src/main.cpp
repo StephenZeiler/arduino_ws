@@ -186,7 +186,7 @@ void ejectionCheck()
   {
     ejectionDetected = false;
   }
-  if(calculateDegrees(rotaryPosition)>345 && ejectionDetected ==false)
+  if(calculateDegrees(rotaryPosition)>355 && ejectionDetected ==false)
   {
     stopPressed = true;
   }
