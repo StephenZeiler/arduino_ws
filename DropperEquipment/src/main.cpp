@@ -429,7 +429,7 @@ void loop()
     }
   }
 
-  if (productionRun)
+  if (productionRun && digitalRead(s6Pin) == HIGH )
   {
     runMotorM1();
     if(!slowStart){
