@@ -232,13 +232,7 @@ void runMotorM1()
   if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     stopPressed = true;
   }
-  if(digitalRead(s6Pin) == HIGH){
-    digitalWrite(counter, HIGH);
-   // ejectionDetected = true;
-  }
-  else{
-    digitalWrite(counter, LOW);
-  }
+  
   // if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
   //   ejectionFailed = true;
   // }
@@ -251,14 +245,14 @@ void runMotorM1()
       checkLoadedPipet();
       checkLoadedCaps();
       rotaryPosition = 0; // made full circle reset position
-      if(stopPressed){
+      if(stopPressed && ejectionDetected == false){
         slowStart = true;
         readyToStart = false;
         digitalWrite(ramPin, LOW);
         digitalWrite(airBlastPin, LOW);
         productionRun = false;
       }
-      //ejectionDetected = false;
+      ejectionDetected = false;
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
       m1Speed = 3000;
@@ -418,7 +412,7 @@ void loop()
     }
   }
 
-  if (productionRun && digitalRead(s6Pin) == HIGH)
+  if (productionRun)
   {
     runMotorM1();
     if(!slowStart){
@@ -451,6 +445,13 @@ void loop()
       // if(calculateDegrees(rotaryPosition) > 186){
       //   digitalWrite(capFeedCylinderPositive, LOW);
       // }
+      if(digitalRead(s6Pin) == HIGH){
+        digitalWrite(counter, HIGH);
+        ejectionDetected = true;
+      }
+      else{
+        digitalWrite(counter, LOW);
+      }
     }
   }
 }
