@@ -48,7 +48,8 @@ const int s2bPin = A1; //M2 Away position sensor
 // const int s3bPin = A5; //M3 Away position sensor
 const int s4Pin =  14; //Pipet feed (full/empty)
 const int s5Pin =  A9; //Cap feed (full/empty)
-const int s6Pin =  16; //Exit sensor
+//const int s6Pin =  16; //Exit sensor
+const int s6Pin =  1; //Exit sensor
 const int s7Pin =  18; //Overun sensor
 const int s8Pin = 21; //Pipet tube sensor
 
