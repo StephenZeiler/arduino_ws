@@ -245,7 +245,7 @@ void runMotorM1()
       checkLoadedPipet();
       checkLoadedCaps();
       rotaryPosition = 0; // made full circle reset position
-      if(stopPressed && ejectionDetected == false){
+      if(stopPressed || ejectionDetected == false){
         slowStart = true;
         readyToStart = false;
         digitalWrite(ramPin, LOW);
