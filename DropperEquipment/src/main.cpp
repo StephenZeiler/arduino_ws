@@ -381,9 +381,9 @@ void setup()
 void loop()
 {
   checkOverunCaps();
-  if(digitalRead(s6Pin) == HIGH)
+  if(digitalRead(s6Pin) == LOW)
   {
-        ejectionDetected = true;
+    ejectionDetected = true;
   }
   if(calculateDegrees(rotaryPosition)>350 && ejectionDetected ==false)
   {
