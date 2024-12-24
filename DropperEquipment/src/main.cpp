@@ -260,6 +260,7 @@ void runMotorM1()
         digitalWrite(airBlastPin, LOW);
         productionRun = false;
       }
+      ejectionFailed = false;
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
       m1Speed = 3000;
