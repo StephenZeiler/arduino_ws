@@ -238,10 +238,7 @@ void runMotorM1()
   else{
     digitalWrite(counter, LOW);
   }
-  // if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
-  //   ejectionFailed = true;
-  // }
-   if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
+  if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
     ejectionFailed = true;
   }
     digitalWrite(dirPinM1, HIGH);
@@ -258,7 +255,6 @@ void runMotorM1()
         slowStart = true;
         readyToStart = false;
         digitalWrite(ramPin, LOW);
-        digitalWrite(airBlastPin, LOW);
         productionRun = false;
       }
     }
@@ -433,12 +429,11 @@ void loop()
       if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps){
         digitalWrite(ramPin, HIGH);
       }
-      if(calculateDegrees(rotaryPosition)  == 260){
+      if(calculateDegrees(rotaryPosition)  == 280){
         digitalWrite(ramPin, LOW);
         digitalWrite(airBlastPin, HIGH);
-        digitalWrite(capFeedCylinderPositive, LOW);
       }
-      if(calculateDegrees(rotaryPosition) == 355){
+      if(calculateDegrees(rotaryPosition) == 330){
         digitalWrite(airBlastPin, LOW);
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
@@ -450,9 +445,9 @@ void loop()
       if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186){
         digitalWrite(capFeedCylinderPositive, HIGH);
       }
-      // if(calculateDegrees(rotaryPosition) > 186){
-      //   digitalWrite(capFeedCylinderPositive, LOW);
-      // }
+      if(calculateDegrees(rotaryPosition) > 186){
+        digitalWrite(capFeedCylinderPositive, LOW);
+      }
     }
   }
 }
