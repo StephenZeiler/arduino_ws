@@ -260,7 +260,7 @@ void runMotorM1()
         digitalWrite(airBlastPin, LOW);
         productionRun = false;
       }
-      ejectionDetected = false;
+      //ejectionDetected = false;
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
       m1Speed = 3000;
@@ -381,11 +381,15 @@ void setup()
 void loop()
 {
   checkOverunCaps();
-  if(digitalRead(s6Pin) == LOW)
+  if(digitalRead(s6Pin) == HIGH)
   {
     ejectionDetected = true;
   }
-  if(calculateDegrees(rotaryPosition)>350 && ejectionDetected ==false)
+  if(calculateDegrees(rotaryPosition)> 20 && calculateDegrees(rotaryPosition)<100)
+  {
+    ejectionDetected = false;
+  }
+  if(calculateDegrees(rotaryPosition)>345 && ejectionDetected ==false)
   {
     stopPressed = true;
   }
@@ -429,7 +433,7 @@ void loop()
     }
   }
 
-  if (productionRun && digitalRead(s6Pin) == HIGH )
+  if (productionRun)
   {
     runMotorM1();
     if(!slowStart){
