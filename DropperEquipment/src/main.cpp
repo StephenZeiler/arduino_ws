@@ -233,16 +233,16 @@ void runMotorM1()
   if(digitalRead(stopButtonPin)==HIGH || ejectionFailed || empytOverunCaps || emptyPipets || emptyCaps){
     stopPressed = true;
   }
-  if(digitalRead(s6Pin) == HIGH){
-    digitalWrite(counter, HIGH);
-    ejectionDetected = true;
-  }
-  else{
-    digitalWrite(counter, LOW);
-  }
-  if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
-    ejectionFailed = true;
-  }
+  // if(digitalRead(s6Pin) == HIGH){
+  //   digitalWrite(counter, HIGH);
+  //   //ejectionDetected = true;
+  // }
+  // else{
+  //   digitalWrite(counter, LOW);
+  // }
+  // if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
+  //   ejectionFailed = true;
+  // }
     digitalWrite(dirPinM1, HIGH);
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
@@ -252,7 +252,7 @@ void runMotorM1()
       checkLoadedPipet();
       checkLoadedCaps();
       rotaryPosition = 0; // made full circle reset position
-      ejectionDetected = false;
+      //ejectionDetected = false;
       if(stopPressed){
         slowStart = true;
         readyToStart = false;
@@ -380,6 +380,14 @@ void setup()
 void loop()
 {
   checkOverunCaps();
+  if(digitalRead(s6Pin) == HIGH)
+  {
+        ejectionDetected = true;
+  }
+  if(calculateDegrees(rotaryPosition)>355 && ejectionDetected ==false)
+  {
+    stopPressed = true;
+  }
   int stepperButtonState = digitalRead(stepperButtonPin);
   int homeButtonState = digitalRead(homeButtonPin);
   int startButtonState = digitalRead(startButtonPin);
@@ -415,6 +423,7 @@ void loop()
     if(preCheckCond()){
       productionRun = true;
       stopPressed = false;
+      ejectionDetected = false;
       activateStartBuzzer();
     }
   }
@@ -452,6 +461,7 @@ void loop()
       // if(calculateDegrees(rotaryPosition) > 186){
       //   digitalWrite(capFeedCylinderPositive, LOW);
       // }
+      
     }
   }
 }
