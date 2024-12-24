@@ -1,3 +1,4 @@
+
 #include <Arduino.h>
 #include <Stepper.h>
 //NOTES:
@@ -255,6 +256,7 @@ void runMotorM1()
         slowStart = true;
         readyToStart = false;
         digitalWrite(ramPin, LOW);
+        digitalWrite(airBlastPin, LOW);
         productionRun = false;
       }
     }
@@ -429,11 +431,12 @@ void loop()
       if(calculateDegrees(rotaryPosition)  == 165 && !empytOverunCaps){
         digitalWrite(ramPin, HIGH);
       }
-      if(calculateDegrees(rotaryPosition)  == 280){
+      if(calculateDegrees(rotaryPosition)  == 260){
         digitalWrite(ramPin, LOW);
         digitalWrite(airBlastPin, HIGH);
+        digitalWrite(capFeedCylinderPositive, LOW);
       }
-      if(calculateDegrees(rotaryPosition) == 330){
+      if(calculateDegrees(rotaryPosition) == 355){
         digitalWrite(airBlastPin, LOW);
       }
       if(calculateDegrees(rotaryPosition) < 185 && m2IsHome==true){
@@ -445,9 +448,9 @@ void loop()
       if(calculateDegrees(rotaryPosition) > 45 && calculateDegrees(rotaryPosition) < 186){
         digitalWrite(capFeedCylinderPositive, HIGH);
       }
-      if(calculateDegrees(rotaryPosition) > 186){
-        digitalWrite(capFeedCylinderPositive, LOW);
-      }
+      // if(calculateDegrees(rotaryPosition) > 186){
+      //   digitalWrite(capFeedCylinderPositive, LOW);
+      // }
     }
   }
 }
