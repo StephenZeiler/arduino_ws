@@ -238,7 +238,10 @@ void runMotorM1()
   else{
     digitalWrite(counter, LOW);
   }
-  if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
+  // if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
+  //   ejectionFailed = true;
+  // }
+   if(calculateDegrees(rotaryPosition)==359 && ejectionDetected == false){
     ejectionFailed = true;
   }
     digitalWrite(dirPinM1, HIGH);
