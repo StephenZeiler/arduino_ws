@@ -234,14 +234,14 @@ void runMotorM1()
   }
   if(digitalRead(s6Pin) == HIGH){
     digitalWrite(counter, HIGH);
-    ejectionDetected = true;
+   // ejectionDetected = true;
   }
   else{
     digitalWrite(counter, LOW);
   }
-  if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
-    ejectionFailed = true;
-  }
+  // if(calculateDegrees(rotaryPosition)==345 && ejectionDetected == false){
+  //   ejectionFailed = true;
+  // }
     digitalWrite(dirPinM1, HIGH);
   unsigned long currentMicros = micros();
   for (int x = 0; x < 1; x++)
@@ -251,7 +251,6 @@ void runMotorM1()
       checkLoadedPipet();
       checkLoadedCaps();
       rotaryPosition = 0; // made full circle reset position
-      ejectionDetected = false;
       if(stopPressed){
         slowStart = true;
         readyToStart = false;
@@ -259,6 +258,7 @@ void runMotorM1()
         digitalWrite(airBlastPin, LOW);
         productionRun = false;
       }
+      //ejectionDetected = false;
     }
     if(slowStart && rotaryPosition * m1PulsePerRevMultiplier < 10){
       m1Speed = 3000;
@@ -418,7 +418,7 @@ void loop()
     }
   }
 
-  if (productionRun)
+  if (productionRun && digitalRead(s6Pin) == HIGH)
   {
     runMotorM1();
     if(!slowStart){
